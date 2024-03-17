@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import '../color/spark_colors.dart';
 
@@ -36,41 +37,43 @@ class SparkTheme {
   );
 
   static TextTheme lightTextTheme = TextTheme(
-    bodySmall: GoogleFonts.openSans(
+    /*bodySmall: GoogleFonts.openSans(
       fontSize: 14.0.sp,
       fontWeight: FontWeight.w400,
       color: Colors.black,
-    ),
-    bodyMedium: GoogleFonts.openSans(
+    ),*/
+    /*bodyMedium: GoogleFonts.openSans(
       fontSize: 16.0.sp,
       fontWeight: FontWeight.w400,
       color: Colors.black,
+    ),*/
+    bodyLarge: GoogleFonts.poppins(
+      fontSize: 14.4.sp,
+      fontWeight: FontWeight.w400,
+      color: SparkColors.color3
     ),
-    bodyLarge: GoogleFonts.openSans(
+    /*headlineSmall: GoogleFonts.openSans(
       fontSize: 18.0.sp,
       fontWeight: FontWeight.w500,
       color: Colors.black,
-    ),
-    headlineSmall: GoogleFonts.openSans(
-      fontSize: 18.0.sp,
-      fontWeight: FontWeight.w500,
-      color: Colors.black,
-    ),
-    headlineMedium: GoogleFonts.openSans(
+    ),*/
+   /* headlineMedium: GoogleFonts.openSans(
       fontSize: 26.0.sp,
       fontWeight: FontWeight.w600,
       color: Colors.black,
-    ),
-    headlineLarge: GoogleFonts.openSans(
-      fontSize: 28.0.sp,
+    ),*/
+    headlineLarge: GoogleFonts.poppins(
+      fontSize: 19.5.sp,
       fontWeight: FontWeight.w600,
-      color: Colors.black,
+      color: SparkColors.color4,
+      //height:36.sp
+
     ),
-    displayLarge:  GoogleFonts.dancingScript(
+    /*displayLarge:  GoogleFonts.dancingScript(
       fontSize: 80.0.sp,
       fontWeight: FontWeight.bold,
       color: SparkColors.color4,
-    )
+    )*/
   );
 
   // 2
@@ -105,7 +108,7 @@ class SparkTheme {
           titleTextStyle: SparkTheme.lightTextTheme.headlineMedium,
           color: SparkColors.color2,
           iconTheme: IconThemeData(
-            color: SparkColors.color1
+            color: SparkColors.color2
           ),
           systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: SparkColors.color2,
