@@ -14,6 +14,10 @@ class SparkColors {
 
   static Color color5 = HexColor("#D9D9D9");
 
-  static Color color6 =Colors.green;
+  static Color color6 = HexColor("#FAFAFD");
+
+  static Color color7 = HexColor("#E0E0E0");
+
+
 }
 

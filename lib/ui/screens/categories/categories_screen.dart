@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 
+=======
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spark/ui/constants/categories_data.dart';
+import 'package:spark/ui/style/color/spark_colors.dart';
+import 'package:spark/ui/style/themes/spark_theme.dart';
+import 'package:spark/ui/widgets/spark_sizedbox.dart';
+>>>>>>> origin/master
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});

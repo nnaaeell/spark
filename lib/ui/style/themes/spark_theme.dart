@@ -37,31 +37,31 @@ class SparkTheme {
   );
 
   static TextTheme lightTextTheme = TextTheme(
-    /*bodySmall: GoogleFonts.openSans(
-      fontSize: 14.0.sp,
-      fontWeight: FontWeight.w400,
+    bodySmall: GoogleFonts.poppins(
+      fontSize: 10.0.sp,
+      fontWeight: FontWeight.w300,
       color: Colors.black,
-    ),*/
-    /*bodyMedium: GoogleFonts.openSans(
-      fontSize: 16.0.sp,
-      fontWeight: FontWeight.w400,
+    ),
+    bodyMedium: GoogleFonts.poppins(
+        fontSize: 12.0.sp,
+      fontWeight: FontWeight.w300,
       color: Colors.black,
-    ),*/
+    ),
     bodyLarge: GoogleFonts.poppins(
       fontSize: 14.4.sp,
       fontWeight: FontWeight.w400,
       color: SparkColors.color3
     ),
-    /*headlineSmall: GoogleFonts.openSans(
-      fontSize: 18.0.sp,
-      fontWeight: FontWeight.w500,
-      color: Colors.black,
-    ),*/
-   /* headlineMedium: GoogleFonts.openSans(
-      fontSize: 26.0.sp,
+    headlineSmall: GoogleFonts.poppins(
+      fontSize: 12.0.sp,
       fontWeight: FontWeight.w600,
       color: Colors.black,
-    ),*/
+    ),
+    headlineMedium: GoogleFonts.poppins(
+      fontSize: 17.0.sp,
+      fontWeight: FontWeight.w600,
+      color: Colors.black,
+    ),
     headlineLarge: GoogleFonts.poppins(
       fontSize: 19.5.sp,
       fontWeight: FontWeight.w600,
@@ -114,9 +114,9 @@ class SparkTheme {
               statusBarColor: SparkColors.color2,
               statusBarIconBrightness: Brightness.dark),
         ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.black,
+        floatingActionButtonTheme:  FloatingActionButtonThemeData(
+          foregroundColor: SparkColors.color2,
+          backgroundColor: SparkColors.color4,
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           selectedItemColor: SparkColors.color4,

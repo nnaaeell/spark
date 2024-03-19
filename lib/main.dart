@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spark/ui/screens/categories/categories_screen.dart';
 
 import 'package:spark/ui/screens/on_boarding/on_boarding_screen.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
@@ -24,7 +25,7 @@ class Spark extends StatelessWidget {
               title: 'Spark',
               debugShowCheckedModeBanner: false,
               theme: SparkTheme.light(),
-              home:  OnBoardingScreen());
+              home:  const OnBoardingScreen());
         });
   }
 }
