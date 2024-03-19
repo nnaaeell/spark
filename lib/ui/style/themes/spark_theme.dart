@@ -104,12 +104,11 @@ class SparkTheme {
           (states) => Colors.black,
         )),
         appBarTheme:  AppBarTheme(
+          elevation: 0,
           centerTitle: true,
-          titleTextStyle: SparkTheme.lightTextTheme.headlineMedium,
+          titleTextStyle: SparkTheme.lightTextTheme.headlineLarge,
           color: SparkColors.color2,
-          iconTheme: IconThemeData(
-            color: SparkColors.color2
-          ),
+          iconTheme: IconThemeData(color: SparkColors.color4),
           systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: SparkColors.color2,
               statusBarIconBrightness: Brightness.dark),

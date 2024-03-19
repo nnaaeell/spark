@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:spark/ui/main_screen.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import '../../constants/onboarding_data.dart';
@@ -39,10 +38,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       body: ListView(
         children: [
-          SparkSizedBox(height: 91.015),
+          SparkSizedBox(height: 91),
           buildPageView(),
-          SparkSizedBox(height: 118.57),
-          buildOnBoardingBottomPart()
+          SparkSizedBox(height: 80),
+          buildOnBoardingBottomPart(),
+          SparkSizedBox(height: 40),
         ],
       ),
     );
@@ -55,17 +55,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         SparkSizedBox(height: 41.75),
         buildOnBoardingTitle(index),
         SparkSizedBox(height: 7.515),
-        buildOnBoardingDescription(index)
+        buildOnBoardingDescription(index),
       ],
     );
   }
 
   Widget buildPageView() {
     return SizedBox(
-      height: 432.h,
+      height: 435 .h,
       child: PageView.builder(
-        itemBuilder: (BuildContext context, int index) =>
-            buildOnBoardingItem(context, index),
+        itemBuilder: (BuildContext context, int index) => buildOnBoardingItem(context, index),
         itemCount: pages.length,
         controller: _onBoardingController,
         physics: const BouncingScrollPhysics(),
@@ -134,7 +133,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 borderRadius: BorderRadius.circular(8.r),
                 width: 6.68.w,
                 height: 5.01.h),
-            spacing: 10.r))
+                spacing: 10.r))
         : const SizedBox.shrink();
   }
 
@@ -153,7 +152,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   Widget buildOnBoardingTitle(index) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 21.71.r),
+      padding: EdgeInsets.symmetric(horizontal: 21.0.r),
       child: Text(
         pages[index].title,
         style: SparkTheme.lightTextTheme.headlineLarge,
