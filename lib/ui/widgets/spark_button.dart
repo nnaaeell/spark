@@ -56,6 +56,7 @@ class SparkButton extends StatelessWidget {
               if(text.isNotEmpty)
               Expanded(
                 child: Text(
+                  textAlign: TextAlign.center,
                   text,
                   style: textStyle ??
                       TextStyle(

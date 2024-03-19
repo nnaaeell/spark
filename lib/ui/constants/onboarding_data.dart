@@ -16,4 +16,9 @@ final List<OnBoardingPageModel> pages = [
       description:
       "Our service list include several  fields, so you can find the best job for you.",
       imagePath: "assets/onboarding3.png"),
+  OnBoardingPageModel(
+      title: "Welcome to the world's best service platform",
+      description:
+      "We offer a wide range of services for both corporates and students. Click below to explore",
+      imagePath: "assets/onboarding4.png"),
 ];
