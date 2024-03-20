@@ -20,6 +20,8 @@ class SparkColors {
 
   static Color color8 = HexColor("#424242");
 
+  static Color color9 = HexColor("#171716");
+
 
 
 
