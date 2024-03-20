@@ -1,4 +1,5 @@
 import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ class SparkButton extends StatelessWidget {
     this.borderColor = Colors.blue,
     this.textColor = Colors.white,
     this.iconColor = Colors.white,
-    this.borderWidth = 2,
+    this.borderWidth = 0,
     this.textStyle,
     required this.onPressed,
     this.iconSize,

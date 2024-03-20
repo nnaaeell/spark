@@ -106,9 +106,10 @@ class SparkTheme {
         appBarTheme:  AppBarTheme(
           elevation: 0,
           centerTitle: true,
-          titleTextStyle: SparkTheme.lightTextTheme.headlineLarge,
+          titleTextStyle: SparkTheme.lightTextTheme.headlineLarge?.copyWith(color: SparkColors.color1),
           color: SparkColors.color2,
           iconTheme: IconThemeData(color: SparkColors.color4),
+
           systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: SparkColors.color2,
               statusBarIconBrightness: Brightness.dark),

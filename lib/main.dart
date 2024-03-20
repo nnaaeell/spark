@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spark/ui/screens/category_details/category_details_screen.dart';
 import 'package:spark/ui/screens/on_boarding/on_boarding_screen.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 
