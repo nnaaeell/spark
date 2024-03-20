@@ -2,6 +2,7 @@ flutter_native_splash:
 
 
   color: "#165069"
+  fullscreen: true
 
   #background_image: "assets/background.png"
 

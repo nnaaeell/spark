@@ -104,14 +104,15 @@ class SparkTheme {
           (states) => Colors.black,
         )),
         appBarTheme:  AppBarTheme(
+          scrolledUnderElevation: 0,
           elevation: 0,
           centerTitle: true,
           titleTextStyle: SparkTheme.lightTextTheme.headlineLarge?.copyWith(color: SparkColors.color1),
-          color: SparkColors.color2,
+          backgroundColor: Colors.transparent,
           iconTheme: IconThemeData(color: SparkColors.color4),
 
-          systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: SparkColors.color2,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
               statusBarIconBrightness: Brightness.dark),
         ),
         floatingActionButtonTheme:  FloatingActionButtonThemeData(
