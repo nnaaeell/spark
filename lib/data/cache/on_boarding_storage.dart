@@ -1,7 +1,6 @@
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../data/models/login_model.dart';
 
 const String onBoarding="onBoarding";
 
@@ -15,6 +14,6 @@ Future<bool> passOnBoarding() async {
   return prefs.getBool(onBoarding)==true;
 }
 
-User? user1;
+
 
 
