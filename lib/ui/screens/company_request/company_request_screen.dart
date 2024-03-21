@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spark/ui/navigation/spark_navigator.dart';
+import 'package:spark/ui/screens/request_completed/request_completed_screen.dart';
 
+import '../../style/color/spark_colors.dart';
 import '../../style/themes/spark_theme.dart';
 import '../../widgets/widgets.dart';
 
@@ -14,7 +18,8 @@ class CompanyRequestScreen extends StatelessWidget {
 
   static TextEditingController projectTitleController = TextEditingController();
 
-  static TextEditingController projectDescriptionController = TextEditingController();
+  static TextEditingController projectDescriptionController =
+      TextEditingController();
 
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -23,237 +28,115 @@ class CompanyRequestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: buildSparkAppBar(context: context, text: "Create a request"),
       body: Form(
         key: formKey,
         child: ListView(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.symmetric(horizontal: 21.w),
           children: [
-            SparkTextFormField(
-              label: 'Full Name',
-              style: SparkTheme.lightTextTheme.bodySmall,
-              hintText: 'Enter your full name here',
-              type: TextInputType.name,
-              isPassword: false,
-              controller: fullNameController,
-              //validate: validateFirstName,
+            SparkSizedBox(
+              height: 22,
             ),
             SparkTextFormField(
-              label: 'Email',
-              style: SparkTheme.lightTextTheme.bodySmall,
-              hintText: 'Enter your email here',
-              type: TextInputType.name,
-              isPassword: false,
+              title: "Full Name",
+              label: "Enter your full name here",
+              hintText: "E.g. Omar Ali",
+              type: TextInputType.text,
               controller: fullNameController,
-              //validate: validateFirstName,
+              isPassword: false,
+              validate: validateFirstName,
             ),
-
+            SparkSizedBox(
+              height: 21,
+            ),
+            SparkTextFormField(
+              title: "Email",
+              label: "Enter your email here",
+              hintText: "E.g. info@gmail.com",
+              type: TextInputType.emailAddress,
+              controller: emailController,
+              isPassword: false,
+              validate: validateEmail,
+            ),
+            SparkSizedBox(
+              height: 21,
+            ),
+            SparkTextFormField(
+              title: "Company Name",
+              hintText: "E.g. Google",
+              label: "Enter your company name here",
+              type: TextInputType.name,
+              controller: companyNameController,
+              isPassword: false,
+              validate: validateCompanyName,
+            ),
+            SparkSizedBox(
+              height: 21,
+            ),
+            SparkTextFormField(
+              title: "Project Title",
+              label: "Enter your project title here",
+              hintText: "E.g. Mobile Application",
+              type: TextInputType.name,
+              controller: projectTitleController,
+              isPassword: false,
+              validate: validateProjectTitle,
+            ),
+            SparkSizedBox(
+              height: 21,
+            ),
+            SizedBox(
+              child: SparkTextFormField(
+                title: "Project Description",
+                hintText: "E.g. I need a mobile application for my company that contains these features....",
+                label: "Tell us more about your project",
+                type: TextInputType.name,
+                controller: projectDescriptionController,
+                isPassword: false,
+                validate: validateProjectDescription,
+                maxLines: 4,
+              ),
+            ),
+            SparkSizedBox(
+              height: 36,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SparkButton(
+                  width: 191,
+                  height: 41,
+                  radius: 7,
+                  backgroundColor: SparkColors.color1,
+                  text: "Send the request ",
+                  textStyle: SparkTheme.lightTextTheme.bodyLarge
+                      ?.copyWith(color: SparkColors.color2),
+                  onPressed: () {
+                    navigateReplace(context,const RequestCompletedScreen());
+                  },
+                ),
+              ],
+            ),
+            SparkSizedBox(height: 38),
           ],
         ),
       ),
     );
   }
 
-/*Widget buildTheSignUpStatement() {
-  return Padding(
-    padding: const EdgeInsets.only(left: 10).r,
-    child: Text(
-      'Sign up to hire talent',
-      style: ProHubTheme.lightTextTheme.headlineMedium
-          ?.copyWith(color: ProHubColor.color1),
-    ),
-  );
-}
+  String? validateFirstName(String? value) {
+  }
 
-Widget buildFirstNameTextFormField() {
-  return ProHubTextFormField(
-    label: 'First name',
-    style: ProHubTheme.lightTextTheme.bodySmall,
-    hintText: 'Enter your first name here',
-    type: TextInputType.name,
-    isPassword: false,
-    controller: fullNameController,
-    validate: validateFirstName,
-  );
-}
+  String? validateEmail(String? value) {
+  }
 
-Widget buildLastNameTextFormField() {
-  return ProHubTextFormField(
-    label: 'Last name',
-    style: ProHubTheme.lightTextTheme.bodySmall,
-    hintText: 'Enter your last name here',
-    type: TextInputType.name,
-    isPassword: false,
-    controller: companyNameController,
-    validate: validateLastName,
-  );
-}
+  String? validateCompanyName(String? value) {
+  }
 
-Widget buildEmailTextFormField() {
-  return ProHubTextFormField(
-    label: 'Email',
-    style: ProHubTheme.lightTextTheme.bodySmall,
-    hintText: 'Enter your email here',
-    type: TextInputType.emailAddress,
-    isPassword: false,
-    controller: emailController,
-    validate: validateEmail,
-    errorText: emailErrorText,
-  );
-}
+  String? validateProjectTitle(String? value) {
+  }
 
-Widget buildPasswordTextFormField(SignUpBloc bloc) {
-  return ProHubTextFormField(
-    label: 'Password',
-    controller: projectTitleController,
-    style: ProHubTheme.lightTextTheme.bodySmall,
-    hintText: 'Enter your password here',
-    suffix: IconButton(
-        onPressed: () {
-          bloc.add(PasswordVisibilityButtonPressed());
-        },
-        icon: (bloc.passwordIsShown)
-            ? Icon(Icons.visibility_outlined)
-            : Icon(Icons.visibility_off_outlined)),
-    type: TextInputType.visiblePassword,
-    isPassword: (!bloc.passwordIsShown),
-    validate: validatePassword,
-    onSubmit: (value) {
-      if (formKey.currentState!.validate()) {
-        bloc.add(
-          SignUpButtonPressed(
-            firstName: fullNameController.text,
-            lastName: companyNameController.text,
-            email: emailController.text,
-            password: projectTitleController.text,
-          ),
-        );
-      }
-    },
-  );
-}
-
-Widget buildSignUpButton(SignUpStates state, SignUpBloc bloc) {
-  return ConditionalBuilder(
-    condition: (state is! SignUpLoadingState),
-    builder: (BuildContext context) {
-      return ProHubButton(
-          text: "Create my account",
-          textStyle: ProHubTheme.lightTextTheme.bodyMedium
-              ?.copyWith(color: ProHubColor.color2),
-          onPressed: () {
-            if (formKey.currentState!.validate()) {
-              bloc.add(
-                SignUpButtonPressed(
-                  firstName: fullNameController.text,
-                  lastName: companyNameController.text,
-                  email: emailController.text,
-                  password: projectTitleController.text,
-                ),
-              );
-            }
-          });
-    },
-    fallback: (BuildContext context) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    },
-  );
-}
-
-Widget buildToggleToLoginButton(SignUpBloc bloc, context) {
-  return Center(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Already have an account ?",
-            style: ProHubTheme.lightTextTheme.bodyLarge),
-        TextButton(
-          onPressed: () {
-            bloc.add(GoToLogInButtonPressed(context));
-          },
-          child: Text('LOG IN',
-              style: ProHubTheme.lightTextTheme.bodyMedium
-                  ?.copyWith(color: ProHubColor.color4)),
-        )
-      ],
-    ),
-  );
-}
-
-void clear() {
-  emailErrorText = null;
-}
-
-void dispose() {
-  clear();
-  emailController.clear();
-  projectTitleController.clear();
-  fullNameController.clear();
-  companyNameController.clear();
-}
-
-void _signUpSuccessState(BuildContext context, SignUpSuccessState state) {
-  navigateReplace(
-      context,
-      VerificationScreen(userEmail: emailController.text,));
-  dispose();
-  showProHubToast(message: "Verification code has sent successfully",
-      state: ToastStates.SUCCESS);
-}
-
-void _signUpNotVerifiedEmailState(BuildContext context,
-    SignUpNotVerifiedEmailState state) {
-  var signUpModel = state.signUpModel;
-  showProHubSnackBar(
-    context: context,
-    message: state.signUpModel.message,
-    onPressed: () {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      navigateReplace(
-          context, VerificationScreen(userEmail: emailController.text,));
-      dispose();
-    },
-  );
-}
-
-void _signUpEmailVerifiedBeforeButNotCompleteHisRegistration(
-    BuildContext context,
-    SignUpEmailVerifiedBeforeButNotCompleteHisRegistration state) {
-  showProHubSnackBar(
-    context: context,
-    message: state.signUpModel.message,
-    onPressed: () {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      navigateReplace(
-          context, SignUpSecondScreen(userEmail: emailController.text));
-      dispose();
-    },
-  );
-}
-
-void _signUpEmailAddressAlreadyRegisteredInOurSystem(BuildContext context,
-    SignUpEmailAddressAlreadyRegisteredInOurSystem state) {
-  emailErrorText = state.signUpModel.message;
-}
-
-void _signUpErrorInSendingVerificationCode(BuildContext context,
-    SignUpErrorInSendingVerificationCode state, bloc) {
-  showProHubSnackBar(
-    context: context,
-    message: state.signUpModel.message,
-    onPressed: () {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      bloc.add(
-        SignUpButtonPressed(
-          firstName: fullNameController.text,
-          lastName: companyNameController.text,
-          email: emailController.text,
-          password: projectTitleController.text,
-        ),
-      );
-    },
-  );
-}
-}*/
+  String? validateProjectDescription(String? value) {
+  }
 }

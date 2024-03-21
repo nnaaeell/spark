@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spark/ui/navigation/spark_navigator.dart';
+import 'package:spark/ui/screens/company_request/company_request_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
@@ -34,7 +36,7 @@ class CategoryDetailsScreen extends StatelessWidget {
                   "experiences, we can embed AI in business. We'll deliver new operating models"
                   " What, Why and How?"),
           SparkSizedBox(height: 50),
-          buildCategoryDetailsRequestButton(),
+          buildCategoryDetailsRequestButton(context),
           SparkSizedBox(height: 50),
         ],
       ),
@@ -47,7 +49,7 @@ class CategoryDetailsScreen extends StatelessWidget {
         child: Image.asset("assets/category_details.png"));
   }
 
-  Widget buildCategoryDetailsRequestButton(){
+  Widget buildCategoryDetailsRequestButton(BuildContext context){
     return Row(
       children: [
         const Spacer(),
@@ -59,7 +61,9 @@ class CategoryDetailsScreen extends StatelessWidget {
           text: "Service request ",
           textStyle: SparkTheme.lightTextTheme.bodyLarge
               ?.copyWith(color: SparkColors.color2),
-          onPressed: () {},
+          onPressed: () {
+            navigateTo(context,CompanyRequestScreen());
+          },
         ),
         const Spacer()
       ],
