@@ -2,6 +2,11 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spark/ui/style/themes/spark_theme.dart';
+import 'package:spark/ui/widgets/spark_sizedbox.dart';
+
+import '../style/color/spark_colors.dart';
 
 
 class SparkTextFormField extends StatelessWidget {
@@ -14,6 +19,7 @@ class SparkTextFormField extends StatelessWidget {
     this.isPassword = false,
     this.validate,
     this.label = "",
+    this.title ="",
     this.prefix,
     this.suffix,
     this.isClickable,
@@ -35,6 +41,7 @@ class SparkTextFormField extends StatelessWidget {
   bool isPassword;
   String? Function(String? value)? validate;
   String label;
+  String title;
   Widget? prefix;
   Widget? suffix;
   bool? isClickable = true;
@@ -47,27 +54,34 @@ class SparkTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: type,
-      obscureText: isPassword,
-      validator: validate,
-      onChanged: onChange,
-      onTap: onTap,
-      onSaved: onSaved,
-      onFieldSubmitted: onSubmit,
-      readOnly: readonly??false,
-      maxLines: maxLines?? 1,
-      decoration: InputDecoration(
-        prefixText: prefixText,
-        hintText: hintText,
-        label: Text(label,),
-        alignLabelWithHint: true,
-        errorText: errorText,
-        prefixIcon: prefix,
-        suffixIcon: suffix,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title,style:SparkTheme.lightTextTheme.headlineMedium?.copyWith(fontSize: 15.sp),),
+        SparkSizedBox(height: 10,),
+        TextFormField(
+          controller: controller,
+          keyboardType: type,
+          obscureText: isPassword,
+          validator: validate,
+          onChanged: onChange,
+          onTap: onTap,
+          onSaved: onSaved,
+          onFieldSubmitted: onSubmit,
+          readOnly: readonly??false,
+          maxLines: maxLines?? 1,
+          decoration: InputDecoration(
+            prefixText: prefixText,
+            hintText: hintText,
+            label: Text(label,),
+            alignLabelWithHint: true,
+            errorText: errorText,
+            prefixIcon: prefix,
+            suffixIcon: suffix,
 
-      ),
+          ),
+        ),
+      ],
     );
   }
 }
