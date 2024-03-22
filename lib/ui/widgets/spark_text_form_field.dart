@@ -70,6 +70,7 @@ class SparkTextFormField extends StatelessWidget {
           onFieldSubmitted: onSubmit,
           readOnly: readonly??false,
           maxLines: maxLines?? 1,
+          style: SparkTheme.lightTextTheme.bodyLarge!.copyWith(color: SparkColors.color4),
           decoration: InputDecoration(
             prefixText: prefixText,
             hintText: hintText,

@@ -12,10 +12,12 @@ class SparkTheme {
     prefixIconColor: SparkColors.color4,
     suffixIconColor: SparkColors.color4,
     fillColor: SparkColors.color10,
-
+    suffixStyle: SparkTheme.lightTextTheme.bodyMedium?.copyWith(color: SparkColors.color1,),
+    floatingLabelStyle: SparkTheme.lightTextTheme.bodyMedium?.copyWith(color: SparkColors.color1,),
+    prefixStyle: SparkTheme.lightTextTheme.bodyMedium?.copyWith(color: SparkColors.color1,),
     filled: true,
     labelStyle: SparkTheme.lightTextTheme.bodyMedium?.copyWith(color: SparkColors.color11,),
-    hintStyle:SparkTheme.lightTextTheme.bodySmall?.copyWith(color: SparkColors.color11),
+    hintStyle:SparkTheme.lightTextTheme.bodyMedium?.copyWith(color: SparkColors.color11),
     errorStyle: SparkTheme.lightTextTheme.bodySmall?.copyWith(color: SparkColors.color5),
     errorMaxLines: 3,
 
@@ -76,6 +78,7 @@ class SparkTheme {
       //height:36.sp
 
     ),
+
     /*displayLarge:  GoogleFonts.dancingScript(
       fontSize: 80.0.sp,
       fontWeight: FontWeight.bold,
@@ -83,24 +86,7 @@ class SparkTheme {
     )*/
   );
 
-  // 2
-  static TextTheme darkTextTheme = TextTheme(
-      bodyText1: GoogleFonts.openSans(
-          fontSize: 14.0.sp, fontWeight: FontWeight.w700, color: Colors.white),
-      headline1: GoogleFonts.openSans(
-        fontSize: 32.0.sp,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
-      headline2: GoogleFonts.openSans(
-          fontSize: 21.0.sp, fontWeight: FontWeight.w700, color: Colors.white),
-      headline3: GoogleFonts.openSans(
-        fontSize: 16.0.sp,
-        fontWeight: FontWeight.w600,
-        color: Colors.white,
-      ),
-      headline6: GoogleFonts.openSans(
-          fontSize: 20.0.sp, fontWeight: FontWeight.w600, color: Colors.white));
+
 
   // 3
   static ThemeData light() {
@@ -145,22 +131,5 @@ class SparkTheme {
     );
   }
 
-  // 4
-  static ThemeData dark() {
-    return ThemeData(
-      brightness: Brightness.dark,
-      appBarTheme: AppBarTheme(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.grey[900],
-      ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.green,
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.yellowAccent,
-      ),
-      textTheme: darkTextTheme,
-    );
-  }
+
 }

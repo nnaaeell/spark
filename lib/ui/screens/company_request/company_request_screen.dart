@@ -4,7 +4,6 @@ import 'package:spark/ui/navigation/spark_navigator.dart';
 import 'package:spark/ui/screens/request_completed/request_completed_screen.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_text_form_field.dart';
-
 import '../../../utilities/company_request_validation.dart';
 import '../../style/color/spark_colors.dart';
 import '../../style/themes/spark_theme.dart';
@@ -30,7 +29,15 @@ class CompanyRequestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GestureDetector(
+        onTap: () {
+      // This will remove the focus from the text field
+      final currentFocus = FocusScope.of(context);
+      if (!currentFocus.hasPrimaryFocus) {
+        currentFocus.unfocus();
+      }
+    },
+    child: Scaffold(
       appBar: buildSparkAppBar(context: context, text: "Create a request"),
       body: Form(
         key: formKey,
@@ -53,7 +60,7 @@ class CompanyRequestScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 
   Widget buildCompanyRequestFullNameTextFormField() {

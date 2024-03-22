@@ -7,6 +7,8 @@ import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
 class StudentHomeScreen extends StatefulWidget {
+  const StudentHomeScreen({super.key});
+
   @override
   _StudentHomeScreenState createState() => _StudentHomeScreenState();
 }
@@ -28,18 +30,18 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
         children: <Widget>[
           // Segmented control for 'project' and 'Courses'
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding:  EdgeInsets.all(10.0.r),
             child: Container(
               width: 330.w,
               decoration: BoxDecoration(
                   color: SparkColors.color1,
-                  borderRadius: BorderRadius.circular(8)
+                  borderRadius: BorderRadius.circular(8.r)
 
               ),
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 6,bottom:6,top: 6),
+                    padding:  EdgeInsets.only(left: 6.w,bottom:6.h,top: 6.h),
                     child: Container(
                       width: 150.w,
 
