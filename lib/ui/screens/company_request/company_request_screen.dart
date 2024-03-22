@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
 import 'package:spark/ui/screens/request_completed/request_completed_screen.dart';
 
+import '../../../utilities/company_request_validation.dart';
 import '../../style/color/spark_colors.dart';
 import '../../style/themes/spark_theme.dart';
 import '../../widgets/widgets.dart';
@@ -16,7 +17,7 @@ class CompanyRequestScreen extends StatelessWidget {
 
   static TextEditingController companyNameController = TextEditingController();
 
-  static TextEditingController projectTitleController = TextEditingController();
+  static TextEditingController phoneNumberController = TextEditingController();
 
   static TextEditingController projectDescriptionController =
       TextEditingController();
@@ -34,90 +35,18 @@ class CompanyRequestScreen extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 21.w),
           children: [
-            SparkSizedBox(
-              height: 22,
-            ),
-            SparkTextFormField(
-              title: "Full Name",
-              label: "Enter your full name here",
-              hintText: "E.g. Omar Ali",
-              type: TextInputType.text,
-              controller: fullNameController,
-              isPassword: false,
-              validate: validateFirstName,
-            ),
-            SparkSizedBox(
-              height: 21,
-            ),
-            SparkTextFormField(
-              title: "Email",
-              label: "Enter your email here",
-              hintText: "E.g. info@gmail.com",
-              type: TextInputType.emailAddress,
-              controller: emailController,
-              isPassword: false,
-              validate: validateEmail,
-            ),
-            SparkSizedBox(
-              height: 21,
-            ),
-            SparkTextFormField(
-              title: "Company Name",
-              hintText: "E.g. Google",
-              label: "Enter your company name here",
-              type: TextInputType.name,
-              controller: companyNameController,
-              isPassword: false,
-              validate: validateCompanyName,
-            ),
-            SparkSizedBox(
-              height: 21,
-            ),
-            SparkTextFormField(
-              title: "Project Title",
-              label: "Enter your project title here",
-              hintText: "E.g. Mobile Application",
-              type: TextInputType.name,
-              controller: projectTitleController,
-              isPassword: false,
-              validate: validateProjectTitle,
-            ),
-            SparkSizedBox(
-              height: 21,
-            ),
-            SizedBox(
-              child: SparkTextFormField(
-                title: "Project Description",
-                hintText: "E.g. I need a mobile application for my company that contains these features....",
-                label: "Tell us more about your project",
-                type: TextInputType.name,
-                controller: projectDescriptionController,
-                isPassword: false,
-                validate: validateProjectDescription,
-                maxLines: 4,
-              ),
-            ),
-            SparkSizedBox(
-              height: 36,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SparkButton(
-                  width: 191,
-                  height: 41,
-                  radius: 7,
-                  backgroundColor: SparkColors.color1,
-                  text: "Send the request ",
-                  textStyle: SparkTheme.lightTextTheme.bodyLarge
-                      ?.copyWith(color: SparkColors.color2),
-                  onPressed: () {
-                    navigateReplace(context,const RequestCompletedScreen());
-                  },
-                ),
-              ],
-            ),
+            SparkSizedBox(height: 22),
+            buildCompanyRequestFullNameTextFormField(),
+            SparkSizedBox(height: 21),
+            buildCompanyRequestEmailTextFormField(),
+            SparkSizedBox(height: 21),
+            buildCompanyRequestCompanyNameTextFormField(),
+            SparkSizedBox(height: 21),
+            buildCompanyRequestPhoneNumberTextFormField(),
+            SparkSizedBox(height: 21),
+            buildCompanyRequestProjectDescriptionTextFormField(),
+            SparkSizedBox(height: 36),
+            buildCompanyRequestButton(context),
             SparkSizedBox(height: 38),
           ],
         ),
@@ -125,18 +54,86 @@ class CompanyRequestScreen extends StatelessWidget {
     );
   }
 
-  String? validateFirstName(String? value) {
+  Widget buildCompanyRequestFullNameTextFormField() {
+    return SparkTextFormField(
+      title: "Full Name",
+      label: "Enter your full name here",
+      hintText: "E.g. Omar Ali",
+      type: TextInputType.text,
+      controller: fullNameController,
+      isPassword: false,
+      validate: validateFullName,
+    );
   }
 
-  String? validateEmail(String? value) {
+  Widget buildCompanyRequestEmailTextFormField() {
+    return SparkTextFormField(
+      title: "Email",
+      label: "Enter your email here",
+      hintText: "E.g. info@gmail.com",
+      type: TextInputType.emailAddress,
+      controller: emailController,
+      isPassword: false,
+      validate: validateEmail,
+    );
   }
 
-  String? validateCompanyName(String? value) {
+  Widget buildCompanyRequestCompanyNameTextFormField() {
+    return SparkTextFormField(
+      title: "Company Name",
+      hintText: "E.g. Google",
+      label: "Enter your company name here",
+      type: TextInputType.name,
+      controller: companyNameController,
+      isPassword: false,
+      validate: validateCompanyName,
+    );
   }
 
-  String? validateProjectTitle(String? value) {
+  Widget buildCompanyRequestPhoneNumberTextFormField() {
+    return SparkTextFormField(
+      title: "Phone Number",
+      label: "Enter your phone number here",
+      hintText: "E.g. 0988095867",
+      type: TextInputType.phone,
+      controller: phoneNumberController,
+      isPassword: false,
+      validate: validatePhoneNumber,
+    );
   }
 
-  String? validateProjectDescription(String? value) {
+  Widget buildCompanyRequestProjectDescriptionTextFormField() {
+    return SparkTextFormField(
+      title: "Project Description",
+      hintText:
+          "E.g. I need a mobile application for my company that contains these features....",
+      label: "Tell us more about your project",
+      type: TextInputType.name,
+      controller: projectDescriptionController,
+      isPassword: false,
+      validate: validateProjectDescription,
+      maxLines: 4,
+    );
+  }
+
+  Widget buildCompanyRequestButton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SparkButton(
+          width: 191,
+          height: 41,
+          radius: 7,
+          backgroundColor: SparkColors.color1,
+          text: "Send the request ",
+          textStyle: SparkTheme.lightTextTheme.bodyLarge
+              ?.copyWith(color: SparkColors.color2),
+          onPressed: () {
+            navigateReplace(context, const RequestCompletedScreen());
+          },
+        ),
+      ],
+    );
   }
 }

@@ -118,6 +118,8 @@ class SparkTheme {
           backgroundColor: Colors.transparent,
           iconTheme: IconThemeData(color: SparkColors.color4),
 
+
+
           systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
               statusBarIconBrightness: Brightness.dark),
