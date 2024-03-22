@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
+
 import 'package:spark/ui/style/themes/spark_theme.dart';
 
 import '../style/color/spark_colors.dart';
