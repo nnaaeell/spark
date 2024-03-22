@@ -48,7 +48,7 @@ class StudentCourseRequestScreen extends StatelessWidget {
               SparkSizedBox(height: 21),
               buildStudentCourseRequestNotesTextFormField(),
               SparkSizedBox(height: 36),
-              buildCompanyRequestButton(context),
+              buildStudentCourseRequestButton(context),
               SparkSizedBox(height: 38),
             ],
           ),
@@ -105,7 +105,7 @@ class StudentCourseRequestScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCompanyRequestButton(BuildContext context) {
+  Widget buildStudentCourseRequestButton(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
