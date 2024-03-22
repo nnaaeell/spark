@@ -36,13 +36,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: ListView(
         children: [
-          SparkSizedBox(height: 91),
+          SparkSizedBox(height: 10),
           buildPageView(),
-          SparkSizedBox(height: 80),
+          SparkSizedBox(height: 70),
           buildOnBoardingBottomPart(),
-          SparkSizedBox(height: 40),
+          SparkSizedBox(height: 30),
         ],
       ),
     );
@@ -62,7 +63,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   Widget buildPageView() {
     return SizedBox(
-      height: 435 .h,
+      height: 460.h,
       child: PageView.builder(
         itemBuilder: (BuildContext context, int index) => buildOnBoardingItem(context, index),
         itemCount: pages.length,
@@ -87,33 +88,33 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   Widget buildOnBoardingButton() {
 
-      return (_currentPage == 2)?SparkButton(
-        onPressed: () {
-          navigateTo(context, const CategoriesScreen());
-        },
-        text: "Get Started",
-        textStyle: SparkTheme.lightTextTheme.bodyLarge?.copyWith(
-          color: SparkColors.color2,
-        ),
-        width: 122.745,
-        borderWidth: 0,
-        height: 43.42,
-        radius: 5,
-        backgroundColor: SparkColors.color1,
-      ):SparkButton(
-        onPressed: () {
-          _onBoardingController.nextPage(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOut);
-        },
-        width: 33.4,
-        height: 33.4,
-        radius: 5,
-        backgroundColor: SparkColors.color1,
-        borderWidth: 0,
-        icon: Icons.arrow_right_alt_outlined,
-        iconSize: 35,
-      );
+    return (_currentPage == 2)?SparkButton(
+      onPressed: () {
+        navigateTo(context, const CategoriesScreen());
+      },
+      text: "Get Started",
+      textStyle: SparkTheme.lightTextTheme.bodyLarge?.copyWith(
+        color: SparkColors.color2,
+      ),
+      width: 122.745,
+      borderWidth: 0,
+      height: 43.42,
+      radius: 5,
+      backgroundColor: SparkColors.color1,
+    ):SparkButton(
+      onPressed: () {
+        _onBoardingController.nextPage(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut);
+      },
+      width: 33.4,
+      height: 33.4,
+      radius: 5,
+      backgroundColor: SparkColors.color1,
+      borderWidth: 0,
+      icon: Icons.arrow_right_alt_outlined,
+      iconSize: 35,
+    );
 
   }
 
@@ -133,7 +134,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 borderRadius: BorderRadius.circular(8.r),
                 width: 6.68.w,
                 height: 5.01.h),
-                spacing: 10.r))
+            spacing: 10.r))
         : const SizedBox.shrink();
   }
 
@@ -151,8 +152,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   Widget buildOnBoardingTitle(index) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 21.0.r),
+    return SizedBox(
+      height: 50.h,
+      width: 319.w,
       child: Text(
         pages[index].title,
         style: SparkTheme.lightTextTheme.headlineLarge,
@@ -162,8 +164,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   Widget buildOnBoardingDescription(index) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 53.r),
+    return SizedBox(
+      height: 68.h,
+      width: 251.w,
       child: Text(
         pages[index].description,
         style: SparkTheme.lightTextTheme.bodyLarge,
@@ -172,3 +175,4 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
   }
 }
+

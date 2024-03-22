@@ -11,32 +11,39 @@ class SparkTheme {
   static InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
     prefixIconColor: SparkColors.color4,
     suffixIconColor: SparkColors.color4,
-    labelStyle: SparkTheme.lightTextTheme.bodyMedium,
-    hintStyle:SparkTheme.lightTextTheme.bodySmall?.copyWith(color: SparkColors.color3),
+    fillColor: SparkColors.color10,
+
+    filled: true,
+    labelStyle: SparkTheme.lightTextTheme.bodyMedium?.copyWith(color: SparkColors.color11,),
+    hintStyle:SparkTheme.lightTextTheme.bodySmall?.copyWith(color: SparkColors.color11),
     errorStyle: SparkTheme.lightTextTheme.bodySmall?.copyWith(color: SparkColors.color5),
     errorMaxLines: 3,
+
+    floatingLabelBehavior: FloatingLabelBehavior.never,
     enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: SparkColors.color3, width: 1.w),
-        borderRadius:  BorderRadius.all(Radius.circular(25.r))),
+        borderSide: BorderSide(color: SparkColors.color10, width: 1.w),
+        borderRadius:  BorderRadius.all(Radius.circular(5.r)),
+    ),
     focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: SparkColors.color4, width: 1.w),
-        borderRadius:  BorderRadius.all(Radius.circular(25.r))),
+        borderSide: BorderSide(color: SparkColors.color10, width: 1.w),
+        borderRadius:  BorderRadius.all(Radius.circular(5.r))),
     border: OutlineInputBorder(
-        borderSide: BorderSide(color: SparkColors.color3, width: 1.w),
-        borderRadius:  BorderRadius.all(Radius.circular(25.r))),
+        borderSide: BorderSide(color: SparkColors.color10, width: 1.w),
+        borderRadius:  BorderRadius.all(Radius.circular(5.r))),
     errorBorder:  OutlineInputBorder(
         borderSide: BorderSide(color: Colors.red, width: 1.w),
-        borderRadius:  BorderRadius.all(Radius.circular(25.r)),
+        borderRadius:  BorderRadius.all(Radius.circular(5.r)),
     ),
     focusedErrorBorder:  OutlineInputBorder(
         borderSide: BorderSide(color: Colors.red, width: 1.w),
-        borderRadius:  BorderRadius.all(Radius.circular(25.r))),
+        borderRadius:  BorderRadius.all(Radius.circular(5.r))),
 
 
 
   );
 
   static TextTheme lightTextTheme = TextTheme(
+
     bodySmall: GoogleFonts.poppins(
       fontSize: 10.0.sp,
       fontWeight: FontWeight.w300,
@@ -104,14 +111,15 @@ class SparkTheme {
           (states) => Colors.black,
         )),
         appBarTheme:  AppBarTheme(
+          scrolledUnderElevation: 0,
           elevation: 0,
           centerTitle: true,
           titleTextStyle: SparkTheme.lightTextTheme.headlineLarge?.copyWith(color: SparkColors.color1),
-          color: SparkColors.color2,
+          backgroundColor: Colors.transparent,
           iconTheme: IconThemeData(color: SparkColors.color4),
 
-          systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: SparkColors.color2,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
               statusBarIconBrightness: Brightness.dark),
         ),
         floatingActionButtonTheme:  FloatingActionButtonThemeData(
@@ -123,6 +131,11 @@ class SparkTheme {
           unselectedItemColor: SparkColors.color3,
         ),
         textTheme: lightTextTheme,
+        textSelectionTheme: TextSelectionThemeData(
+           cursorColor: SparkColors.color1,
+          selectionColor: SparkColors.color1,
+          selectionHandleColor: SparkColors.color1,
+        ),
         inputDecorationTheme: inputDecorationTheme,
         dropdownMenuTheme: DropdownMenuThemeData(
           inputDecorationTheme: inputDecorationTheme,
