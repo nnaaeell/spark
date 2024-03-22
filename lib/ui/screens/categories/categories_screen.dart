@@ -1,14 +1,16 @@
+
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/ui/constants/categories_data.dart';
-import 'package:spark/ui/navigation/spark_navigator.dart';
 import 'package:spark/ui/screens/category_details/category_details_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
+import '../../navigation/spark_navigator.dart';
 import '../../widgets/spark_app_bar.dart';
-
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
 
