@@ -78,6 +78,11 @@ class SparkTheme {
       //height:36.sp
 
     ),
+    titleMedium: GoogleFonts.poppins(
+      fontSize:16.sp,
+      fontWeight: FontWeight.w600,
+      color: Colors.black,
+    )
 
     /*displayLarge:  GoogleFonts.dancingScript(
       fontSize: 80.0.sp,
