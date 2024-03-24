@@ -6,7 +6,7 @@ import '../style/color/spark_colors.dart';
 class SparkButtonN extends StatelessWidget {
   SparkButtonN({
     this.width = double.infinity,
-    this.height = 52,
+    required this.height ,
     this.radius = 25,
     this.text = "",
     this.backgroundColor = Colors.blue,
@@ -33,7 +33,8 @@ class SparkButtonN extends StatelessWidget {
             child:Text('GO IT',
               style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12.sp
               ),)),
         decoration: BoxDecoration(
             color: backgroundColor,
