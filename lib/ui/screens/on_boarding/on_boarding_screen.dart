@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
+import 'package:spark/ui/screens/home/home_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import '../../constants/onboarding_data.dart';
 import '../../style/themes/spark_theme.dart';
@@ -90,7 +91,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
     return (_currentPage == 2)?SparkButton(
       onPressed: () {
-        navigateTo(context, const CategoriesScreen());
+        navigateTo(context,  HomeScreen());
       },
       text: "Get Started",
       textStyle: SparkTheme.lightTextTheme.bodyLarge?.copyWith(

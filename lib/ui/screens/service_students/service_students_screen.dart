@@ -73,22 +73,7 @@ class ServiceTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                height:100*094.h ,
-                width: 100*0.86.w,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-
-                    image: DecorationImage(
-                        image: NetworkImage('https://media.istockphoto.com/id/1439425791/nl/foto/digital-technology-software-development-concept-coding-programmer-working-on-laptop-with.jpg?s=2048x2048&w=is&k=20&c=lfOt2EUOtx6vnds-JaffxMsuYsVha5Me09ls7WwdXv0=',
-                        ),
-                        fit: BoxFit.cover
-                    )
-                ) ,
-              ),
-            ),
+            ImageService(),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -122,4 +107,20 @@ class ServiceTile extends StatelessWidget {
       ),
     );
   }
+  Widget ImageService()=> Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: Container(
+      height:100*094.h ,
+      width: 100*0.86.w,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+
+          image: DecorationImage(
+              image: NetworkImage('https://media.istockphoto.com/id/1439425791/nl/foto/digital-technology-software-development-concept-coding-programmer-working-on-laptop-with.jpg?s=2048x2048&w=is&k=20&c=lfOt2EUOtx6vnds-JaffxMsuYsVha5Me09ls7WwdXv0=',
+              ),
+              fit: BoxFit.cover
+          )
+      ) ,
+    ),
+  );
 }
