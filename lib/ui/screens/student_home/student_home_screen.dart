@@ -91,7 +91,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
             ),
           ),
           Flexible(
-            child: ListView.separated(itemBuilder: (context,index)=>builtItemOfTheList(),
+            child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheList(),
                 separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
                 itemCount: 8),
           )
@@ -104,7 +104,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
     );
   }
 
-  Widget builtItemOfTheList()=>Padding(
+  Widget buildItemOfTheList()=>Padding(
     padding: const EdgeInsets.all(20.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +141,9 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
           height: 10,
         ),
         Text(
-          'From automation to advanced analytics and seamless experiences, we can embed AI in business. We’ll deliver new operating models and strategic intelligence for smart processes and data-driven decisions.',
+          'From automation to advanced analytics and seamless experiences, we can embed AI in business. We’ll'
+              ' deliver new operating models and '
+              'strategic intelligence for smart processes and data-driven decisions.',
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20),
