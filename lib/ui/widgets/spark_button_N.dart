@@ -5,7 +5,7 @@ import '../style/color/spark_colors.dart';
 
 class SparkButtonN extends StatelessWidget {
   SparkButtonN({
-    this.width = double.infinity,
+    required this.width,
     required this.height ,
     this.radius = 25,
     this.text = "",

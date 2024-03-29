@@ -5,6 +5,7 @@ import 'package:spark/ui/screens/our_projects/our_projects_screen.dart';
 import 'package:spark/ui/screens/our_projects/project_expanded_screen.dart';
 import 'package:spark/ui/screens/request_completed/request_completed_screen.dart';
 import 'package:spark/ui/screens/service_students/service_students_screen.dart';
+import 'package:spark/ui/screens/students_flow/students_flow_screen.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 
 void main() async {
@@ -28,7 +29,7 @@ class Spark extends StatelessWidget {
                 title: 'Spark',
                 debugShowCheckedModeBanner: false,
                 theme: SparkTheme.light(),
-                home:   OurProjectsScreen()),
+                home:  StudentsFlow ()),
           );
         });
   }
