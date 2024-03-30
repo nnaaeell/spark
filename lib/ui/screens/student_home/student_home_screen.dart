@@ -15,7 +15,7 @@ class StudentHomeScreen extends StatefulWidget {
 
 class _StudentHomeScreenState extends State<StudentHomeScreen> {
   // Index for segmented control
-  int _selectedIndex = 0;
+  static int _selectedIndex = 0;
 
   // List of widgets for segmented control
 
@@ -105,6 +105,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
   }
 
   Widget buildItemOfTheList()=>Padding(
+
     padding: const EdgeInsets.all(20.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
