@@ -5,6 +5,8 @@ class StudentsServices{
   StudentsServices.fromJson(Map<String,dynamic>json){
     projects=(json['projects'] as List)
         .map((e) =>Project.formJson(e)).toList();
+    courses=(json['courses'] as List)
+        .map((e) =>Course.fromJson(e)).toList();
 
 
   }
@@ -16,15 +18,16 @@ class Project{
   ProjectField? projectField;
   String project_link='';
   ProjectDesc? projectDesc;
-  List<String> pictures=[];
+  List<Image> pictures=[];
 
   Project.formJson(Map<String,dynamic>json){
-    id=json['id'];
+    id=json['pk'];
     project_link=json['project_link'];
     projectName=ProjectName.formJson(json['project_name']);
     projectField=ProjectField.formJson(json['project_field']);
     projectDesc=ProjectDesc.formJson(json['project_desc']);
-    pictures=json['pictures'] as List<String>;
+    pictures=(json['pictures'] as List)
+        .map((e) =>Image.fromJson(e)).toList();
 
   }
 
@@ -55,6 +58,14 @@ class ProjectDesc{
   ProjectDesc.formJson(Map<String,dynamic>json){
     ar=json['AR'];
     en=json['EN'];
+  }
+}
+
+class Image{
+  String image='';
+
+  Image.fromJson(Map<String,dynamic>json){
+    image=json['image'];
   }
 }
 
@@ -106,3 +117,14 @@ Teacher.fromJson(Map<String,dynamic>json){
   en=json['EN'];
 }
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -29,7 +29,7 @@ class SparkButtonN extends StatelessWidget {
       child: Container(
         width: width.w,
         height: height.h,
-        child: TextButton(onPressed:(){},
+        child: TextButton(onPressed:onPressed,
             child:Text('GO IT',
               style: TextStyle(
                   color: Colors.white,

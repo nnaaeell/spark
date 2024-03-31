@@ -1,7 +1,14 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:spark/data/models/Student_services.dart';
+import 'package:spark/ui/Cubit1/states.dart';
+import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
@@ -14,8 +21,28 @@ class StudentHomeScreen extends StatefulWidget {
 }
 
 class _StudentHomeScreenState extends State<StudentHomeScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    _loadScreen();
+  }
   // Index for segmented control
-  static int _selectedIndex = 0;
+   int _selectedIndex = 0;
+   bool showSpinKit=true;
+
+   _loadScreen() async {
+     // انتظر لمدة ثلاث ثواني
+     await Future.delayed(Duration(seconds: 2));
+
+     // بعد انتهاء الفترة، قم بتحديث حالة العرض لعرض العناصر الأساسية
+     setState(() {
+       showSpinKit = false;
+     });
+   }
+
+
 
   // List of widgets for segmented control
 
@@ -48,6 +75,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                       child: TextButton(onPressed:(){
                         setState(() {
                           _selectedIndex=0;
+
                         });
                       },
                           child:Text('project',
@@ -90,11 +118,8 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
 
             ),
           ),
-          Flexible(
-            child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheList(),
-                separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
-                itemCount: 8),
-          )
+
+         _selectedIndex==0? ProjectsList():CoursesList()
 
 
           // 'GO IT' button
@@ -104,7 +129,27 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
     );
   }
 
-  Widget buildItemOfTheList()=>Padding(
+
+  Widget ProjectsList()=>showSpinKit?Center(child: Column(
+    children: [
+      SizedBox(
+        height: 200,
+      ),
+      SpinKitCubeGrid(color:SparkColors.color1,size: 100,),
+    ],
+  )):Flexible(
+    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListP(Cubit1.projects[index]),
+        separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
+        itemCount: Cubit1.projects.length),
+  );
+
+  Widget CoursesList()=> Flexible(
+    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListC(Cubit1.courses[index]),
+        separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
+        itemCount: Cubit1.courses.length),
+  );
+
+  Widget buildItemOfTheListP(Project project)=>Padding(
 
     padding: const EdgeInsets.all(20.0),
     child: Column(
@@ -112,12 +157,10 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
       children: <Widget>[
         Container(
           height:250.h ,
-
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-
               image: DecorationImage(
-                  image: NetworkImage('https://media.istockphoto.com/id/1439425791/nl/foto/digital-technology-software-development-concept-coding-programmer-working-on-laptop-with.jpg?s=2048x2048&w=is&k=20&c=lfOt2EUOtx6vnds-JaffxMsuYsVha5Me09ls7WwdXv0=',
+                  image: NetworkImage('https://sparkeng.pythonanywhere.com${project.pictures[0].image}',
                   ),
                   fit: BoxFit.cover
               )
@@ -127,7 +170,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
           height: 10,
         ),// Your image asset
         Text(
-          'Mobile Design ',
+          project.projectField!.ar,
           style: TextStyle(
               fontSize: 20),
         ),
@@ -135,16 +178,14 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
           height: 10,
         ),
         Text(
-          'Business Landing Page Design',
+          project.projectName!.ar,
           style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
         ),
         SparkSizedBox(
           height: 10,
         ),
         Text(
-          'From automation to advanced analytics and seamless experiences, we can embed AI in business. We’ll'
-              ' deliver new operating models and '
-              'strategic intelligence for smart processes and data-driven decisions.',
+         project.projectDesc!.ar,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20),
@@ -185,6 +226,84 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
       ],
     ),
   );
+
+  Widget buildItemOfTheListC(Course course )=>Padding(
+
+     padding: const EdgeInsets.all(20.0),
+     child: Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: <Widget>[
+         Container(
+           height:250.h ,
+           decoration: BoxDecoration(
+               borderRadius: BorderRadius.circular(10),
+               image: DecorationImage(
+                   image: NetworkImage('https://sparkeng.pythonanywhere${course.image}',
+                   ),
+                   fit: BoxFit.cover
+               )
+           ) ,
+         ),
+         SparkSizedBox(
+           height: 10,
+         ),// Your image asset
+         Text(
+           course.teacher!.ar,
+           style: TextStyle(
+               fontSize: 20),
+         ),
+         SparkSizedBox(
+           height: 10,
+         ),
+         Text(
+          course.name!.ar,
+           style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
+         ),
+         SparkSizedBox(
+           height: 10,
+         ),
+         Text(
+           course.desc!.ar,
+         ),
+         Padding(
+           padding: const EdgeInsets.only(top: 20),
+
+           child: Container(
+             width: 90.w,
+
+             child: TextButton(onPressed:(){},
+                 child:Text('GO IT',
+                   style: TextStyle(
+                       color: Colors.white,
+                       fontWeight: FontWeight.bold
+                   ),)),
+             decoration: BoxDecoration(
+                 color: SparkColors.color1,
+                 borderRadius: BorderRadius.circular(20),
+                 boxShadow: [
+                   BoxShadow(
+                       color: Colors.black,
+                       spreadRadius: 0.2,
+                       blurRadius: 1,
+                       offset: Offset(1, 1)
+                   )
+                 ]
+             ),
+           ),
+         ),
+         SizedBox(
+           height: 20,
+         ),
+         Padding(
+           padding: const EdgeInsets.symmetric(horizontal: 20),
+           child: Container(
+             height: 2.h,
+             color: Colors.black38,
+           ),
+         )
+       ],
+     ),
+   );
 
 
 }
