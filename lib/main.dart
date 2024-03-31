@@ -29,7 +29,7 @@ class Spark extends StatelessWidget {
                 title: 'Spark',
                 debugShowCheckedModeBanner: false,
                 theme: SparkTheme.light(),
-                home:  StudentsFlow ()),
+                home:  const OnBoardingScreen ()),
           );
         });
   }
