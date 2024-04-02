@@ -9,7 +9,18 @@ import 'package:flutter_svg/svg.dart';
         padding: EdgeInsets.all(14.r),
         onPressed: () {Navigator.pop(context);},
         icon: SvgPicture.asset("assets/back_icon.svg",),
-      ):const SizedBox.shrink());
+      ):const SizedBox.shrink(),
+      actions: [
+        Builder(
+          builder: (context) => IconButton(
+            iconSize: 15.sp,
+            icon: SvgPicture.asset('assets/Sorting_Right.svg'), // يمكنك تغيير الأيقونة هنا
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
+          ),
+        ),
+      ],
+    );
+
 }
 
 

@@ -37,7 +37,7 @@ class StudentService extends StatelessWidget {
             ServiceTileIT(
               title: 'Informatics',
               subtitle: 'Courses & Project',
-              image: AssetImage('assets/informatics.png'), // Replace with your asset
+              image: 'assets/Informatics.png', // Replace with your asset
 
             ),
             SizedBox(
@@ -46,7 +46,7 @@ class StudentService extends StatelessWidget {
             ServiceTileARCH(
               title: 'Architectural Engineering',
               subtitle: 'Courses & Project',
-              image: AssetImage('assets/architectural.png'), // Replace with your asset
+              image: 'assets/Architectural Engineering.png', // Replace with your asset
 
             ),
           ],
@@ -61,7 +61,7 @@ class StudentService extends StatelessWidget {
 class ServiceTileIT extends StatelessWidget {
   final String title;
   final String subtitle;
-  final ImageProvider image;
+  final String image;
 
   const ServiceTileIT({
     Key? key,
@@ -83,7 +83,7 @@ class ServiceTileIT extends StatelessWidget {
         ),
         child: Row(
           children: [
-            ImageService(),
+            ImageService(image),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -104,8 +104,8 @@ class ServiceTileIT extends StatelessWidget {
                          StudentService.isSelectedIT=true;
                          StudentService.isSelectedARCH=false;
                        }
-                        navigateTo(context,  StudentHomeScreen());
-                        print(Cubit1.projects.length);
+                       navigateTo(context,  StudentHomeScreen());
+
                       },
                       width: 100,
                       height: 40,
@@ -125,7 +125,7 @@ class ServiceTileIT extends StatelessWidget {
       ),
     );
   }
-  Widget ImageService()=> Padding(
+  Widget ImageService(String path)=> Padding(
     padding: const EdgeInsets.all(10.0),
     child: Container(
       height:100*094.h ,
@@ -134,8 +134,7 @@ class ServiceTileIT extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
 
           image: DecorationImage(
-              image: NetworkImage('https://media.istockphoto.com/id/1439425791/nl/foto/digital-technology-software-development-concept-coding-programmer-working-on-laptop-with.jpg?s=2048x2048&w=is&k=20&c=lfOt2EUOtx6vnds-JaffxMsuYsVha5Me09ls7WwdXv0=',
-              ),
+              image: AssetImage(path),
               fit: BoxFit.cover
           )
       ) ,
@@ -146,7 +145,7 @@ class ServiceTileIT extends StatelessWidget {
 class ServiceTileARCH extends StatelessWidget {
   final String title;
   final String subtitle;
-  final ImageProvider image;
+  final String image;
 
   const ServiceTileARCH({
     Key? key,
@@ -168,7 +167,7 @@ class ServiceTileARCH extends StatelessWidget {
         ),
         child: Row(
           children: [
-            ImageService(),
+            ImageService(image),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -210,7 +209,7 @@ class ServiceTileARCH extends StatelessWidget {
       ),
     );
   }
-  Widget ImageService()=> Padding(
+  Widget ImageService(String path)=> Padding(
     padding: const EdgeInsets.all(10.0),
     child: Container(
       height:100*094.h ,
@@ -219,11 +218,10 @@ class ServiceTileARCH extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
 
           image: DecorationImage(
-              image: NetworkImage('https://media.istockphoto.com/id/1439425791/nl/foto/digital-technology-software-development-concept-coding-programmer-working-on-laptop-with.jpg?s=2048x2048&w=is&k=20&c=lfOt2EUOtx6vnds-JaffxMsuYsVha5Me09ls7WwdXv0=',
+              image:AssetImage(path),
               ),
-              fit: BoxFit.cover
+
           )
       ) ,
-    ),
   );
 }

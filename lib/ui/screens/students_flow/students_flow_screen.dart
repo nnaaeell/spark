@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spark/ui/screens/screens.dart';
+import 'package:spark/ui/screens/student_home/student_home_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_button_N.dart';
 import 'package:spark/ui/widgets/widgets.dart';
+
+import '../../navigation/spark_navigator.dart';
 
 class StudentsFlow extends StatelessWidget {
   const StudentsFlow({super.key});
@@ -24,7 +28,9 @@ class StudentsFlow extends StatelessWidget {
             height: 80,
           ),
           Flexible(
-            child: SparkButtonN(onPressed: (){},
+            child: SparkButtonN(onPressed: (){
+              navigateTo(context,  StudentService());
+            },
               width: 150,
               height: 40,
               radius: 10,
