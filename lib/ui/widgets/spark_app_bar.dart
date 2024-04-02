@@ -6,15 +6,22 @@ import 'package:flutter_svg/svg.dart';
     return AppBar(
       title:Text(text),
       leading:(hasBackButton)?IconButton(
-        padding: EdgeInsets.all(14.r),
+        padding: EdgeInsets.only(top: 20,left: 10),
         onPressed: () {Navigator.pop(context);},
-        icon: SvgPicture.asset("assets/back_icon.svg",),
+        icon: SvgPicture.asset("assets/back_icon.svg",
+          height: 30.h,
+          width: 20.h,
+          ),
       ):const SizedBox.shrink(),
       actions: [
         Builder(
           builder: (context) => IconButton(
-            iconSize: 15.sp,
-            icon: SvgPicture.asset('assets/Sorting_Right.svg'), // يمكنك تغيير الأيقونة هنا
+            padding:EdgeInsets.only(top: 20,right: 10),
+            icon: SvgPicture.asset('assets/Sorting_Right.svg',
+            height: 30.h,
+            width: 20.h,
+
+            ), // يمكنك تغيير الأيقونة هنا
             onPressed: () => Scaffold.of(context).openEndDrawer(),
           ),
         ),

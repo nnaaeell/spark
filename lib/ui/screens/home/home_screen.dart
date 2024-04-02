@@ -78,19 +78,30 @@ class HomeScreen extends StatelessWidget {
       },
       child: Padding(
         padding:  EdgeInsets.all(10.0.r),
-        child: Card(
-          color: Colors.grey.shade50,
-          shadowColor: SparkColors.color7,
-          elevation: 11.r,
-          margin: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.r))),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CardImage(image),
-              CardTitle(title),
-            ],
+        child: Container(
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black,
+                    spreadRadius: 0.2,
+                    blurRadius: 1,
+                    offset: Offset(1, 1)
+                )
+              ],
+              borderRadius: BorderRadius.circular(10.r)
+          ),
+          child: Card(
+            color: SparkColors.color1.,
+            margin: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.r))),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CardImage(image),
+                CardTitle(title),
+              ],
+            ),
           ),
         ),
       ),
@@ -115,7 +126,10 @@ class HomeScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       child: Text(
        title,
-        style: SparkTheme.lightTextTheme.headlineSmall,
+        style: TextStyle(
+            fontSize: 12.sp,
+            color: SparkColors.color10
+        ),
         textAlign: TextAlign.center,
       ),
     );
