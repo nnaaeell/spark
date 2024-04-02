@@ -135,9 +135,10 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
       SizedBox(
         height: 200,
       ),
-      SpinKitCubeGrid(color:SparkColors.color1,size: 100,),
+      SpinKitChasingDots(color:SparkColors.color1,size: 100,),
     ],
-  )):Flexible(
+  ))
+      :Flexible(
     child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListP(Cubit1.projects[index]),
         separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
         itemCount: Cubit1.projects.length),
@@ -216,13 +217,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
         SizedBox(
           height: 20,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Container(
-            height: 2.h,
-            color: Colors.black38,
-          ),
-        )
+        line()
       ],
     ),
   );
@@ -304,6 +299,14 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
        ],
      ),
    );
+
+  Widget line()=>Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: Container(
+      height: 2.h,
+      color: Colors.black38,
+    ),
+  );
 
 
 }

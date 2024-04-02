@@ -6,9 +6,11 @@ import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
 import 'package:spark/ui/screens/categories/categories_screen.dart';
+import 'package:spark/ui/screens/screens.dart';
 import 'package:spark/ui/screens/service_students/service_students_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
+import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,8 +20,8 @@ class HomeScreen extends StatelessWidget {
     child: BlocConsumer<Cubit1,Cubit1States>(
       builder: (BuildContext context, Cubit1States state)=>Scaffold(
         appBar: buildSparkAppBar(context: context
-
         ),
+        endDrawer: drawer(context),
         body: Center(
           child: Column(
 
@@ -40,8 +42,8 @@ class HomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildCard(context,'assets/onboarding1.png', 'Company Services',const CategoriesScreen()),
-                  buildCard(context,'assets/onboarding1.png', 'Students Services', StudentService())
+                  buildCard(context,'assets/CompanyServices.png', 'Company Services',const CategoriesScreen()),
+                  buildCard(context,'assets/StudentsServices.png', 'Students Services', StudentsFlow())
                 ],
               )
 
@@ -62,7 +64,7 @@ class HomeScreen extends StatelessWidget {
         height: 290.58.h,
         width: 290.58.w,
         child: Image(
-          image: AssetImage('assets/onboarding1.png'),
+          image: AssetImage('assets/spark_logo.png'),
         ),
       ),
     );
@@ -76,19 +78,30 @@ class HomeScreen extends StatelessWidget {
       },
       child: Padding(
         padding:  EdgeInsets.all(10.0.r),
-        child: Card(
-          color: Colors.grey.shade50,
-          shadowColor: SparkColors.color7,
-          elevation: 11.r,
-          margin: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.r))),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CardImage(image),
-              CardTitle(title),
-            ],
+        child: Container(
+          decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black,
+                    spreadRadius: 0.2,
+                    blurRadius: 1,
+                    offset: Offset(1, 1)
+                )
+              ],
+              borderRadius: BorderRadius.circular(10.r)
+          ),
+          child: Card(
+            color: SparkColors.color1.,
+            margin: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.r))),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CardImage(image),
+                CardTitle(title),
+              ],
+            ),
           ),
         ),
       ),
@@ -99,8 +112,8 @@ class HomeScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 48.w, vertical: 15.h),
       child: Container(
-        width: 46.w,
-        height: 46.h,
+        width: 60.w,
+        height: 80.h,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(96.r))),
         child: Image.asset(image),
@@ -113,7 +126,10 @@ class HomeScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       child: Text(
        title,
-        style: SparkTheme.lightTextTheme.headlineSmall,
+        style: TextStyle(
+            fontSize: 12.sp,
+            color: SparkColors.color10
+        ),
         textAlign: TextAlign.center,
       ),
     );

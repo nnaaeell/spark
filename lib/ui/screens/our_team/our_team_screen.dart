@@ -1,32 +1,72 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:spark/data/models/our_team.dart';
+import 'package:spark/ui/Cubit1/states.dart';
+import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
 import '../../widgets/spark_app_bar.dart';
 
-class OurTeam extends StatelessWidget {
+class OurTeam extends StatefulWidget {
   const OurTeam({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar:buildSparkAppBar(context: context,
-       text: 'Our team'
-      ),
-      body: ListView.separated(
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context,index)=>buildItemOfOurTeam(),
-              separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
-              itemCount: 3)
+  State<OurTeam> createState() => _OurTeamState();
+}
 
+class _OurTeamState extends State<OurTeam> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadScreen();
+  }
+
+  bool showSpinKit=true;
+  _loadScreen() async {
+    // انتظر لمدة ثلاث ثواني
+    await Future.delayed(Duration(seconds: 2));
+
+    // بعد انتهاء الفترة، قم بتحديث حالة العرض لعرض العناصر الأساسية
+    setState(() {
+      showSpinKit = false;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(create:(context)=>Cubit1(),
+    child: BlocConsumer<Cubit1,Cubit1States>(
+      listener: (context,state){},
+      builder: (context,state)=> Scaffold(
+          appBar:buildSparkAppBar(context: context,
+              text: 'Our team'
+          ),
+          body:showSpinKit?Center(child: Column(
+            children: [
+              SizedBox(
+                height: 200,
+              ),
+              SpinKitChasingDots(color:SparkColors.color1,size: 100,),
+            ],
+          )): ListView.separated(
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context,index)=>buildItemOfOurTeam( Cubit1.ourTeamList[index]),
+              separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
+              itemCount: Cubit1.ourTeamList.length)
+
+      ),
+    ),
     );
   }
 
-  Widget buildItemOfOurTeam()=>Padding(
+  Widget buildItemOfOurTeam(Member member)=>Padding(
     padding: EdgeInsets.all(40.0.r),
     child: Container(
       height: 500,
@@ -51,8 +91,7 @@ class OurTeam extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image:DecorationImage(
-                    image: NetworkImage('https://media.istockphoto.com/id/1439425791/nl/foto/digital-technology-software-development-concept-coding-programmer-working-on-laptop-with.jpg?s=2048x2048&w=is&k=20&c=lfOt2EUOtx6vnds-JaffxMsuYsVha5Me09ls7WwdXv0=',
-                    ),
+                    image: AssetImage('assets/for_ourTeam.png'),
                     fit: BoxFit.cover
                 )
             ),
@@ -73,25 +112,23 @@ class OurTeam extends StatelessWidget {
                       SizedBox(
                         height: 60.h,
                       ),
-                      Text('Nael',
+                      Text(member.name!.ar,
                         style: SparkTheme.lightTextTheme.titleMedium,),
                       SparkSizedBox(
                         height: 10,
                       ),
-                      Text('software engineer',
+                      Text(member.memberPposition!.ar,
                         style: SparkTheme.lightTextTheme.titleSmall,),
                       SparkSizedBox(
                         height: 10,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text('From automation to advanced analytics and seamless experiences, we can embed AI in business. We’ll'
-                            ' deliver new operating models and '
-                            'strategic intelligence for smart processes and data-driven decisions.',
+                        child: Text(member.memberDesc!.ar,
                         style: SparkTheme.lightTextTheme.bodyMedium,
                         ),
                       )
-                      
+
                     ],
                   ),
                 ),
@@ -108,7 +145,7 @@ class OurTeam extends StatelessWidget {
                   height:100.h ,
                   width:100.w ,
                   child: CircleAvatar(
-                      child: Image.asset('assets/onboarding1.png')),
+                      backgroundImage:NetworkImage('https://sparkeng.pythonanywhere.com${member.member_picture}')),
                 ),
               )
             ],
