@@ -1,37 +1,47 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/ui/constants/categories_data.dart';
 import 'package:spark/ui/screens/category_details/category_details_screen.dart';
+import 'package:spark/ui/screens/company_services/cubit/company_services_cubit.dart';
+import 'package:spark/ui/screens/company_services/cubit/company_services_states.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
 import '../../navigation/spark_navigator.dart';
 import '../../widgets/spark_app_bar.dart';
-class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
+
+class CompanyServicesScreen extends StatelessWidget {
+  const CompanyServicesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildSparkAppBar(
-        text: "Our Services",
-        context: context,
-      ),
-      body: ListView(
-        primary: true,
-        shrinkWrap: true,
-        children: [
-          SparkSizedBox(height: 3),
-          buildOurServicesImage(),
-          SparkSizedBox(height: 5),
-          buildOurServicesGridView(),
-          SparkSizedBox(height: 35),
-        ],
-      ),
+    var cubit = CompanyServicesCubit.get(context);
+    return BlocConsumer<CompanyServicesCubit,CompanyServicesStates>(
+      listener: (BuildContext context, Object? state) {},
+        builder: (BuildContext context, state) {
+
+          return Scaffold(
+            appBar: buildSparkAppBar(
+              text: "Our Services",
+              context: context,
+            ),
+            body: ListView(
+              primary: true,
+              shrinkWrap: true,
+              children: [
+                SparkSizedBox(height: 3),
+                buildOurServicesImage(),
+                SparkSizedBox(height: 5),
+                buildOurServicesGridView(cubit),
+                SparkSizedBox(height: 35),
+              ],
+            ),
+          );
+        },
+
     );
   }
 
@@ -45,7 +55,7 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 
-  Widget buildOurServicesGridView() {
+  Widget buildOurServicesGridView(CompanyServicesCubit cubit) {
     return GridView.builder(
         padding: EdgeInsets.symmetric(horizontal: 20.r),
         physics: const NeverScrollableScrollPhysics(),
@@ -57,11 +67,11 @@ class CategoriesScreen extends StatelessWidget {
             crossAxisSpacing: 24.w,
             mainAxisSpacing: 18.h,
             mainAxisExtent: 135.h),
-        itemCount: categories.length,
-        itemBuilder: (context, index) => buildServiceCard(index, context));
+        itemCount: cubit.companyServices.length,
+        itemBuilder: (context, index) => buildServiceCard(index, context,cubit));
   }
 
-  Widget buildServiceCard(int index, BuildContext context) {
+  Widget buildServiceCard(int index, BuildContext context,cubit) {
     return InkWell(
       onTap: () {
         navigateTo(
@@ -81,15 +91,15 @@ class CategoriesScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            buildCardImage(index),
-            buildCardTitle(index),
+            buildCardImage(index,cubit),
+            buildCardTitle(index,cubit),
           ],
         ),
       ),
     );
   }
 
-  Widget buildCardImage(int index) {
+  Widget buildCardImage(int index,CompanyServicesCubit cubit) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 48.w, vertical: 15.h),
       child: Container(
@@ -97,16 +107,16 @@ class CategoriesScreen extends StatelessWidget {
         height: 46.h,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(96.r))),
-        child: Image.asset(categories[index].imagePath),
+        child: Image.network("https://sparkeng.pythonanywhere.com/${cubit.companyServices[index].picture!}"),
       ),
     );
   }
 
-  Widget buildCardTitle(int index) {
+  Widget buildCardTitle(int index,CompanyServicesCubit cubit) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       child: Text(
-        categories[index].title,
+        cubit.companyServices[index].name!.english!,
         style: SparkTheme.lightTextTheme.headlineSmall,
         textAlign: TextAlign.center,
       ),
