@@ -5,11 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
-import 'package:spark/ui/screens/categories/categories_screen.dart';
+import 'package:spark/ui/screens/company_services/company_services_screen.dart';
 import 'package:spark/ui/screens/screens.dart';
-import 'package:spark/ui/screens/service_students/service_students_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
-import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 
@@ -42,7 +40,7 @@ class HomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildCard(context,'assets/CompanyServices.png', 'Company Services',const CategoriesScreen()),
+                  buildCard(context,'assets/CompanyServices.png', 'Company Services',const CompanyServicesScreen()),
                   buildCard(context,'assets/StudentsServices.png', 'Students Services', StudentsFlow())
                 ],
               )
@@ -91,7 +89,7 @@ class HomeScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.r)
           ),
           child: Card(
-            color: SparkColors.color1.,
+            color: SparkColors.color1,
             margin: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.r))),

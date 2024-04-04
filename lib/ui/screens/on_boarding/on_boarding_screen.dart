@@ -9,7 +9,7 @@ import 'package:spark/ui/style/color/spark_colors.dart';
 import '../../constants/onboarding_data.dart';
 import '../../style/themes/spark_theme.dart';
 import '../../widgets/widgets.dart';
-import '../categories/categories_screen.dart';
+
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
