@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
@@ -10,6 +11,8 @@ import 'package:spark/ui/screens/screens.dart';
 import 'package:spark/ui/screens/student_home/student_home_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
+import 'package:spark/ui/widgets/drawer.dart';
+import 'package:spark/ui/widgets/spark_botton_for_student_services.dart';
 import 'package:spark/ui/widgets/widgets.dart';
 
 import '../../widgets/spark_button_N.dart';
@@ -29,6 +32,7 @@ class StudentService extends StatelessWidget {
           text: "Students Services",
           context: context,
         ),
+        endDrawer: drawer(context),
         body: ListView(
           children: <Widget>[
             SizedBox(
@@ -36,17 +40,17 @@ class StudentService extends StatelessWidget {
             ),
             ServiceTileIT(
               title: 'Informatics',
-              subtitle: 'Courses & Project',
-              image: 'assets/Informatics.png', // Replace with your asset
+              subtitle: 'Engineering',
+              image: 'assets/informatics_image1.jpg', // Replace with your asset
 
             ),
             SizedBox(
               height: 20,
             ),
             ServiceTileARCH(
-              title: 'Architectural Engineering',
-              subtitle: 'Courses & Project',
-              image: 'assets/Architectural Engineering.png', // Replace with your asset
+              title: 'Architectural ',
+              subtitle: 'Engineering',
+              image: 'assets/architectural_image.jpg', // Replace with your asset
 
             ),
           ],
@@ -75,41 +79,51 @@ class ServiceTileIT extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
-        height: 130*0.94,
+        height: 230*0.94.h,
         width: double.infinity.w,
+
         decoration: BoxDecoration(
+            image: DecorationImage(
+            image: AssetImage(image),
+            fit: BoxFit.cover
+            ),
             color: SparkColors.color5,
             borderRadius: BorderRadius.circular(10)
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageService(image),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title,
-                      style: SparkTheme.lightTextTheme.titleMedium,
+                    SparkSizedBox(
+                      height: 20,
                     ),
-                    Text(title,
-                      style: SparkTheme.lightTextTheme.bodyLarge,
-                    ),
-
+                    text1(title),
+                    text2(subtitle),
+                    Spacer(),
                     Flexible(
-                      child: SparkButtonN(onPressed: (){
-                       if(!StudentService.isSelectedIT){
-                         Cubit1.get(context).getProjectsAndCoursesIT();
-                         StudentService.isSelectedIT=true;
-                         StudentService.isSelectedARCH=false;
-                       }
-                       navigateTo(context,  StudentHomeScreen());
+                      child: Row(
+                        children: [
+                          Spacer(),
+                          SparkButtonForStudentsSrevices(onPressed: (){
+                           if(!StudentService.isSelectedIT){
+                             Cubit1.get(context).getProjectsAndCoursesIT();
+                             StudentService.isSelectedIT=true;
+                             StudentService.isSelectedARCH=false;
+                           }
+                           navigateTo(context,  StudentHomeScreen());
 
-                      },
-                      width: 100,
-                      height: 40,
-                      backgroundColor: SparkColors.color1,
+                          },
+                          width: 130,
+                          height: 40,
+                          backgroundColor:Colors.white,
+                          radius:15 ,
+                          ),
+                        ],
                       ),
                     )
 
@@ -119,27 +133,12 @@ class ServiceTileIT extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         ),
       ),
     );
   }
-  Widget ImageService(String path)=> Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: Container(
-      height:100*094.h ,
-      width: 100*0.86.w,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
 
-          image: DecorationImage(
-              image: AssetImage(path),
-              fit: BoxFit.cover
-          )
-      ) ,
-    ),
-  );
 }
 
 class ServiceTileARCH extends StatelessWidget {
@@ -159,41 +158,51 @@ class ServiceTileARCH extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
-        height: 130*0.94,
+        height: 230*0.94.h,
         width: double.infinity.w,
         decoration: BoxDecoration(
             color: SparkColors.color5,
-            borderRadius: BorderRadius.circular(10)
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              image: AssetImage(image),
+              fit: BoxFit.cover
+          ),
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageService(image),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title,
-                      style: SparkTheme.lightTextTheme.titleMedium,
+                    SparkSizedBox(
+                      height: 20,
                     ),
-                    Text(title,
-                      style: SparkTheme.lightTextTheme.bodyLarge,
-                    ),
-
+                    text1(title),
+                    text2(subtitle),
+                    Spacer(),
                     Flexible(
-                      child: SparkButtonN(onPressed: (){
-                        if( !StudentService.isSelectedARCH){
-                          Cubit1.get(context).getProjectsAndCoursesARCH();
-                          StudentService.isSelectedARCH=true;
-                          StudentService.isSelectedIT=false;
-                        }
-                        navigateTo(context,  StudentHomeScreen());
-                        print(Cubit1.projects.length);
-                      },
-                        width: 100,
-                        height: 40,
-                        backgroundColor: SparkColors.color1,
+                      child: Row(
+                        children: [
+                          Spacer(),
+                          SparkButtonForStudentsSrevices(onPressed: (){
+                            if(!StudentService.isSelectedIT){
+                              Cubit1.get(context).getProjectsAndCoursesIT();
+                              StudentService.isSelectedIT=true;
+                              StudentService.isSelectedARCH=false;
+                            }
+                            navigateTo(context,  StudentHomeScreen());
+
+                          },
+
+                            width: 130,
+                            height: 40,
+                            backgroundColor:Colors.white,
+                            radius:15 ,
+                          ),
+                        ],
                       ),
                     )
 
@@ -203,7 +212,6 @@ class ServiceTileARCH extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         ),
       ),
@@ -225,3 +233,17 @@ class ServiceTileARCH extends StatelessWidget {
       ) ,
   );
 }
+
+Widget text1(String title)=> Text(title,
+  style:GoogleFonts.poppins(
+    fontSize: 35.sp,
+    color: Colors.white
+  )
+);
+
+Widget text2(String title)=> Text(title,
+    style:GoogleFonts.poppins(
+        fontSize: 25.sp,
+        color: Colors.white
+    )
+);

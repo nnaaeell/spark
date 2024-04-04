@@ -1,15 +1,19 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
-import 'package:spark/ui/screens/company_services/company_services_screen.dart';
+import 'package:spark/ui/screens/categories/categories_screen.dart';
 import 'package:spark/ui/screens/screens.dart';
+import 'package:spark/ui/screens/service_students/service_students_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
+import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
+import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -25,23 +29,23 @@ class HomeScreen extends StatelessWidget {
 
             children: <Widget>[
               buildImage(),
+              SparkSizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                    'We offer a wide range of services for both corporates and students. Click below to explore',
+                    'Welcome to the worlds best service platform',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: SparkColors.color1
-                    )
+                    style: SparkTheme.lightTextTheme.headlineLarge
                 ),
               ),
-              SizedBox(height: 60.h),
-              Row(
+              SizedBox(height: 50.h),
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildCard(context,'assets/CompanyServices.png', 'Company Services',const CompanyServicesScreen()),
-                  buildCard(context,'assets/StudentsServices.png', 'Students Services', StudentsFlow())
+                  buildCard(context,'assets/company_services.png', 'Company Services',const CategoriesScreen()),
+                  buildCard(context,'assets/student_services.png', 'Students Services', StudentsFlow())
                 ],
               )
 
@@ -59,10 +63,10 @@ class HomeScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 33.4.r),
       child: SizedBox(
-        height: 290.58.h,
-        width: 290.58.w,
+        height: 100.58.h,
+        width: 100.58.w,
         child: Image(
-          image: AssetImage('assets/spark_logo.png'),
+          image: AssetImage('assets/spark_logo_for_home.png'),
         ),
       ),
     );
