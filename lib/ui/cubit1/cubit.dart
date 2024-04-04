@@ -38,7 +38,6 @@ class Cubit1 extends Cubit<Cubit1States>{
    }).catchError((onError) {
     print(onError.toString());
    });
-
  }
 
   void getProjectsAndCoursesIT(){

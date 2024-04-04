@@ -10,6 +10,7 @@ import 'package:spark/data/models/Student_services.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
+import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
@@ -53,6 +54,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
         text: "Our Services",
         context: context,
       ),
+      endDrawer: drawer(context),
       body: Column(
         children: <Widget>[
           // Segmented control for 'project' and 'Courses'

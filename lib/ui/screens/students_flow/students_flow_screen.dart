@@ -1,8 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/ui/screens/screens.dart';
 import 'package:spark/ui/screens/student_home/student_home_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
+import 'package:spark/ui/style/themes/spark_theme.dart';
+import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_button_N.dart';
 import 'package:spark/ui/widgets/widgets.dart';
@@ -16,16 +19,20 @@ class StudentsFlow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildSparkAppBar(context: context),
+      endDrawer: drawer(context),
       body:Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           buildImage(imagePath: 'assets/grroup learn.png',height: 290.58  ,width: 290.58  ),
           SparkSizedBox(
-            height: 40,
+            height: 60,
           ),
-          buildImage(imagePath: 'assets/Learn with us anywhere with the best experts.png',height:50 ,width:350 ),
+          Padding(
+            padding:  EdgeInsets.only(left: 60.w,right: 40.w),
+            child: buildText(),
+          ),
           SparkSizedBox(
-            height: 80,
+            height: 60,
           ),
           Flexible(
             child: SparkButtonN(onPressed: (){
@@ -51,5 +58,35 @@ class StudentsFlow extends StatelessWidget {
         image: AssetImage(imagePath),
       ),
     ),
+  );
+
+  Widget buildText()=>RichText(
+      text:TextSpan(
+          children: [
+            TextSpan(
+              text: 'Learn with us anywhere with the best',
+
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.w700,
+
+              ),
+            ),
+            TextSpan(
+                text: ' experts',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w600,
+
+                ),
+                recognizer: TapGestureRecognizer()..onTap=(){
+
+                }
+            ),
+
+          ]
+      )
   );
 }
