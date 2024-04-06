@@ -26,6 +26,8 @@ class SparkColors {
 
   static Color color11 = HexColor("#C0C0C0");
 
+  static Color color12= HexColor('#4286A3');
+
 
 
 

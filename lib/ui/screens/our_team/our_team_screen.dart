@@ -41,8 +41,7 @@ class _OurTeamState extends State<OurTeam> {
   }
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create:(context)=>Cubit1(),
-    child: BlocConsumer<Cubit1,Cubit1States>(
+    return BlocConsumer<Cubit1,Cubit1States>(
       listener: (context,state){},
       builder: (context,state)=> Scaffold(
           appBar:buildSparkAppBar(context: context,
@@ -62,7 +61,6 @@ class _OurTeamState extends State<OurTeam> {
               itemCount: Cubit1.ourTeamList.length)
 
       ),
-    ),
     );
   }
 

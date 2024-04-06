@@ -5,9 +5,9 @@ import 'package:spark/data/models/our_team.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:http/http.dart'as http;
 
+
 class Cubit1 extends Cubit<Cubit1States>{
   Cubit1() : super(InitialCubit1State());
-
 
   static Cubit1 get(context) => BlocProvider.of(context);
 
@@ -17,6 +17,7 @@ class Cubit1 extends Cubit<Cubit1States>{
 
  late StudentsServices studentsServices;
  late OurTeam ourTeam;
+
 
   void getProjectsAndCoursesARCH(){
    emit(GetProjectsCoursesStateLoading());

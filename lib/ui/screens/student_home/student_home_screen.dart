@@ -54,7 +54,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
         text: "Our Services",
         context: context,
       ),
-      endDrawer: drawer(context),
+      endDrawer:SparkDrawer(),
       body: Column(
         children: <Widget>[
           // Segmented control for 'project' and 'Courses'
