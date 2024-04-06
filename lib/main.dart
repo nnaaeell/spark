@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spark/ui/screens/company_service_details/cubit/company_service_details_cubit.dart';
 import 'package:spark/ui/screens/company_services/cubit/company_services_cubit.dart';
 import 'package:spark/ui/screens/on_boarding/on_boarding_screen.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
@@ -19,9 +20,9 @@ class Spark extends StatelessWidget {
   const Spark({super.key});
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
+    return MultiBlocProvider(providers: [
     BlocProvider(create: (context) => CompanyServicesCubit()..getCompanyServicesList()),
+    BlocProvider(create: (context) => CompanyServiceDetailsCubit()),
     ],
       child: ScreenUtilInit(
           designSize:  const Size(360.0, 772.0),

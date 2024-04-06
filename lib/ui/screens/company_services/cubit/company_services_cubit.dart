@@ -12,6 +12,7 @@ class CompanyServicesCubit extends Cubit<CompanyServicesStates> {
   List<ServiceModel> companyServices = [];
 
   Future<void> getCompanyServicesList() async {
+    companyServices = [];
     emit(CompanyServicesLoadingState());
     try {
       var response = await DioHelper.getData(

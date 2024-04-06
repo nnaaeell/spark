@@ -11,6 +11,7 @@ export 'service_students/service_students_screen.dart';
 export 'our_team/our_team_screen.dart';
 export 'home/home_screen.dart';
 export 'company_services/company_services_screen.dart';
+export 'company_service_details/company_services_details_screen.dart';
 
 
 

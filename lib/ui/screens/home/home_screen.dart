@@ -6,9 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
-import 'package:spark/ui/screens/categories/categories_screen.dart';
 import 'package:spark/ui/screens/screens.dart';
-import 'package:spark/ui/screens/service_students/service_students_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/drawer.dart';
@@ -44,8 +42,8 @@ class HomeScreen extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildCard(context,'assets/company_services.png', 'Company Services',const CategoriesScreen()),
-                  buildCard(context,'assets/student_services.png', 'Students Services', StudentsFlow())
+                  buildCard(context,'assets/company_services.png', 'Company Services',const CompanyServicesScreen()),
+                  buildCard(context,'assets/student_services.png', 'Students Services', const StudentsFlow())
                 ],
               )
 
