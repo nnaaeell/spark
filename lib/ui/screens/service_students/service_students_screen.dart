@@ -22,8 +22,7 @@ class StudentService extends StatelessWidget {
   static bool isSelectedARCH=false;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create:(context)=>Cubit1(),
-    child: BlocConsumer<Cubit1,Cubit1States>(
+    return BlocConsumer<Cubit1,Cubit1States>(
       listener: (context,state) {
 
       },
@@ -32,7 +31,7 @@ class StudentService extends StatelessWidget {
           text: "Students Services",
           context: context,
         ),
-        endDrawer: drawer(context),
+        endDrawer: SparkDrawer(),
         body: ListView(
           children: <Widget>[
             SizedBox(
@@ -57,7 +56,6 @@ class StudentService extends StatelessWidget {
         ),
       ),
 
-    ),
     );
   }
 }

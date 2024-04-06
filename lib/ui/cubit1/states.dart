@@ -10,3 +10,5 @@ class GetProjectsCoursesStateErorr extends Cubit1States{}
 class GetOurTeamLoading extends Cubit1States{}
 class GetOurTeamSuccess extends Cubit1States{}
 class GetOurTeamErorr extends Cubit1States{}
+
+class ChangeLanguageState extends Cubit1States{}
