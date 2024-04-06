@@ -25,8 +25,7 @@ class Spark extends StatelessWidget {
   const Spark({super.key});
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
+    return MultiBlocProvider(providers: [
     BlocProvider(create: (context) => CompanyServicesCubit()..getCompanyServicesList()),
     BlocProvider(create: (context)=>Cubit1())
     ],
