@@ -18,7 +18,7 @@ class SparkTheme {
     filled: true,
     labelStyle: SparkTheme.lightTextTheme.bodyMedium?.copyWith(color: SparkColors.color11,),
     hintStyle:SparkTheme.lightTextTheme.bodyMedium?.copyWith(color: SparkColors.color11),
-    errorStyle: SparkTheme.lightTextTheme.bodySmall?.copyWith(color: SparkColors.color5),
+    errorStyle: SparkTheme.lightTextTheme.bodySmall?.copyWith(color: Colors.red),
     errorMaxLines: 3,
 
     floatingLabelBehavior: FloatingLabelBehavior.never,

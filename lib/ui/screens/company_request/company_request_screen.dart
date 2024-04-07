@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
+import 'package:spark/ui/screens/company_request/cubit/company_request_states.dart';
 import 'package:spark/ui/screens/request_completed/request_completed_screen.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_text_form_field.dart';
@@ -8,9 +12,10 @@ import '../../../utilities/company_request_validation.dart';
 import '../../style/color/spark_colors.dart';
 import '../../style/themes/spark_theme.dart';
 import '../../widgets/widgets.dart';
+import 'cubit/company_request_cubit.dart';
 
 class CompanyRequestScreen extends StatelessWidget {
-  CompanyRequestScreen({super.key});
+  CompanyRequestScreen({super.key, required this.id});
 
   static TextEditingController fullNameController = TextEditingController();
 
@@ -21,46 +26,57 @@ class CompanyRequestScreen extends StatelessWidget {
   static TextEditingController phoneNumberController = TextEditingController();
 
   static TextEditingController projectDescriptionController =
-      TextEditingController();
+  TextEditingController();
+
+  PhoneNumber? phoneNumber;
 
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  int? id;
   String? emailErrorText;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-      // This will remove the focus from the text field
-      final currentFocus = FocusScope.of(context);
-      if (!currentFocus.hasPrimaryFocus) {
-        currentFocus.unfocus();
-      }
-    },
-    child: Scaffold(
-      appBar: buildSparkAppBar(context: context, text: "Create a request"),
-      body: Form(
-        key: formKey,
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 21.w),
-          children: [
-            SparkSizedBox(height: 22),
-            buildCompanyRequestFullNameTextFormField(),
-            SparkSizedBox(height: 21),
-            buildCompanyRequestEmailTextFormField(),
-            SparkSizedBox(height: 21),
-            buildCompanyRequestCompanyNameTextFormField(),
-            SparkSizedBox(height: 21),
-            buildCompanyRequestPhoneNumberTextFormField(),
-            SparkSizedBox(height: 21),
-            buildCompanyRequestProjectDescriptionTextFormField(),
-            SparkSizedBox(height: 36),
-            buildCompanyRequestButton(context),
-            SparkSizedBox(height: 38),
-          ],
-        ),
-      ),
-    ));
+    var cubit = CompanyRequestCubit.get(context);
+    return BlocConsumer<CompanyRequestCubit,CompanyRequestStates>(
+      listener: (BuildContext context, Object? state) {
+        if(state is CompanyRequestSuccessState)_companyRequestSuccessState(context);
+      },
+      builder: (BuildContext context, state) {
+        return GestureDetector(
+            onTap: () {
+              // This will remove the focus from the text field
+              final currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus) {
+                currentFocus.unfocus();
+              }
+            },
+            child: Scaffold(
+              appBar:
+              buildSparkAppBar(context: context, text: "Create a request"),
+              body: Form(
+                key: formKey,
+                child: ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 21.w),
+                  children: [
+                    SparkSizedBox(height: 22),
+                    buildCompanyRequestFullNameTextFormField(),
+                    SparkSizedBox(height: 21),
+                    buildCompanyRequestEmailTextFormField(),
+                    SparkSizedBox(height: 21),
+                    buildCompanyRequestCompanyNameTextFormField(),
+                    SparkSizedBox(height: 21),
+                    buildCompanyRequestPhoneNumberTextFormField(),
+                    SparkSizedBox(height: 21),
+                    buildCompanyRequestProjectDescriptionTextFormField(),
+                    SparkSizedBox(height: 36),
+                    buildCompanyRequestButton(context,cubit),
+                    SparkSizedBox(height: 38),
+                  ],
+                ),
+              ),
+            ));
+      },
+    );
   }
 
   Widget buildCompanyRequestFullNameTextFormField() {
@@ -100,14 +116,31 @@ class CompanyRequestScreen extends StatelessWidget {
   }
 
   Widget buildCompanyRequestPhoneNumberTextFormField() {
-    return SparkTextFormField(
-      title: "Phone Number",
-      label: "Enter your phone number here",
-      hintText: "E.g. 0988095867",
-      type: TextInputType.phone,
-      controller: phoneNumberController,
-      isPassword: false,
-      validate: validatePhoneNumber,
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Phone Number",
+          style: SparkTheme.lightTextTheme.headlineMedium
+              ?.copyWith(fontSize: 15.sp),
+        ),
+        SparkSizedBox(
+          height: 10,
+        ),
+        IntlPhoneField(
+          decoration: const InputDecoration(
+            labelText: 'Enter your phone number here',
+            hintText: "E.g. 0988095867",
+          ),
+          controller: phoneNumberController,
+          initialCountryCode: 'SY',
+          onChanged: (PhoneNumber phone){
+             phoneNumber=phone;
+          },
+
+        ),
+      ],
     );
   }
 
@@ -115,34 +148,61 @@ class CompanyRequestScreen extends StatelessWidget {
     return SparkTextFormField(
       title: "Project Description",
       hintText:
-          "E.g. I need a mobile application for my company that contains these features....",
+      "E.g. I need a mobile application for my company that contains these features....",
       label: "Tell us more about your project",
       type: TextInputType.name,
       controller: projectDescriptionController,
       isPassword: false,
       validate: validateProjectDescription,
       maxLines: 4,
+
     );
   }
 
-  Widget buildCompanyRequestButton(BuildContext context) {
+  Widget buildCompanyRequestButton(BuildContext context,
+      CompanyRequestCubit cubit) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
         SparkButton(
-          width: 191,
-          height: 41,
-          radius: 7,
-          backgroundColor: SparkColors.color1,
-          text: "Send the request ",
-          textStyle: SparkTheme.lightTextTheme.bodyLarge
-              ?.copyWith(color: SparkColors.color2),
-          onPressed: () {
-            navigateReplace(context, const RequestCompletedScreen());
-          },
-        ),
+            width: 191,
+            height: 41,
+            radius: 7,
+            backgroundColor: SparkColors.color1,
+            text: "Send the request ",
+            textStyle: SparkTheme.lightTextTheme.bodyLarge
+                ?.copyWith(color: SparkColors.color2),
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                print(id.toString());
+                print(fullNameController.text);
+                print(emailController.text);
+                print(companyNameController.text);
+                print(phoneNumber!.completeNumber);
+                print(projectDescriptionController.text);
+                cubit.postCompanyRequest(
+                    id: id!,
+                    fullName: fullNameController.text,
+                    email: emailController.text,
+                    companyName: companyNameController.text,
+                    phoneNumber: phoneNumber!.completeNumber,
+                    description: projectDescriptionController.text);
+              }
+            }),
       ],
     );
+  }
+  void dispose(){
+    fullNameController.clear();
+    emailController.clear();
+    companyNameController.clear();
+    phoneNumberController.clear();
+    projectDescriptionController.clear();
+
+  }
+  void _companyRequestSuccessState(context){
+    navigateReplace(context,const RequestCompletedScreen());
+    dispose();
   }
 }

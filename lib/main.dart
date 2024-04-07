@@ -4,6 +4,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/language.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
+import 'package:spark/ui/screens/company_request/cubit/company_request_cubit.dart';
+import 'package:spark/ui/screens/company_service_details/cubit/company_service_details_cubit.dart';
 import 'package:spark/ui/screens/company_services/cubit/company_services_cubit.dart';
 import 'package:spark/ui/screens/home/home_screen.dart';
 import 'package:spark/ui/screens/on_boarding/on_boarding_screen.dart';
@@ -27,6 +29,8 @@ class Spark extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
     BlocProvider(create: (context) => CompanyServicesCubit()..getCompanyServicesList()),
+    BlocProvider(create: (context) => CompanyServiceDetailsCubit()),
+    BlocProvider(create: (context) => CompanyRequestCubit()),
     BlocProvider(create: (context)=>Cubit1())
     ],
       child: ScreenUtilInit(

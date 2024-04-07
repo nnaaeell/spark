@@ -26,7 +26,7 @@ class CompanyServicesScreen extends StatelessWidget {
           appBar: buildSparkAppBar(
             text: "Our Services", context: context),
           body: buildCompanyServicesBody(state, cubit),
-          endDrawer: drawer(context),
+          endDrawer: const SparkDrawer(),
         );
       },
     );
