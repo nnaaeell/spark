@@ -7,6 +7,7 @@ import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
 import '../../widgets/spark_button.dart';
+import '../screens.dart';
 
 class RequestCompletedScreen extends StatelessWidget {
   const RequestCompletedScreen({super.key});
@@ -53,7 +54,7 @@ class RequestCompletedScreen extends StatelessWidget {
       textStyle: SparkTheme.lightTextTheme.bodyLarge
           ?.copyWith(color: SparkColors.color2),
       onPressed: () {
-        navigateReplace(context, const OnBoardingScreen());
+        navigateReplace(context, HomeScreen());
       },
     );
   }

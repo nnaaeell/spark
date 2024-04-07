@@ -47,7 +47,7 @@ class CompanyServiceDetailsScreen extends StatelessWidget {
             SparkReadMoreText(
                 text: cubit.companyServiceDetails!.description!.english!),
             SparkSizedBox(height: 50),
-            buildCategoryDetailsRequestButton(context),
+            buildCategoryDetailsRequestButton(context,cubit),
             SparkSizedBox(height: 50),
           ],
         ),
@@ -74,7 +74,7 @@ class CompanyServiceDetailsScreen extends StatelessWidget {
         ));
   }
 
-  Widget buildCategoryDetailsRequestButton(BuildContext context) {
+  Widget buildCategoryDetailsRequestButton(BuildContext context,CompanyServiceDetailsCubit cubit) {
     return Row(
       children: [
         const Spacer(),
@@ -87,7 +87,7 @@ class CompanyServiceDetailsScreen extends StatelessWidget {
           textStyle: SparkTheme.lightTextTheme.bodyLarge
               ?.copyWith(color: SparkColors.color2),
           onPressed: () {
-            navigateTo(context, CompanyRequestScreen());
+            navigateTo(context, CompanyRequestScreen(id:cubit.companyServiceDetails!.id));
           },
         ),
         const Spacer()
