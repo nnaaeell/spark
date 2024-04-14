@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spark/ui/constants/constants.dart';
-import 'package:spark/ui/widgets/spark_drop_down_button_form_field.dart';
-
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
+import 'package:spark/ui/screens/student_project_request/cubit/student_project_request_cubit.dart';
+import 'package:spark/ui/screens/student_project_request/cubit/student_project_request_states.dart';
 import '../../../utilities/utilities.dart';
 import '../../navigation/spark_navigator.dart';
 import '../../style/color/spark_colors.dart';
@@ -11,51 +13,64 @@ import '../../widgets/widgets.dart';
 import '../screens.dart';
 
 class StudentProjectRequestScreen extends StatelessWidget {
-  const StudentProjectRequestScreen({super.key});
+  StudentProjectRequestScreen({super.key, required this.id});
 
   static TextEditingController fullNameController = TextEditingController();
 
-  static TextEditingController universityNameController = TextEditingController();
+  static TextEditingController universityNameController =
+      TextEditingController();
 
   static TextEditingController phoneNumberController = TextEditingController();
 
-  static TextEditingController studentProjectDescriptionController = TextEditingController();
+  static TextEditingController studentProjectDescriptionController =
+      TextEditingController();
 
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  PhoneNumber? phoneNumber;
+  int? id;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // This will remove the focus from the text field
-        final currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
+    var cubit = StudentProjectRequestCubit.get(context);
+    return BlocConsumer<StudentProjectRequestCubit,
+        StudentProjectRequestStates>(
+      listener: (BuildContext context, Object? state) {
+        if(state is StudentProjectRequestSuccessState)_studentProjectRequestSuccessState(context);
       },
-      child: Scaffold(
-        appBar: buildSparkAppBar(context: context, text: "Project request"),
-        body: Form(
-          key: formKey,
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 21.w),
-            children: [
-              SparkSizedBox(height: 22),
-              buildStudentProjectRequestFullNameTextFormField(),
-              SparkSizedBox(height: 21),
-              buildStudentProjectRequestUniversityNameTextFormField(),
-              SparkSizedBox(height: 21),
-              buildStudentProjectRequestPhoneNumberTextFormField(),
-              SparkSizedBox(height: 21),
-              buildStudentProjectRequestDescriptionTextFormField(),
-              SparkSizedBox(height: 36),
-              buildStudentProjectRequestButton(context),
-              SparkSizedBox(height: 38),
-            ],
+      builder: (BuildContext context, state) {
+        return GestureDetector(
+          onTap: () {
+            // This will remove the focus from the text field
+            final currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: Scaffold(
+            appBar: buildSparkAppBar(context: context, text: "Project request"),
+            body: Form(
+              key: formKey,
+              child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 21.w),
+                children: [
+                  SparkSizedBox(height: 22),
+                  buildStudentProjectRequestFullNameTextFormField(),
+                  SparkSizedBox(height: 21),
+                  buildStudentProjectRequestUniversityNameTextFormField(),
+                  SparkSizedBox(height: 21),
+                  buildStudentProjectRequestPhoneNumberTextFormField(),
+                  SparkSizedBox(height: 21),
+                  buildStudentProjectRequestDescriptionTextFormField(),
+                  SparkSizedBox(height: 36),
+                  buildStudentProjectRequestButton(context,cubit),
+                  SparkSizedBox(height: 38),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -84,14 +99,29 @@ class StudentProjectRequestScreen extends StatelessWidget {
   }
 
   Widget buildStudentProjectRequestPhoneNumberTextFormField() {
-    return SparkTextFormField(
-      title: "Phone Number",
-      label: "Enter your phone number here",
-      hintText: "E.g. 0988095867",
-      type: TextInputType.phone,
-      controller: phoneNumberController,
-      isPassword: false,
-      validate: validatePhoneNumber,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Phone Number",
+          style: SparkTheme.lightTextTheme.headlineMedium
+              ?.copyWith(fontSize: 15.sp),
+        ),
+        SparkSizedBox(
+          height: 10,
+        ),
+        IntlPhoneField(
+          decoration: const InputDecoration(
+            labelText: 'Enter your phone number here',
+            hintText: "E.g. 0988095867",
+          ),
+          controller: phoneNumberController,
+          initialCountryCode: 'SY',
+          onChanged: (PhoneNumber phone) {
+            phoneNumber = phone;
+          },
+        ),
+      ],
     );
   }
 
@@ -108,7 +138,8 @@ class StudentProjectRequestScreen extends StatelessWidget {
     );
   }
 
-  Widget buildStudentProjectRequestButton(BuildContext context) {
+  Widget buildStudentProjectRequestButton(
+      BuildContext context, StudentProjectRequestCubit cubit) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
@@ -122,14 +153,32 @@ class StudentProjectRequestScreen extends StatelessWidget {
           textStyle: SparkTheme.lightTextTheme.bodyLarge
               ?.copyWith(color: SparkColors.color2),
           onPressed: () {
-            navigateReplace(context, const RequestCompletedScreen());
+            if (formKey.currentState!.validate()) {
+              print(id.toString());
+              print(fullNameController.text);
+              print(universityNameController.text);
+              print(phoneNumber!.completeNumber);
+              print(studentProjectDescriptionController.text);
+              cubit.postStudentProjectRequest(
+                  id: id!,
+                  fullName: fullNameController.text,
+                  universityName: universityNameController.text,
+                  phoneNumber: phoneNumber!.completeNumber,
+                  description: studentProjectDescriptionController.text);
+            }
           },
         ),
       ],
     );
   }
-
-
-
-
+  void dispose(){
+    fullNameController.clear();
+    universityNameController.clear();
+    phoneNumberController.clear();
+    studentProjectDescriptionController.clear();
+  }
+  void _studentProjectRequestSuccessState(context){
+    navigateReplace(context,const RequestCompletedScreen());
+    dispose();
+  }
 }

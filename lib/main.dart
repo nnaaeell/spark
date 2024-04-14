@@ -9,6 +9,10 @@ import 'package:spark/ui/screens/company_service_details/cubit/company_service_d
 import 'package:spark/ui/screens/company_services/cubit/company_services_cubit.dart';
 import 'package:spark/ui/screens/home/home_screen.dart';
 import 'package:spark/ui/screens/on_boarding/on_boarding_screen.dart';
+import 'package:spark/ui/screens/our_projects/cubit/our_projects_cubit.dart';
+import 'package:spark/ui/screens/screens.dart';
+import 'package:spark/ui/screens/student_course_request/cubit/student_course_request_cubit.dart';
+import 'package:spark/ui/screens/student_project_request/cubit/student_project_request_cubit.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/utilities/spark_bloc_observer.dart';
 
@@ -31,6 +35,8 @@ class Spark extends StatelessWidget {
     BlocProvider(create: (context) => CompanyServicesCubit()..getCompanyServicesList()),
     BlocProvider(create: (context) => CompanyServiceDetailsCubit()),
     BlocProvider(create: (context) => CompanyRequestCubit()),
+    BlocProvider(create: (context) => StudentCourseRequestCubit()),
+    BlocProvider(create: (context) => StudentProjectRequestCubit()), BlocProvider(create: (context) => OurProjectsCubit()..getOurProjectsList()),
     BlocProvider(create: (context)=>Cubit1())
     ],
       child: ScreenUtilInit(
@@ -45,7 +51,7 @@ class Spark extends StatelessWidget {
                   title: 'Spark',
                   debugShowCheckedModeBanner: false,
                   theme: SparkTheme.light(),
-                  home:  const OnBoardingScreen ()),
+                  home:    const OnBoardingScreen()),
             );
           }),
     );

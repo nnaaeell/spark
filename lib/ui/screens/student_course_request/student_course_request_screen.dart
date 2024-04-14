@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:spark/ui/constants/constants.dart';
 import 'package:spark/ui/widgets/spark_drop_down_button_form_field.dart';
 
@@ -9,9 +12,11 @@ import '../../style/color/spark_colors.dart';
 import '../../style/themes/spark_theme.dart';
 import '../../widgets/widgets.dart';
 import '../screens.dart';
+import 'cubit/student_course_request_cubit.dart';
+import 'cubit/student_course_request_states.dart';
 
 class StudentCourseRequestScreen extends StatelessWidget {
-  const StudentCourseRequestScreen({super.key});
+   StudentCourseRequestScreen({super.key, required this.id});
 
   static TextEditingController fullNameController = TextEditingController();
 
@@ -21,40 +26,48 @@ class StudentCourseRequestScreen extends StatelessWidget {
 
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  PhoneNumber? phoneNumber;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // This will remove the focus from the text field
-        final currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: Scaffold(
-        appBar: buildSparkAppBar(context: context, text: "Course request"),
-        body: Form(
-          key: formKey,
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 21.w),
-            children: [
-              SparkSizedBox(height: 22),
-              buildStudentCourseRequestFullNameTextFormField(),
-              SparkSizedBox(height: 21),
-              buildStudentCourseRequestAccommodationTextFormField(),
-              SparkSizedBox(height: 21),
-              buildStudentCourseRequestPhoneNumberTextFormField(),
-              SparkSizedBox(height: 21),
-              buildStudentCourseRequestNotesTextFormField(),
-              SparkSizedBox(height: 36),
-              buildStudentCourseRequestButton(context),
-              SparkSizedBox(height: 38),
-            ],
+    var cubit = StudentCourseRequestCubit.get(context);
+    return BlocConsumer<StudentCourseRequestCubit, StudentCourseRequestStates>(
+        listener: (BuildContext context, Object? state) {
+      if (state is StudentCourseRequestSuccessState) {
+        _studentCourseRequestSuccessState(context);
+      }
+    }, builder: (BuildContext context, state) {
+      return GestureDetector(
+        onTap: () {
+          // This will remove the focus from the text field
+          final currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: Scaffold(
+          appBar: buildSparkAppBar(context: context, text: "Course request"),
+          body: Form(
+            key: formKey,
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 21.w),
+              children: [
+                SparkSizedBox(height: 22),
+                buildStudentCourseRequestFullNameTextFormField(),
+                SparkSizedBox(height: 21),
+                buildStudentCourseRequestPhoneNumberTextFormField(),
+                SparkSizedBox(height: 21),
+                buildStudentCourseRequestNotesTextFormField(),
+                SparkSizedBox(height: 36),
+                buildStudentCourseRequestButton(context,cubit),
+                SparkSizedBox(height: 38),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget buildStudentCourseRequestFullNameTextFormField() {
@@ -81,14 +94,29 @@ class StudentCourseRequestScreen extends StatelessWidget {
   }
 
   Widget buildStudentCourseRequestPhoneNumberTextFormField() {
-    return SparkTextFormField(
-      title: "Phone Number",
-      label: "Enter your phone number here",
-      hintText: "E.g. 0988095867",
-      type: TextInputType.phone,
-      controller: phoneNumberController,
-      isPassword: false,
-      validate: validatePhoneNumber,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Phone Number",
+          style: SparkTheme.lightTextTheme.headlineMedium
+              ?.copyWith(fontSize: 15.sp),
+        ),
+        SparkSizedBox(
+          height: 10,
+        ),
+        IntlPhoneField(
+          decoration: const InputDecoration(
+            labelText: 'Enter your phone number here',
+            hintText: "E.g. 0988095867",
+          ),
+          controller: phoneNumberController,
+          initialCountryCode: 'SY',
+          onChanged: (PhoneNumber phone) {
+            phoneNumber = phone;
+          },
+        ),
+      ],
     );
   }
 
@@ -105,7 +133,7 @@ class StudentCourseRequestScreen extends StatelessWidget {
     );
   }
 
-  Widget buildStudentCourseRequestButton(BuildContext context) {
+  Widget buildStudentCourseRequestButton(BuildContext context,StudentCourseRequestCubit cubit) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
@@ -119,12 +147,31 @@ class StudentCourseRequestScreen extends StatelessWidget {
           textStyle: SparkTheme.lightTextTheme.bodyLarge
               ?.copyWith(color: SparkColors.color2),
           onPressed: () {
-            navigateReplace(context, const RequestCompletedScreen());
+            if (formKey.currentState!.validate()) {
+              print(id.toString());
+              print(fullNameController.text);
+              print(phoneNumber!.completeNumber);
+              print(studentNotesController.text);
+              cubit.postStudentCourseRequest(
+                  id: id!,
+                  fullName: fullNameController.text,
+                  phoneNumber: phoneNumber!.completeNumber,
+                  studentNotes: studentNotesController.text,);
+            }
           },
         ),
       ],
     );
   }
 
+  void dispose() {
+    fullNameController.clear();
+    phoneNumberController.clear();
+    studentNotesController.clear();
+  }
 
+  void _studentCourseRequestSuccessState(context) {
+    navigateReplace(context, const RequestCompletedScreen());
+    dispose();
+  }
 }

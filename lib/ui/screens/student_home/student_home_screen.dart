@@ -15,6 +15,10 @@ import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
+import '../../navigation/spark_navigator.dart';
+import '../student_course_request/student_course_request_screen.dart';
+import '../student_project_request/student_project_request_screen.dart';
+
 class StudentHomeScreen extends StatefulWidget {
   const StudentHomeScreen({super.key});
 
@@ -196,13 +200,6 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
 
           child: Container(
             width: 90.w,
-
-            child: TextButton(onPressed:(){},
-                child:Text('GO IT',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                  ),)),
             decoration: BoxDecoration(
                 color: SparkColors.color1,
                 borderRadius: BorderRadius.circular(20),
@@ -215,6 +212,15 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   )
                 ]
             ),
+
+            child: TextButton(onPressed:(){
+              navigateTo(context,StudentProjectRequestScreen(id: project.id));
+            },
+                child:Text('GO IT',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
+                  ),)),
           ),
         ),
         SizedBox(
@@ -236,7 +242,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
            decoration: BoxDecoration(
                borderRadius: BorderRadius.circular(10),
                image: DecorationImage(
-                   image: NetworkImage('https://sparkeng.pythonanywhere${course.image}',
+                   image: NetworkImage('https://sparkeng.pythonanywhere.com${course.image}',
                    ),
                    fit: BoxFit.cover
                )
@@ -268,13 +274,6 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
 
            child: Container(
              width: 90.w,
-
-             child: TextButton(onPressed:(){},
-                 child:Text('GO IT',
-                   style: TextStyle(
-                       color: Colors.white,
-                       fontWeight: FontWeight.bold
-                   ),)),
              decoration: BoxDecoration(
                  color: SparkColors.color1,
                  borderRadius: BorderRadius.circular(20),
@@ -287,6 +286,15 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                    )
                  ]
              ),
+
+             child: TextButton(onPressed:(){
+               navigateTo(context,StudentCourseRequestScreen(id:course.id));
+             },
+                 child:Text('GO IT',
+                   style: TextStyle(
+                       color: Colors.white,
+                       fontWeight: FontWeight.bold
+                   ),)),
            ),
          ),
          SizedBox(
