@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_read_more_text.dart';
@@ -9,6 +11,8 @@ import 'package:spark/ui/widgets/spark_sizedbox.dart';
 import 'package:spark/ui/widgets/spark_images_grid_view.dart';
 
 import '../../style/color/spark_colors.dart';
+import 'cubit/our_projects_cubit.dart';
+import 'cubit/our_projects_states.dart';
 
 class OurProjectsScreen extends StatelessWidget {
   OurProjectsScreen({super.key});
@@ -17,84 +21,98 @@ class OurProjectsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: buildSparkAppBar(context: context, text: "Our Projects"),
-        body: Column(
-          children: [
-            buildOurProjectsScreenListView(),
-            SparkSizedBox(height: 15),
-          ],
-        ));
+    var cubit = OurProjectsCubit.get(context);
+    return BlocConsumer<OurProjectsCubit, OurProjectsStates>(
+        listener: (BuildContext context, Object? state) {},
+        builder: (BuildContext context, state) {
+          return Scaffold(
+              appBar: buildSparkAppBar(context: context, text: "Our Projects"),
+              body: Column(
+                children: [
+                  buildOurProjectsScreenListView(cubit,state),
+                  SparkSizedBox(height: 15),
+                ],
+              ));
+        });
   }
-  Widget buildOurProjectsScreenListView(){
-    return Expanded(
-      child: ListView.separated(
-        itemCount: 4,
-        itemBuilder: (BuildContext context, int index) =>buildProjectItem(),
-        separatorBuilder: (BuildContext context, int index) =>buildProjectDivider(),
+
+  Widget buildOurProjectsScreenListView(OurProjectsCubit cubit,OurProjectsStates state) {
+    if(state is !OurProjectsLoadingState) {
+      return Expanded(
+        child: ListView.separated(
+          itemCount: cubit.ourProjects.length,
+          itemBuilder: (BuildContext context, int index) =>
+              buildProjectItem(index, cubit),
+          separatorBuilder: (BuildContext context, int index) =>
+              buildProjectDivider(),
+        ),
+      );
+    }
+    else {
+    return Center(
+      child: SpinKitChasingDots(
+      color: SparkColors.color1,
+      size: 100,
       ),
     );
+    }
   }
-  Widget buildProjectItem(){
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SparkSizedBox(height: 10),
-          buildProjectTitle(),
-          SparkSizedBox(height: 4),
-          buildProjectCategory(),
-          SparkSizedBox(height: 10),
-          buildProjectDescription(),
-          SparkSizedBox(height: 10),
-          const SparkImagesGridView(),
-          SparkSizedBox(height: 10),
-          buildProjectLink(),
-          SparkSizedBox(height: 10),
-        ]);
+
+  Widget buildProjectItem(int index,OurProjectsCubit cubit) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      SparkSizedBox(height: 30),
+      buildProjectTitle(index,cubit),
+      SparkSizedBox(height: 4),
+      buildProjectCategory(index,cubit),
+      SparkSizedBox(height: 10),
+      buildProjectDescription(index,cubit),
+      SparkSizedBox(height: 10),
+      SparkImagesGridView(project:cubit.ourProjects[index]),
+      SparkSizedBox(height: 10),
+      buildProjectLink(index,cubit),
+      SparkSizedBox(height: 10),
+    ]);
   }
-  Widget buildProjectDivider(){
-     return Container(
+
+  Widget buildProjectDivider() {
+    return Container(
       height: 2.h,
       color: SparkColors.color3,
       margin: EdgeInsets.symmetric(horizontal: 5.w),
     );
   }
 
-  Widget buildProjectTitle(){
+  Widget buildProjectTitle(int index,OurProjectsCubit cubit) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.w),
-      child: Text("Memory App",
+      child: Text(cubit.ourProjects[index].name!.english!,
           style: SparkTheme.lightTextTheme.headlineLarge
-              ?.copyWith(
-              color: SparkColors.color1,
-              fontSize: 25.sp)),
+              ?.copyWith(color: SparkColors.color1, fontSize: 25.sp)),
     );
   }
 
-  Widget buildProjectCategory(){
+  Widget buildProjectCategory(int index,OurProjectsCubit cubit) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 6.w),
-      child: Text("Flutter Application",
+      child: Text(cubit.ourProjects[index].category!.english!,
           style: SparkTheme.lightTextTheme.headlineMedium
-              ?.copyWith(
-              color:
-              SparkColors.color1.withOpacity(0.5))),
+              ?.copyWith(color: SparkColors.color1.withOpacity(0.5))),
     );
   }
 
-  Widget buildProjectDescription(){
-     return SparkReadMoreText(
+  Widget buildProjectDescription(int index,OurProjectsCubit cubit) {
+    return SparkReadMoreText(
       numberOfLines: 4,
       horizontalPadding: 5,
-      text:
-      "Utilizes Tony Buzan's memory techniques for effective recall through reminders. It stores data securely with SQFLite and uses Bloc (Cubit) for app behavior management in Flutter and Dart. Features include timed reminders (24 hours, 1 week, 1 month, 6 months), group creation for organizing content, and favorites, and a quiz feature for quick reviews. Improve your memory effortlessly.",
+      text:cubit.ourProjects[index].description!.english!
     );
   }
-  Widget buildProjectLink(){
+
+  Widget buildProjectLink(int index,OurProjectsCubit cubit) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.w),
       child: Text(
-        "https://MRR.com",
+        cubit.ourProjects[index].link!,
         style: SparkTheme.lightTextTheme.headlineSmall
             ?.copyWith(color: SparkColors.color1),
         textAlign: TextAlign.center,

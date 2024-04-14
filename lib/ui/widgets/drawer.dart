@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/screens/home/home_screen.dart';
+import 'package:spark/ui/screens/our_projects/our_projects_screen.dart';
 import 'package:spark/ui/screens/our_team/our_team_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
@@ -59,7 +60,9 @@ class SparkDrawer extends StatelessWidget {
             line(20),
 
             ListTile(title: Text('Home'),leading: Icon(Icons.home), onTap: () {}),
-            ListTile(title: Text('Our Project'),leading:Icon(Icons.category_outlined), onTap: () {}),
+            ListTile(title: Text('Our Project'),leading:Icon(Icons.category_outlined), onTap: () {
+              navigateTo(context, OurProjectsScreen());
+            }),
             ListTile(title: Text('Our Team'),leading:Icon(Icons.account_circle), onTap: () {
               Cubit1.get(context).getOurTeam();
               navigateTo(context,  OurTeam());

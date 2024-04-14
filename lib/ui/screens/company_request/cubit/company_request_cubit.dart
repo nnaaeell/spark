@@ -37,9 +37,11 @@ class CompanyRequestCubit extends Cubit<CompanyRequestStates> {
       if (response?.statusCode == 201) {
         emit(CompanyRequestSuccessState());
       } else {
+        print(response!.statusCode.toString());
         emit(CompanyRequestErrorState(response!.statusCode.toString()));
       }
     } catch (error) {
+      print(error.toString());
       emit(CompanyRequestErrorState(error.toString()));
     }
   }
