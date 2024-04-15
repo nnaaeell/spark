@@ -38,8 +38,12 @@ String? validateCompanyName(String? value) {
 String? validatePhoneNumber(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter your phone number.';
-  } else if (value.length < 9 || value.length > 10) {
-    return "Please enter valid phone number.";
+  } else if (
+  value.length < 9 ||
+      value.length > 10 ||
+      (value.length == 9 && !value.startsWith("9")) ||
+      (value.length == 10 && !value.startsWith("09"))) {
+    return "Please enter a valid syrian number.";
   }
   return null; // Validation successful
 }
