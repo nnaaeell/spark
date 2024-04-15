@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/language.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
+import 'package:spark/ui/screens/about_us/about_us_screen.dart';
 import 'package:spark/ui/screens/company_request/cubit/company_request_cubit.dart';
 import 'package:spark/ui/screens/company_service_details/cubit/company_service_details_cubit.dart';
 import 'package:spark/ui/screens/company_services/cubit/company_services_cubit.dart';
@@ -20,6 +22,11 @@ void main() async {
   language=curr.languageCode;
   DioHelper.init();
   Bloc.observer = SparkBlocObserver();
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const Spark());
 }
 
@@ -45,7 +52,7 @@ class Spark extends StatelessWidget {
                   title: 'Spark',
                   debugShowCheckedModeBanner: false,
                   theme: SparkTheme.light(),
-                  home:  const OnBoardingScreen ()),
+                  home:  const OnBoardingScreen()),
             );
           }),
     );

@@ -18,8 +18,6 @@ import 'package:spark/ui/widgets/widgets.dart';
 import '../../widgets/spark_button_N.dart';
 
 class StudentService extends StatelessWidget {
-  static bool isSelectedIT=false;
-  static bool isSelectedARCH=false;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Cubit1,Cubit1States>(
@@ -108,11 +106,10 @@ class ServiceTileIT extends StatelessWidget {
                         children: [
                           Spacer(),
                           SparkButtonForStudentsSrevices(onPressed: (){
-                           if(!StudentService.isSelectedIT){
+
                              Cubit1.get(context).getProjectsAndCoursesIT();
-                             StudentService.isSelectedIT=true;
-                             StudentService.isSelectedARCH=false;
-                           }
+                             Cubit1.isARCH=false;
+
                            navigateTo(context,  StudentHomeScreen());
 
                           },
@@ -186,12 +183,10 @@ class ServiceTileARCH extends StatelessWidget {
                         children: [
                           Spacer(),
                           SparkButtonForStudentsSrevices(onPressed: (){
-                            if(!StudentService.isSelectedIT){
-                              Cubit1.get(context).getProjectsAndCoursesIT();
-                              StudentService.isSelectedIT=true;
-                              StudentService.isSelectedARCH=false;
-                            }
-                            navigateTo(context,  StudentHomeScreen());
+
+                              Cubit1.get(context).getProjectsAndCoursesARCH();
+                              Cubit1.isARCH=true;
+                              navigateTo(context,  StudentHomeScreen());
 
                           },
 

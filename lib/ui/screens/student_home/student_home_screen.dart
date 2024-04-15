@@ -1,8 +1,10 @@
 
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -14,6 +16,7 @@ import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
+import 'package:spark/ui/widgets/widgets.dart';
 
 class StudentHomeScreen extends StatefulWidget {
   const StudentHomeScreen({super.key});
@@ -27,22 +30,12 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-
-    _loadScreen();
   }
   // Index for segmented control
    int _selectedIndex = 0;
    bool showSpinKit=true;
 
-   _loadScreen() async {
-     // انتظر لمدة ثلاث ثواني
-     await Future.delayed(Duration(seconds: 2));
 
-     // بعد انتهاء الفترة، قم بتحديث حالة العرض لعرض العناصر الأساسية
-     setState(() {
-       showSpinKit = false;
-     });
-   }
 
 
 
@@ -50,107 +43,139 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height=MediaQuery.of(context).size.height;
+    double width=MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: buildSparkAppBar(
         text: "Our Services",
         context: context,
       ),
       endDrawer:SparkDrawer(),
-      body: Column(
-        children: <Widget>[
-          // Segmented control for 'project' and 'Courses'
-          Padding(
-            padding:  EdgeInsets.all(10.0.r),
-            child: Container(
-              width: 330.w,
-              decoration: BoxDecoration(
-                  color: SparkColors.color1,
-                  borderRadius: BorderRadius.circular(8.r)
+      body: BlocConsumer<Cubit1,Cubit1States>(
+        listener: (context,state){
+          if(state is GetProjectsCoursesStateSuccess){
+            setState(() {
+              showSpinKit=false;
+            });
+          }
+        },
+        builder: (context,state)=>Column(
+          children: <Widget>[
+            // Segmented control for 'project' and 'Courses'
+            Padding(
+              padding:  EdgeInsets.all(10.0.r),
+              child: Container(
 
-              ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding:  EdgeInsets.only(left: 6.w,bottom:6.h,top: 6.h),
-                    child: Container(
-                      width: 150.w,
+                decoration: BoxDecoration(
+                    color: SparkColors.color1,
+                    borderRadius: BorderRadius.circular(8.r)
 
-                      child: TextButton(onPressed:(){
-                        setState(() {
-                          _selectedIndex=0;
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(left: 6.w,bottom:6.h,top: 6.h),
+                      child: Container(
+                        width: 150.w,
+                        child: TextButton(onPressed:(){
+                          setState(() {
+                            _selectedIndex=0;
 
-                        });
-                      },
-                          child:Text('project',
-                            style: TextStyle(
-                                color:_selectedIndex==0? SparkColors.color1:Colors.white,
-                                fontWeight: FontWeight.bold
-                            ),)),
-                      decoration: BoxDecoration(
-                          color:_selectedIndex==0? Colors.white:SparkColors.color1,
-                          borderRadius: BorderRadius.circular(10)
+                          });
+                        },
+                            child:Text('project',
+                              style: TextStyle(
+                                  color:_selectedIndex==0? SparkColors.color1:Colors.white,
+                                  fontWeight: FontWeight.bold
+                              ),)),
+                        decoration: BoxDecoration(
+                            color:_selectedIndex==0? Colors.white:SparkColors.color1,
+                            borderRadius: BorderRadius.circular(10)
+                        ),
                       ),
                     ),
-                  ),
-                  SparkSizedBox(
-                    width: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 6,bottom:6,top: 6),
-                    child: Container(
-                      width: 150.w,
+                    SparkSizedBox(
+                      width: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 6,bottom:6,top: 6),
+                      child: Container(
+                        width: 150.w,
 
-                      child: TextButton(onPressed:(){
-                        setState(() {
-                          _selectedIndex=1;
-                        });
-                      },
-                          child:Text('course',
-                            style: TextStyle(
-                                color:_selectedIndex==0? Colors.white:SparkColors.color1,
-                                fontWeight: FontWeight.bold
-                            ),)),
-                      decoration: BoxDecoration(
-                          color:_selectedIndex==0?SparkColors.color1:Colors.white,
-                          borderRadius: BorderRadius.circular(10)
+                        child: TextButton(onPressed:(){
+                          setState(() {
+                            _selectedIndex=1;
+                          });
+                        },
+                            child:Text('course',
+                              style: TextStyle(
+                                  color:_selectedIndex==0? Colors.white:SparkColors.color1,
+                                  fontWeight: FontWeight.bold
+                              ),)),
+                        decoration: BoxDecoration(
+                            color:_selectedIndex==0?SparkColors.color1:Colors.white,
+                            borderRadius: BorderRadius.circular(10)
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
 
+              ),
             ),
-          ),
 
-         _selectedIndex==0? ProjectsList():CoursesList()
+            _selectedIndex==0? (Cubit1.isARCH?projectsListForARCH():projectsListForIT()):(Cubit1.isARCH?coursesListForARCH():coursesListForIT())
 
 
-          // 'GO IT' button
+            // 'GO IT' button
 
-        ],
-      ),
+          ],
+        ),
+      )
     );
   }
 
 
-  Widget ProjectsList()=>showSpinKit?Center(child: Column(
+  Widget projectsListForIT()=>showSpinKit?Center(child: Column(
     children: [
-      SizedBox(
+      SparkSizedBox(
         height: 200,
       ),
       SpinKitChasingDots(color:SparkColors.color1,size: 100,),
     ],
   ))
       :Flexible(
-    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListP(Cubit1.projects[index]),
+    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListP(Cubit1.projectsForIT[index]),
         separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
-        itemCount: Cubit1.projects.length),
+        itemCount: Cubit1.projectsForIT.length),
   );
 
-  Widget CoursesList()=> Flexible(
-    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListC(Cubit1.courses[index]),
+
+  Widget projectsListForARCH()=>showSpinKit?Center(child: Column(
+    children: [
+      SparkSizedBox(
+        height: 200,
+      ),
+      SpinKitChasingDots(color:SparkColors.color1,size: 100,),
+    ],
+  ))
+      :Flexible(
+    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListP(Cubit1.projectsForARCH[index]),
         separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
-        itemCount: Cubit1.courses.length),
+        itemCount: Cubit1.projectsForARCH.length),
+  );
+
+
+
+  Widget coursesListForIT()=> Flexible(
+    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListC(Cubit1.coursesForIT[index]),
+        separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
+        itemCount: Cubit1.coursesForIT.length),
+  );
+  Widget coursesListForARCH()=> Flexible(
+    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListC(Cubit1.coursesForARCH[index]),
+        separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
+        itemCount: Cubit1.coursesForARCH.length),
   );
 
   Widget buildItemOfTheListP(Project project)=>Padding(
@@ -161,35 +186,38 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
       children: <Widget>[
         Container(
           height:250.h ,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                  image: NetworkImage('https://sparkeng.pythonanywhere.com${project.pictures[0].image}',
-                  ),
-                  fit: BoxFit.cover
-              )
-          ) ,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: FadeInImage(
+              placeholder: AssetImage('assets/temp2.png'),
+              image: CachedNetworkImageProvider('https://sparkeng.pythonanywhere.com${project.pictures[0].image}'
+              ),
+              fit: BoxFit.cover,
+              width: double.infinity,
+            ),
+          ),
+
         ),
         SparkSizedBox(
           height: 10,
         ),// Your image asset
         Text(
-          project.projectField!.ar,
+          project.projectField!.en,
           style: TextStyle(
-              fontSize: 20),
+              fontSize: 16.sp),
         ),
         SparkSizedBox(
           height: 10,
         ),
         Text(
-          project.projectName!.ar,
-          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
+          project.projectName!.en,
+          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 26.sp),
         ),
         SparkSizedBox(
           height: 10,
         ),
         Text(
-         project.projectDesc!.ar,
+         project.projectDesc!.en,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20),
@@ -233,14 +261,17 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
        children: <Widget>[
          Container(
            height:250.h ,
-           decoration: BoxDecoration(
-               borderRadius: BorderRadius.circular(10),
-               image: DecorationImage(
-                   image: NetworkImage('https://sparkeng.pythonanywhere${course.image}',
-                   ),
-                   fit: BoxFit.cover
-               )
-           ) ,
+           child: ClipRRect(
+             borderRadius: BorderRadius.circular(15),
+             child: FadeInImage(
+               placeholder: AssetImage('assets/temp2.png'),
+               image: CachedNetworkImageProvider('https://sparkeng.pythonanywhere.com${course.image}'
+               ),
+               fit: BoxFit.cover,
+               width: double.infinity,
+             ),
+           ),
+
          ),
          SparkSizedBox(
            height: 10,
