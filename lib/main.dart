@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +12,10 @@ import 'package:spark/ui/screens/company_service_details/cubit/company_service_d
 import 'package:spark/ui/screens/company_services/cubit/company_services_cubit.dart';
 import 'package:spark/ui/screens/home/home_screen.dart';
 import 'package:spark/ui/screens/on_boarding/on_boarding_screen.dart';
+import 'package:spark/ui/screens/our_projects/cubit/our_projects_cubit.dart';
+import 'package:spark/ui/screens/screens.dart';
+import 'package:spark/ui/screens/student_course_request/cubit/student_course_request_cubit.dart';
+import 'package:spark/ui/screens/student_project_request/cubit/student_project_request_cubit.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/utilities/spark_bloc_observer.dart';
 
@@ -16,6 +23,7 @@ import 'network/remote/dio_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
   Locale curr=WidgetsBinding.instance.window.locale;
   language=curr.languageCode;
   DioHelper.init();
@@ -53,9 +61,18 @@ class Spark extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   theme: SparkTheme.light(),
                   home:  const OnBoardingScreen()),
-                  home:    const OnBoardingScreen()),
+
             );
           }),
     );
   }
 }
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
+}
+

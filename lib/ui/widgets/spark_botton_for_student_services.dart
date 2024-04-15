@@ -26,8 +26,8 @@ class SparkButtonForStudentsSrevices extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20),
 
       child: Container(
-        width: width.w,
-        height: height.h,
+        width: width*0.4,
+        height: height*0.2,
         child: TextButton(onPressed:onPressed,
             child:Text('Get Started',
               style: TextStyle(

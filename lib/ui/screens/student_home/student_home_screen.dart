@@ -225,7 +225,9 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
           child: Container(
             width: 90.w,
 
-            child: TextButton(onPressed:(){},
+            child: TextButton(onPressed:(){
+
+            },
                 child:Text('GO IT',
                   style: TextStyle(
                       color: Colors.white,

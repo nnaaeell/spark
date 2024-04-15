@@ -20,6 +20,9 @@ import '../../widgets/spark_button_N.dart';
 class StudentService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double height=MediaQuery.of(context).size.height;
+    double width=MediaQuery.of(context).size.width;
+
     return BlocConsumer<Cubit1,Cubit1States>(
       listener: (context,state) {
 
@@ -38,7 +41,10 @@ class StudentService extends StatelessWidget {
             ServiceTileIT(
               title: 'Informatics',
               subtitle: 'Engineering',
-              image: 'assets/informatics_image1.jpg', // Replace with your asset
+              image: 'assets/informatics_image1.jpg',
+              height: height,
+              width: width,
+              // Replace with your asset
 
             ),
             SizedBox(
@@ -47,7 +53,9 @@ class StudentService extends StatelessWidget {
             ServiceTileARCH(
               title: 'Architectural ',
               subtitle: 'Engineering',
-              image: 'assets/architectural_image.jpg', // Replace with your asset
+              image: 'assets/architectural_image.jpg',
+              height: height,
+              width: width,// Replace with your asset
 
             ),
           ],
@@ -62,12 +70,17 @@ class ServiceTileIT extends StatelessWidget {
   final String title;
   final String subtitle;
   final String image;
+  final double height;
+  final double width;
+
 
   const ServiceTileIT({
     Key? key,
     required this.title,
     required this.subtitle,
     required this.image,
+    required this.height,
+    required this.width
   }) : super(key: key);
 
   @override
@@ -75,7 +88,7 @@ class ServiceTileIT extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
-        height: 230*0.94.h,
+        height: height*0.31,
         width: double.infinity.w,
 
         decoration: BoxDecoration(
@@ -113,8 +126,8 @@ class ServiceTileIT extends StatelessWidget {
                            navigateTo(context,  StudentHomeScreen());
 
                           },
-                          width: 130,
-                          height: 40,
+                          width: width,
+                          height: height,
                           backgroundColor:Colors.white,
                           radius:15 ,
                           ),
@@ -140,12 +153,16 @@ class ServiceTileARCH extends StatelessWidget {
   final String title;
   final String subtitle;
   final String image;
+  final double height;
+  final double width;
 
   const ServiceTileARCH({
     Key? key,
     required this.title,
     required this.subtitle,
     required this.image,
+    required this.height,
+    required this.width
   }) : super(key: key);
 
   @override
@@ -190,8 +207,8 @@ class ServiceTileARCH extends StatelessWidget {
 
                           },
 
-                            width: 130,
-                            height: 40,
+                            width: width,
+                            height: height,
                             backgroundColor:Colors.white,
                             radius:15 ,
                           ),
