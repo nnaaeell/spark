@@ -11,8 +11,12 @@ class Cubit1 extends Cubit<Cubit1States>{
 
   static Cubit1 get(context) => BlocProvider.of(context);
 
- static List<Project> projects=[];
- static List<Course> courses=[];
+ static  bool isARCH=false;
+
+ static List<Project> projectsForIT=[];
+ static List<Course> coursesForIT=[];
+  static List<Project> projectsForARCH=[];
+  static List<Course> coursesForARCH=[];
  static List<Member> ourTeamList=[];
 
  late StudentsServices studentsServices;
@@ -30,10 +34,8 @@ class Cubit1 extends Cubit<Cubit1States>{
     var data = jsonDecode(utf8.decode(value.bodyBytes));
     print(data.toString());
     studentsServices = StudentsServices.fromJson(data as Map<String, dynamic>);
-    projects=studentsServices.projects;
-    courses=studentsServices.courses;
-    print(projects.length);
-    print(courses.length);
+    projectsForARCH=studentsServices.projects;
+    coursesForARCH=studentsServices.courses;
     emit(GetProjectsCoursesStateSuccess());
 
    }).catchError((onError) {
@@ -52,10 +54,8 @@ class Cubit1 extends Cubit<Cubit1States>{
     var data = jsonDecode(utf8.decode(value.bodyBytes));
     print(data.toString());
     studentsServices = StudentsServices.fromJson(data as Map<String, dynamic>);
-    projects=studentsServices.projects;
-    courses=studentsServices.courses;
-    print(projects.length);
-    print(courses.length);
+    projectsForIT=studentsServices.projects;
+    coursesForIT=studentsServices.courses;
     emit(GetProjectsCoursesStateSuccess());
 
    }).catchError((onError) {

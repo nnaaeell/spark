@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,10 +23,16 @@ import 'network/remote/dio_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
   Locale curr=WidgetsBinding.instance.window.locale;
   language=curr.languageCode;
   DioHelper.init();
   Bloc.observer = SparkBlocObserver();
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const Spark());
 }
 
@@ -51,9 +60,19 @@ class Spark extends StatelessWidget {
                   title: 'Spark',
                   debugShowCheckedModeBanner: false,
                   theme: SparkTheme.light(),
-                  home:    const OnBoardingScreen()),
+                  home:  const OnBoardingScreen()),
+
             );
           }),
     );
   }
 }
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
+}
+
