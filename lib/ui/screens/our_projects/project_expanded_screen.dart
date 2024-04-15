@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/ui/widgets/widgets.dart';
+import '../../../data/models/company_project_model.dart';
+import '../../../data/models/image_model.dart';
 import '../../style/color/spark_colors.dart';
 import '../../style/themes/spark_theme.dart';
 
 class ProjectExpandedScreen extends StatelessWidget {
-  const ProjectExpandedScreen({super.key});
-
+  ProjectExpandedScreen({super.key,required this.project});
+  CompanyProjectModel project;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildSparkAppBar(context: context,text: "Memory App"),
+      appBar: buildSparkAppBar(context: context,text: project.name!.english!),
       body: ListView(
         children: [
           SparkSizedBox(height: 10,),
-          buildProjectCategory(),
+          buildProjectCategory(project),
           SparkSizedBox(height: 10,),
-          buildProjectDescription(),
+          buildProjectDescription(project),
           SparkSizedBox(height: 10,),
-          buildExpandedPostScreenListView(),
+          buildExpandedPostScreenListView(project),
           SparkSizedBox(height: 10,),
 
         ],
@@ -27,17 +29,17 @@ class ProjectExpandedScreen extends StatelessWidget {
   }
 
 
-  Widget buildProjectCategory(){
+  Widget buildProjectCategory(CompanyProjectModel project){
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.w),
-      child: Text("Flutter Application",
+      child: Text(project.category!.english!,
           style: SparkTheme.lightTextTheme.headlineMedium
               ?.copyWith(
               color:
               SparkColors.color1.withOpacity(0.5))),
     );
   }
-  Widget buildExpandedPostScreenListView(){
+  Widget buildExpandedPostScreenListView(CompanyProjectModel project){
       return ListView.separated(
           physics: const ClampingScrollPhysics(),
           shrinkWrap: true,
@@ -46,7 +48,7 @@ class ProjectExpandedScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 3).r,
               width: 360.w,
               height: 360.h,
-              child: const Image(image: AssetImage("assets/memory_app/17.png"), fit: BoxFit.cover,),
+              child:  Image(image: NetworkImage("https://sparkeng.pythonanywhere.com/${project.pictures![index].image}"), fit: BoxFit.cover,),
             );
 
           },
@@ -60,12 +62,11 @@ class ProjectExpandedScreen extends StatelessWidget {
     }
 
 
-  Widget buildProjectDescription(){
+  Widget buildProjectDescription(CompanyProjectModel project){
     return SparkReadMoreText(
       numberOfLines: 10,
       horizontalPadding: 4,
-      text:
-      "Utilizes Tony Buzan's memory techniques for effective recall through reminders. It stores data securely with SQFLite and uses Bloc (Cubit) for app behavior management in Flutter and Dart. Features include timed reminders (24 hours, 1 week, 1 month, 6 months), group creation for organizing content, and favorites, and a quiz feature for quick reviews. Improve your memory effortlessly.",
+      text:project.description!.english!
     );
   }
 

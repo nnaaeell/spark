@@ -199,7 +199,6 @@ class CompanyRequestScreen extends StatelessWidget {
     companyNameController.clear();
     phoneNumberController.clear();
     projectDescriptionController.clear();
-
   }
   void _companyRequestSuccessState(context){
     navigateReplace(context,const RequestCompletedScreen());

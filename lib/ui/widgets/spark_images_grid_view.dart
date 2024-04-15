@@ -2,27 +2,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spark/data/models/company_project_model.dart';
+import 'package:spark/data/models/image_model.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
 import 'package:spark/ui/screens/our_projects/project_expanded_screen.dart';
+import 'package:spark/ui/screens/screens.dart';
 
+import '../screens/our_projects/cubit/our_projects_cubit.dart';
 import '../style/color/spark_colors.dart';
 import '../style/themes/spark_theme.dart';
 
 class SparkImagesGridView extends StatelessWidget {
-  const SparkImagesGridView({
+   SparkImagesGridView({
     super.key,
+    required this.project
   });
-
+  CompanyProjectModel project;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){navigateTo(context, const ProjectExpandedScreen());},
+      onTap: (){navigateTo(context,  ProjectExpandedScreen(project: project));},
       child: Container(
           margin: EdgeInsets.symmetric(horizontal: 5.w),
           width: 360.w,
           height: 300.h,
-          child:
-              buildMediaGridView(List.generate(6, (index) => buildGridImage()))),
+          child: buildMediaGridView(List.generate(project.pictures!.length,(index) => buildGridImage(project.pictures![index])))),
     );
   }
 
@@ -239,14 +243,14 @@ class SparkImagesGridView extends StatelessWidget {
     ]);
   }
 
-  Widget buildGridImage() {
+  Widget buildGridImage(ImageModel image) {
     return Container(
       width: 360.w,
       height: 360.w,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(
-                "assets/memory_app/17.png",
+              image: NetworkImage(
+                "https://sparkeng.pythonanywhere.com/${image.image}"
               ),
               fit: BoxFit.cover)),
     );
