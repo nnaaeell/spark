@@ -12,6 +12,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:spark/data/models/Student_services.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
+import 'package:spark/ui/navigation/spark_navigator.dart';
+import 'package:spark/ui/screens/student_course_request/student_course_request_screen.dart';
+import 'package:spark/ui/screens/student_project_request/student_project_request_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
@@ -226,7 +229,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
             width: 90.w,
 
             child: TextButton(onPressed:(){
-
+              navigateTo(context,StudentProjectRequestScreen(id: project.id));
             },
                 child:Text('GO IT',
                   style: TextStyle(
@@ -302,7 +305,9 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
            child: Container(
              width: 90.w,
 
-             child: TextButton(onPressed:(){},
+             child: TextButton(onPressed:(){
+               navigateTo(context,StudentCourseRequestScreen(id:course.id));
+             },
                  child:Text('GO IT',
                    style: TextStyle(
                        color: Colors.white,

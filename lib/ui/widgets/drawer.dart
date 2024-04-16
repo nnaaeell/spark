@@ -1,26 +1,27 @@
 
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:getwidget/components/button/gf_button.dart';
-import 'package:getwidget/shape/gf_button_shape.dart';
-import 'package:getwidget/size/gf_size.dart';
-import 'package:intl/intl.dart';
+
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
-import 'package:spark/ui/screens/home/home_screen.dart';
+import 'package:spark/ui/screens/about_us/about_us_screen.dart';
 import 'package:spark/ui/screens/our_projects/our_projects_screen.dart';
 import 'package:spark/ui/screens/our_team/our_team_screen.dart';
-import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
 import '../navigation/spark_navigator.dart';
 
-class SparkDrawer extends StatelessWidget {
+class SparkDrawer extends StatefulWidget {
   const SparkDrawer({super.key});
 
+  @override
+  State<SparkDrawer> createState() => _SparkDrawerState();
+}
+
+class _SparkDrawerState extends State<SparkDrawer> {
   @override
   Widget build(BuildContext context) {
     return  BlocConsumer<Cubit1,Cubit1States>(
@@ -67,7 +68,10 @@ class SparkDrawer extends StatelessWidget {
               Cubit1.get(context).getOurTeam();
               navigateTo(context,  OurTeam());
             }),
-            ListTile(title: Text('About Us'),leading: Icon(Icons.announcement_outlined), onTap :(){}),
+            ListTile(title: Text('About Us'),leading: Icon(Icons.announcement_outlined), onTap :(){
+
+              navigateTo(context,AboutUs());
+            }),
             line(20),
 
           ],
