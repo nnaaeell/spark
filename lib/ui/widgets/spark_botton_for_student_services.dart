@@ -27,7 +27,7 @@ class SparkButtonForStudentsSrevices extends StatelessWidget {
 
       child: Container(
         width: width*0.4,
-        height: height*0.2,
+        height: height*0.06,
         child: TextButton(onPressed:onPressed,
             child:Text('Get Started',
               style: TextStyle(

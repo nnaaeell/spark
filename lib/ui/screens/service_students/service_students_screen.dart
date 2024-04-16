@@ -108,12 +108,14 @@ class ServiceTileIT extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SparkSizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: height*0.01,
                     ),
                     text1(title),
                     text2(subtitle),
-                    Spacer(),
+                    SizedBox(
+                      height: height*0.02,
+                    ),
                     Flexible(
                       child: Row(
                         children: [
@@ -170,7 +172,7 @@ class ServiceTileARCH extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
-        height: 230*0.94.h,
+        height: height*0.31,
         width: double.infinity.w,
         decoration: BoxDecoration(
             color: SparkColors.color5,
@@ -189,12 +191,14 @@ class ServiceTileARCH extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SparkSizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: height*0.01,
                     ),
                     text1(title),
                     text2(subtitle),
-                    Spacer(),
+                    SizedBox(
+                      height: height*0.02,
+                    ),
                     Flexible(
                       child: Row(
                         children: [
