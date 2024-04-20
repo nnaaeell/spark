@@ -33,7 +33,7 @@ class SparkReadMoreText extends StatelessWidget {
         textAlign: TextAlign.left,
         textScaleFactor: 1.r,
         style: SparkTheme.lightTextTheme.bodyLarge?.copyWith(height: 2.0.h,fontSize:14.sp,color: SparkColors.color8),
-        colorClickableText: SparkColors.color3,
+        colorClickableText: SparkColors.color1,
         trimMode: TrimMode.Line,
         trimCollapsedText: 'Show more',
         trimExpandedText: ' Show less',
