@@ -53,7 +53,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
         text: "Our Services",
         context: context,
       ),
-      endDrawer:SparkDrawer(),
+      endDrawer:SparkDrawer(height: height,width: width,),
       body: BlocConsumer<Cubit1,Cubit1States>(
         listener: (context,state){
           if(state is GetProjectsCoursesStateSuccess){

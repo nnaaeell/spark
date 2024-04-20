@@ -13,14 +13,14 @@ import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
 import '../../widgets/spark_app_bar.dart';
 
-class OurTeam extends StatefulWidget {
-  const OurTeam({super.key});
+class Team extends StatefulWidget {
+  const Team({super.key});
 
   @override
-  State<OurTeam> createState() => _OurTeamState();
+  State<Team> createState() => _TeamState();
 }
 
-class _OurTeamState extends State<OurTeam> {
+class _TeamState extends State<Team> {
 
   @override
   void initState() {
