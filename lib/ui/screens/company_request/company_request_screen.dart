@@ -181,7 +181,7 @@ class CompanyRequestScreen extends StatelessWidget {
             textStyle: SparkTheme.lightTextTheme.bodyLarge
                 ?.copyWith(color: SparkColors.color2),
             onPressed: () {
-              if (formKey.currentState!.validate()&&phoneNumber!.isValidNumber()&&phoneNumber!.completeNumber.length!=0) {
+              if (formKey.currentState!.validate()) {
                 print(id.toString());
                 print(fullNameController.text);
                 print(emailController.text);
@@ -194,7 +194,7 @@ class CompanyRequestScreen extends StatelessWidget {
                     email: emailController.text,
                     companyName: companyNameController.text,
                     phoneNumber: phoneNumber!.completeNumber,
-                    description: projectDescriptionController.text);
+                    description: (projectDescriptionController.text.isNotEmpty)?projectDescriptionController.text:"Empty Description");
               }
             }),
       ],

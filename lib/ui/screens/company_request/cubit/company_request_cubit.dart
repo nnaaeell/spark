@@ -26,7 +26,7 @@ class CompanyRequestCubit extends Cubit<CompanyRequestStates> {
         "email": email,
         "phone": phoneNumber,
         "desc": description,
-        "service_name": id
+        "service": id
     },);
     emit(CompanyRequestLoadingState());
     try {
