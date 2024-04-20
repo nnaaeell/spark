@@ -32,7 +32,7 @@ class StudentService extends StatelessWidget {
           text: "Students Services",
           context: context,
         ),
-        endDrawer: SparkDrawer(),
+        endDrawer: SparkDrawer(width: width,height: height,),
         body: ListView(
           children: <Widget>[
             SizedBox(

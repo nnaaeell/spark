@@ -18,15 +18,20 @@ class CompanyServicesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double height=MediaQuery.of(context).size.height;
+    double width=MediaQuery.of(context).size.width;
+
     var cubit = CompanyServicesCubit.get(context);
     return BlocConsumer<CompanyServicesCubit, CompanyServicesStates>(
       listener: (BuildContext context, Object? state) {},
       builder: (BuildContext context, state) {
         return Scaffold(
+          endDrawer:  SparkDrawer(width:width,height: height,),
           appBar: buildSparkAppBar(
             text: "Our Services", context: context),
           body: buildCompanyServicesBody(state, cubit),
-          endDrawer: const SparkDrawer(),
+
         );
       },
     );

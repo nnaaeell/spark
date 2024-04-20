@@ -31,28 +31,24 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<Cubit1,Cubit1States>(
       builder: (BuildContext context, Cubit1States state)=>Scaffold(
 
-        endDrawer: SparkDrawer(),
+        endDrawer: SparkDrawer(height: height,width: width,),
         body:Stack(
           children: [
-            buildBackground(height),
-            Column(
-              children: [
-                buildLogo(width,height),
-
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                 SizedBox(
-                   height: height*0.26,
-                 ),
-                  buildTextSpark(width,height)
-                ],
-              ),
-            ),
+            buildBackground(height,width),
+            // Container(
+            //   width: double.infinity,
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //     SizedBox(
+            //       height:height*0.03 ,
+            //     )  ,
+            //     buildTextAndLogo(width, height)
+            //
+            //     ],
+            //   ),
+            // ),
+       
             Column(
               children: [
                 SizedBox(
@@ -78,7 +74,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildBackground(height)=>Container(
+  Widget buildBackground(height,width)=>Container(
     height:height*0.4 ,
     decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -91,25 +87,18 @@ class HomeScreen extends StatelessWidget {
         )
 
     ),
+    child: Center(child: buildTextAndLogo(width, height)),
   );
 
-  Widget buildLogo(width,height)=>Container(
-    width: width*0.7,
-    height: height*0.66,
+  Widget buildTextAndLogo(width,height)=>Container(
+    width: width*0.8,
+    height: height*0.70,
     child: Image(
-      image:AssetImage('assets/spark_logo_home.png',
+      image:AssetImage('assets/text_and_logo.png',
         ),
     ),
   );
-
-  Widget buildTextSpark(width,height)=>Padding(
-    padding:  EdgeInsets.only(right: width*0.15),
-    child: Image(
-        image:AssetImage('assets/spark_text.png'),
-        width: width*0.35,
-        height: height*0.15,
-    ),
-  );
+  
 
   Widget buildCard(BuildContext context, String image,String title,Widget w) {
     return Padding(
