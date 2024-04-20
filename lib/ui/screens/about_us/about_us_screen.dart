@@ -56,7 +56,7 @@ class AboutUs extends StatelessWidget {
       height: height*0.30,
       width: double.infinity,
       decoration: BoxDecoration(
-        color:SparkColors.colorForAboutUs,
+        color:SparkColors.color1,
         borderRadius: BorderRadius.circular(15)
       ),
       child: Column(
@@ -69,7 +69,7 @@ class AboutUs extends StatelessWidget {
           style: TextStyle(
             fontSize: 13.sp,
             fontWeight: FontWeight.bold,
-            color: Colors.grey.shade700
+            color: Colors.white
           )),
           SizedBox(
             height: height*0.02,
@@ -83,9 +83,9 @@ class AboutUs extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 icon(context, height,width, 'assets/facebook.svg'),
-                icon(context, height,width, 'assets/in.svg'),
+                icon(context, height,width, 'assets/whatsApp.svg'),
                 icon(context, height,width, 'assets/instagram.svg'),
-                icon(context, height,width, 'assets/whatsApp.svg')
+                icon(context, height,width, 'assets/in.svg'),
               ],
             ),
           )
@@ -100,10 +100,10 @@ class AboutUs extends StatelessWidget {
   Widget part2(double height,double width)=>Padding(
     padding: const EdgeInsets.all(15),
     child: Container(
-      height: height*0.6,
+      height: height*0.5,
       width: double.infinity,
       decoration: BoxDecoration(
-          color:SparkColors.colorForAboutUs,
+          color:SparkColors.color1,
           borderRadius: BorderRadius.circular(15.r)
       ),
       child: Column(
@@ -113,7 +113,12 @@ class AboutUs extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text('Description',
-            style: SparkTheme.lightTextTheme.headlineSmall,),
+            style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+            ),
+            ),
           ),
           Flexible(
             child: Padding(
@@ -121,8 +126,7 @@ class AboutUs extends StatelessWidget {
               child: Text('As a UX designer, I specialize in crafting seamless user experiences that align with your brand and resonate with your audience. My services encompass comprehensive user research, wireframing, prototyping, and interface design. I focus on understanding user behaviors, pain points, and preferences to create intuitive and engaging digital products. Whether its improving existing interfaces or creating new ones from scratch, I ensure designs that are user-centric, visually appealing, and optimized for usability across devices and platforms',
                 style: TextStyle(
                     fontSize: 12.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade700
+                    color: Colors.grey.shade300
                 )
               ),
             ),
@@ -139,7 +143,7 @@ class AboutUs extends StatelessWidget {
     width: width*0.25,
     decoration: BoxDecoration(
       image: DecorationImage(
-        image:  AssetImage('assets/textSpark.png'),
+        image:  AssetImage('assets/spark_text_for_drawer.png'),
       )
    ),
 
@@ -151,7 +155,7 @@ class AboutUs extends StatelessWidget {
     decoration: BoxDecoration(
       shape: BoxShape.circle,
           image:DecorationImage(
-        image: AssetImage('assets/spark_logo_for_aboutUs.png')
+        image: AssetImage('assets/logo_for_about_us.png')
     )
     ),
   );
@@ -167,6 +171,7 @@ class AboutUs extends StatelessWidget {
   Widget icon(context,double height,double width,String path)=>IconButton(
     padding: EdgeInsets.only(top: 5.h,right: 10.w),
     icon: SvgPicture.asset(path,
+      color: Colors.white,
       height: height*0.035,
       width: width*0.035,
 

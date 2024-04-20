@@ -19,6 +19,8 @@ class StudentsFlow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height=MediaQuery.of(context).size.height;
+    double width=MediaQuery.of(context).size.width;
 
     return BlocConsumer<Cubit1,Cubit1States>(
       listener: (context,state){
@@ -26,7 +28,7 @@ class StudentsFlow extends StatelessWidget {
       },
       builder: (context,state)=>Scaffold(
         appBar: buildSparkAppBar(context: context),
-        endDrawer: SparkDrawer(),
+        endDrawer:SparkDrawer(width: width,height: height,),
         body:Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
