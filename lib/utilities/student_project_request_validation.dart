@@ -5,9 +5,9 @@ String? validateUniversityName(String? value) {
   return null;
 }
 String? validateStudentProjectDescription(String? value) {
-  if (value == null || value.isEmpty) {
+  /*if (value == null || value.isEmpty) {
     return 'Please enter your project description.';
-  }
+  }*/
  /* if(value.length<=50){
     return "Your description is too short ! ";
   }

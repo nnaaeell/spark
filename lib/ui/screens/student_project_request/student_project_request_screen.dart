@@ -120,6 +120,7 @@ class StudentProjectRequestScreen extends StatelessWidget {
           onChanged: (PhoneNumber phone) {
             phoneNumber = phone;
           },
+
         ),
       ],
     );
@@ -164,7 +165,7 @@ class StudentProjectRequestScreen extends StatelessWidget {
                   fullName: fullNameController.text,
                   universityName: universityNameController.text,
                   phoneNumber: phoneNumber!.completeNumber,
-                  description: studentProjectDescriptionController.text);
+                  description: (studentProjectDescriptionController.text.isNotEmpty)?studentProjectDescriptionController.text:"Empty Description");
             }
           },
         ),
