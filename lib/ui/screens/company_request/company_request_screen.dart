@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
@@ -133,11 +136,15 @@ class CompanyRequestScreen extends StatelessWidget {
             labelText: 'Enter your phone number here',
             hintText: "E.g. 0988095867",
           ),
+          autovalidateMode: AutovalidateMode.disabled,
           controller: phoneNumberController,
+          validator: validatePhoneNumber,
+          //disableLengthCheck: true,
           initialCountryCode: 'SY',
           onChanged: (PhoneNumber phone){
              phoneNumber=phone;
           },
+
 
         ),
       ],
@@ -174,7 +181,7 @@ class CompanyRequestScreen extends StatelessWidget {
             textStyle: SparkTheme.lightTextTheme.bodyLarge
                 ?.copyWith(color: SparkColors.color2),
             onPressed: () {
-              if (formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()&&phoneNumber!.isValidNumber()&&phoneNumber!.completeNumber.length!=0) {
                 print(id.toString());
                 print(fullNameController.text);
                 print(emailController.text);

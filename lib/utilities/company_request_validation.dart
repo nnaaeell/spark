@@ -1,3 +1,6 @@
+import 'package:intl_phone_field/helpers.dart';
+import 'package:intl_phone_field/phone_number.dart';
+
 String? validateFullName(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please enter your full name.';
@@ -35,14 +38,15 @@ String? validateCompanyName(String? value) {
   return null;
 }
 
-String? validatePhoneNumber(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Please enter your phone number.';
-  } else if (
-  value.length < 9 ||
-      value.length > 10 ||
-      (value.length == 9 && !value.startsWith("9")) ||
-      (value.length == 10 && !value.startsWith("09"))) {
+String? validatePhoneNumber(PhoneNumber? phoneNumber) {
+    if (phoneNumber == null || !isNumeric(phoneNumber.number)) {
+      return 'Please enter a valid phone number.';
+    }
+    else if ((phoneNumber.countryCode=="SY")&&(
+      phoneNumber.number.length < 9 ||
+      phoneNumber.number.length > 10 ||
+      (phoneNumber.number.length == 9 && !phoneNumber.number.startsWith("9")) ||
+      (phoneNumber.number.length == 10 && !phoneNumber.number.startsWith("09")))) {
     return "Please enter a valid syrian number.";
   }
   return null; // Validation successful
