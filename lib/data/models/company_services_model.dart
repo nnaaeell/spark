@@ -19,7 +19,7 @@ class ServiceModel {
 
   factory ServiceModel.fromJson(Map<String, dynamic> json) {
     return ServiceModel(
-      id: json["pk"] ?? -1,
+      id: json["id"] ?? -1,
       name: (json["service_name"] != null)
           ? MultipleLanguageElement.fromJson(json["service_name"])
           : null,

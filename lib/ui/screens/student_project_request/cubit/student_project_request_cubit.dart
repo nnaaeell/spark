@@ -23,7 +23,7 @@ class StudentProjectRequestCubit extends Cubit<StudentProjectRequestStates> {
         "university_name": universityName,
         "phone": phoneNumber,
         "desc": description,
-        "project_id": id
+        "project": id
     },);
     emit(StudentProjectRequestLoadingState());
     try {

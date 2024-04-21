@@ -21,7 +21,7 @@ class StudentCourseRequestCubit extends Cubit<StudentCourseRequestStates> {
         "name": fullName,
         "phone": phoneNumber,
         "desc": studentNotes,
-        "course_name": id
+        "course": id
     },);
     emit(StudentCourseRequestLoadingState());
     try {
