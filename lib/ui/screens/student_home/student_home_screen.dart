@@ -108,6 +108,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                         child: TextButton(onPressed:(){
                           setState(() {
                             _selectedIndex=1;
+
                           });
                         },
                             child:Text('course',
@@ -127,7 +128,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               ),
             ),
 
-            _selectedIndex==0? (Cubit1.isARCH?projectsListForARCH():projectsListForIT()):(Cubit1.isARCH?coursesListForARCH():coursesListForIT())
+            _selectedIndex==0? projectsList():coursesList()
 
 
             // 'GO IT' button
@@ -139,7 +140,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
   }
 
 
-  Widget projectsListForIT()=>showSpinKit?Center(child: Column(
+  Widget projectsList()=>showSpinKit?Center(child: Column(
     children: [
       SparkSizedBox(
         height: 200,
@@ -148,38 +149,19 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
     ],
   ))
       :Flexible(
-    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListP(Cubit1.projectsForIT[index]),
+    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListP(Cubit1.projects[index]),
         separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
-        itemCount: Cubit1.projectsForIT.length),
-  );
-
-
-  Widget projectsListForARCH()=>showSpinKit?Center(child: Column(
-    children: [
-      SparkSizedBox(
-        height: 200,
-      ),
-      SpinKitChasingDots(color:SparkColors.color1,size: 100,),
-    ],
-  ))
-      :Flexible(
-    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListP(Cubit1.projectsForARCH[index]),
-        separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
-        itemCount: Cubit1.projectsForARCH.length),
+        itemCount: Cubit1.projects.length),
   );
 
 
 
-  Widget coursesListForIT()=> Flexible(
-    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListC(Cubit1.coursesForIT[index]),
+  Widget coursesList()=> Flexible(
+    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListC(Cubit1.courses[index]),
         separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
-        itemCount: Cubit1.coursesForIT.length),
+        itemCount: Cubit1.courses.length),
   );
-  Widget coursesListForARCH()=> Flexible(
-    child: ListView.separated(itemBuilder: (context,index)=>buildItemOfTheListC(Cubit1.coursesForARCH[index]),
-        separatorBuilder:(context,index)=>SizedBox(height: 20.h,),
-        itemCount: Cubit1.coursesForARCH.length),
-  );
+
 
   Widget buildItemOfTheListP(Project project)=>Padding(
 

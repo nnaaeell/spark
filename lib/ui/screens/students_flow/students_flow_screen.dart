@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/screens/screens.dart';
+import 'package:spark/ui/screens/service_students/cubit/cubit.dart';
+import 'package:spark/ui/screens/service_students/cubit/states.dart';
 import 'package:spark/ui/screens/service_students/service_students_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/widgets/drawer.dart';
@@ -22,7 +24,7 @@ class StudentsFlow extends StatelessWidget {
     double height=MediaQuery.of(context).size.height;
     double width=MediaQuery.of(context).size.width;
 
-    return BlocConsumer<Cubit1,Cubit1States>(
+    return BlocConsumer<CubitSections,SectionsStates>(
       listener: (context,state){
 
       },
@@ -45,6 +47,7 @@ class StudentsFlow extends StatelessWidget {
             ),
             Flexible(
               child: SparkButtonN(onPressed: (){
+                CubitSections.get(context).getSections();
                 navigateTo(context,  StudentService());
               },
                 width: 150,

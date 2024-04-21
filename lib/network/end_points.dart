@@ -1,7 +1,7 @@
 
 const COMPANYSERVICES='service_list';
 
-const COMPANYPROJECTS='companyproject_list';
+const COMPANYPROJECTS='our_projects/';
 
 const SERVICEDETAILS='service';
 

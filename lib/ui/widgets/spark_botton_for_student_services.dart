@@ -31,7 +31,7 @@ class SparkButtonForStudentsSrevices extends StatelessWidget {
         child: TextButton(onPressed:onPressed,
             child:Text('Get Started',
               style: TextStyle(
-                  color: SparkColors.color1,
+                  color:Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 12.sp
               ),)),
@@ -43,7 +43,7 @@ class SparkButtonForStudentsSrevices extends StatelessWidget {
                   color: Colors.white,
                   spreadRadius: 0.2,
                   blurRadius: 1,
-                  offset: Offset(0.6, 0.5)
+                  offset: Offset(0.3, 0.2)
               )
             ]
         ),

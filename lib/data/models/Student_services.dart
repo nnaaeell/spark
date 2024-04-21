@@ -81,7 +81,7 @@ class Course{
   Teacher? teacher;
 
   Course.fromJson(Map<String,dynamic>json){
-    id=json['id'];
+    id=json['pk'];
     image=json['image'];
     name=Name.fromJson(json['name']);
     desc=Desc.fromJson(json['desc']);

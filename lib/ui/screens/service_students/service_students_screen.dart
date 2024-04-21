@@ -1,13 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:spark/data/models/sections.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
 import 'package:spark/ui/screens/screens.dart';
+import 'package:spark/ui/screens/service_students/cubit/cubit.dart';
+import 'package:spark/ui/screens/service_students/cubit/states.dart';
 import 'package:spark/ui/screens/student_home/student_home_screen.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
@@ -17,15 +22,26 @@ import 'package:spark/ui/widgets/widgets.dart';
 
 import '../../widgets/spark_button_N.dart';
 
-class StudentService extends StatelessWidget {
+class StudentService extends StatefulWidget {
+  @override
+  State<StudentService> createState() => _StudentServiceState();
+}
+
+class _StudentServiceState extends State<StudentService> {
+  bool showSpinKit=true;
+
   @override
   Widget build(BuildContext context) {
     double height=MediaQuery.of(context).size.height;
     double width=MediaQuery.of(context).size.width;
 
-    return BlocConsumer<Cubit1,Cubit1States>(
+    return BlocConsumer<CubitSections,SectionsStates>(
       listener: (context,state) {
-
+       if(state is GetSectionsSuccess){
+         setState(() {
+           showSpinKit=false;
+         });
+       }
       },
       builder: (context,state)=>Scaffold(
         appBar: buildSparkAppBar(
@@ -33,231 +49,105 @@ class StudentService extends StatelessWidget {
           context: context,
         ),
         endDrawer: SparkDrawer(width: width,height: height,),
-        body: ListView(
-          children: <Widget>[
+        body:showSpinKit?Center(child: Column(
+          children: [
             SizedBox(
-              height: 70*0.94,
+              height: 200,
             ),
-            ServiceTileIT(
-              title: 'Informatics',
-              subtitle: 'Engineering',
-              image: 'assets/informatics_image1.jpg',
-              height: height,
-              width: width,
-              // Replace with your asset
-
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ServiceTileARCH(
-              title: 'Architectural ',
-              subtitle: 'Engineering',
-              image: 'assets/architectural_image.jpg',
-              height: height,
-              width: width,// Replace with your asset
-
-            ),
+            SpinKitChasingDots(color:SparkColors.color1,size: 100,),
           ],
-        ),
+        )):
+        ListView.separated(itemBuilder:(context,index)=>buildServiceCard(width, height, CubitSections.section_list_for_cubit[index]) ,
+            separatorBuilder:(context,index)=>SizedBox(height: 20.h,) ,
+            itemCount:CubitSections.section_list_for_cubit.length)
       ),
 
     );
   }
 }
 
-class ServiceTileIT extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String image;
-  final double height;
-  final double width;
-
-
-  const ServiceTileIT({
-    Key? key,
-    required this.title,
-    required this.subtitle,
-    required this.image,
-    required this.height,
-    required this.width
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
+Widget buildServiceCard(double width,double height,Section section)=> BlocConsumer<Cubit1,Cubit1States>(
+    builder: (context,state)=>Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
         height: height*0.31,
         width: double.infinity.w,
-
-        decoration: BoxDecoration(
-            image: DecorationImage(
-            image: AssetImage(image),
-            fit: BoxFit.cover
-            ),
-            color: SparkColors.color5,
-            borderRadius: BorderRadius.circular(10)
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: height*0.01,
-                    ),
-                    text1(title),
-                    text2(subtitle),
-                    SizedBox(
-                      height: height*0.02,
-                    ),
-                    Flexible(
-                      child: Row(
-                        children: [
-                          Spacer(),
-                          SparkButtonForStudentsSrevices(onPressed: (){
-
-                             Cubit1.get(context).getProjectsAndCoursesIT();
-                             Cubit1.isARCH=false;
-
-                           navigateTo(context,  StudentHomeScreen());
-
-                          },
-                          width: width,
-                          height: height,
-                          backgroundColor:Colors.white,
-                          radius:15 ,
-                          ),
-                        ],
-                      ),
-                    )
-
-
-
-                  ],
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: FadeInImage(
+                placeholder: AssetImage('assets/temp2.png'),
+                image: CachedNetworkImageProvider('https://sparkeng.pythonanywhere.com${section.section_image}'
                 ),
+                fit: BoxFit.cover,
+                width: double.infinity,
               ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: height*0.01,
+                        ),
+                        text1(section.section_name),
+                        text2('engineering'),
+                        SizedBox(
+                          height: height*0.04,
+                        ),
+                        Flexible(
+                          child: Row(
+                            children: [
+                              Spacer(),
+                              SparkButtonForStudentsSrevices(onPressed: (){
+                                print(section.id);
+                                Cubit1.get(context).getProjectsAndCourses(section.id);
+                                print(Cubit1.projects.length);
+                                navigateTo(context,StudentHomeScreen());
+
+                              },
+                                width: width,
+                                height: height,
+                                backgroundColor:SparkColors.color1,
+                                radius:10 ,
+                              ),
+                            ],
+                          ),
+                        )
+
+
+
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
-    );
-  }
-
-}
-
-class ServiceTileARCH extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String image;
-  final double height;
-  final double width;
-
-  const ServiceTileARCH({
-    Key? key,
-    required this.title,
-    required this.subtitle,
-    required this.image,
-    required this.height,
-    required this.width
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        height: height*0.31,
-        width: double.infinity.w,
-        decoration: BoxDecoration(
-            color: SparkColors.color5,
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.cover
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: height*0.01,
-                    ),
-                    text1(title),
-                    text2(subtitle),
-                    SizedBox(
-                      height: height*0.02,
-                    ),
-                    Flexible(
-                      child: Row(
-                        children: [
-                          Spacer(),
-                          SparkButtonForStudentsSrevices(onPressed: (){
-
-                              Cubit1.get(context).getProjectsAndCoursesARCH();
-                              Cubit1.isARCH=true;
-                              navigateTo(context,  StudentHomeScreen());
-
-                          },
-
-                            width: width,
-                            height: height,
-                            backgroundColor:Colors.white,
-                            radius:15 ,
-                          ),
-                        ],
-                      ),
-                    )
+    ),
+    listener: (context,state){});
 
 
-
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-  Widget ImageService(String path)=> Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: Container(
-      height:100*094.h ,
-      width: 100*0.86.w,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-
-          image: DecorationImage(
-              image:AssetImage(path),
-              ),
-
-          )
-      ) ,
-  );
-}
 
 Widget text1(String title)=> Text(title,
   style:GoogleFonts.poppins(
     fontSize: 35.sp,
-    color: Colors.white
+    color: SparkColors.color1
   )
 );
 
 Widget text2(String title)=> Text(title,
     style:GoogleFonts.poppins(
         fontSize: 25.sp,
-        color: Colors.white
+        color: SparkColors.color1
     )
 );
+

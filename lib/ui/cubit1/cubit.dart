@@ -13,20 +13,17 @@ class Cubit1 extends Cubit<Cubit1States>{
 
  static  bool isARCH=false;
 
- static List<Project> projectsForIT=[];
- static List<Course> coursesForIT=[];
-  static List<Project> projectsForARCH=[];
-  static List<Course> coursesForARCH=[];
+ static List<Project> projects=[];
+ static List<Course> courses=[];
  static List<Member> ourTeamList=[];
 
  late StudentsServices studentsServices;
  late OurTeam ourTeam;
 
-
-  void getProjectsAndCoursesARCH(){
+  void getProjectsAndCourses(int id){
    emit(GetProjectsCoursesStateLoading());
    http.get(
-    Uri.parse('https://sparkeng.pythonanywhere.com/rest/ProjectCourseView_ARCH/'),
+    Uri.parse('https://sparkeng.pythonanywhere.com/rest/student_services/${id}'),
     headers: {
      'Content-Type': 'application/json', // تحديد نوع المحتوى
     },
@@ -34,8 +31,8 @@ class Cubit1 extends Cubit<Cubit1States>{
     var data = jsonDecode(utf8.decode(value.bodyBytes));
     print(data.toString());
     studentsServices = StudentsServices.fromJson(data as Map<String, dynamic>);
-    projectsForARCH=studentsServices.projects;
-    coursesForARCH=studentsServices.courses;
+    projects=studentsServices.projects;
+    courses=studentsServices.courses;
     emit(GetProjectsCoursesStateSuccess());
 
    }).catchError((onError) {
@@ -43,26 +40,7 @@ class Cubit1 extends Cubit<Cubit1States>{
    });
  }
 
-  void getProjectsAndCoursesIT(){
-   emit(GetProjectsCoursesStateLoading());
-   http.get(
-    Uri.parse('https://sparkeng.pythonanywhere.com/rest/ProjectCourseView_IT/'),
-    headers: {
-     'Content-Type': 'application/json', // تحديد نوع المحتوى
-    },
-   ).then((value) {
-    var data = jsonDecode(utf8.decode(value.bodyBytes));
-    print(data.toString());
-    studentsServices = StudentsServices.fromJson(data as Map<String, dynamic>);
-    projectsForIT=studentsServices.projects;
-    coursesForIT=studentsServices.courses;
-    emit(GetProjectsCoursesStateSuccess());
 
-   }).catchError((onError) {
-    print(onError.toString());
-   });
-
-  }
 
   void getOurTeam(){
    emit(GetOurTeamLoading());
@@ -73,6 +51,7 @@ class Cubit1 extends Cubit<Cubit1States>{
     },
    ).then((value){
     var data = jsonDecode(utf8.decode(value.bodyBytes));
+    print(data.toString());
     ourTeam = OurTeam.fromJson(data as Map<String, dynamic>);
     ourTeamList=ourTeam.ourTeamList;
 
@@ -85,6 +64,8 @@ class Cubit1 extends Cubit<Cubit1States>{
    });
 
   }
+
+
 
 
 

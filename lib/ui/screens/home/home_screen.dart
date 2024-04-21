@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:spark/ui/navigation/spark_navigator.dart';
+import 'package:spark/ui/screens/company_services/company_services_screen.dart';
 import 'package:spark/ui/screens/screens.dart';
 import 'package:spark/ui/screens/service_students/service_students_screen.dart';
 import 'package:spark/ui/screens/students_flow/students_flow_screen.dart';
@@ -176,9 +177,9 @@ class HomeScreen extends StatelessWidget {
       onPressed: () {
         navigateTo(context,  w);
       },
-      icon: SvgPicture.asset("assets/botton_home.svg",
-        height: 40.h,
-        width: 30.h,
+      icon: SvgPicture.asset("assets/botton_Home.svg",
+        height: 30.h,
+
       ),
     ),
   );
