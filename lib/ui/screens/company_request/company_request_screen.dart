@@ -11,6 +11,7 @@ import 'package:spark/ui/screens/company_request/cubit/company_request_states.da
 import 'package:spark/ui/screens/request_completed/request_completed_screen.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
 import 'package:spark/ui/widgets/spark_text_form_field.dart';
+import 'package:spark/utilities/showToast.dart';
 import '../../../utilities/company_request_validation.dart';
 import '../../style/color/spark_colors.dart';
 import '../../style/themes/spark_theme.dart';
@@ -42,7 +43,13 @@ class CompanyRequestScreen extends StatelessWidget {
     var cubit = CompanyRequestCubit.get(context);
     return BlocConsumer<CompanyRequestCubit,CompanyRequestStates>(
       listener: (BuildContext context, Object? state) {
-        if(state is CompanyRequestSuccessState)_companyRequestSuccessState(context);
+        if(state is CompanyRequestSuccessState){
+          if(state.id=='1'){
+            _companyRequestSuccessState(context);
+          }else{
+            showToast(message: state.message);
+          }
+        }
       },
       builder: (BuildContext context, state) {
         return GestureDetector(
@@ -208,7 +215,7 @@ class CompanyRequestScreen extends StatelessWidget {
     projectDescriptionController.clear();
   }
   void _companyRequestSuccessState(context){
-    navigateReplace(context,const RequestCompletedScreen());
+    navigateReplace(context,RequestCompletedScreen());
     dispose();
   }
 }

@@ -10,8 +10,13 @@ class StudentProjectRequestInitialState extends StudentProjectRequestStates {}
 class StudentProjectRequestLoadingState extends StudentProjectRequestStates {}
 
 class StudentProjectRequestSuccessState extends StudentProjectRequestStates {
+  final String id;
+  final String message;
 
-  StudentProjectRequestSuccessState();
+  StudentProjectRequestSuccessState({
+    required this.id,
+    required this.message
+});
 }
 
 

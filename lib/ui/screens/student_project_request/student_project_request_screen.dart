@@ -5,6 +5,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:spark/ui/screens/student_project_request/cubit/student_project_request_cubit.dart';
 import 'package:spark/ui/screens/student_project_request/cubit/student_project_request_states.dart';
+import 'package:spark/utilities/showToast.dart';
 import '../../../utilities/utilities.dart';
 import '../../navigation/spark_navigator.dart';
 import '../../style/color/spark_colors.dart';
@@ -36,7 +37,15 @@ class StudentProjectRequestScreen extends StatelessWidget {
     return BlocConsumer<StudentProjectRequestCubit,
         StudentProjectRequestStates>(
       listener: (BuildContext context, Object? state) {
-        if(state is StudentProjectRequestSuccessState)_studentProjectRequestSuccessState(context);
+        if(state is StudentProjectRequestSuccessState){
+          if(state.id=='1'){
+            _studentProjectRequestSuccessState(context);
+          }else{
+            showToast(message: state.message);
+          }
+
+        }
+
       },
       builder: (BuildContext context, state) {
         return GestureDetector(
@@ -179,7 +188,7 @@ class StudentProjectRequestScreen extends StatelessWidget {
     studentProjectDescriptionController.clear();
   }
   void _studentProjectRequestSuccessState(context){
-    navigateReplace(context,const RequestCompletedScreen());
+    navigateReplace(context, RequestCompletedScreen());
     dispose();
   }
 }

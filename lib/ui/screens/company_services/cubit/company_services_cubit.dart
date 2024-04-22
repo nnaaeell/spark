@@ -18,6 +18,7 @@ class CompanyServicesCubit extends Cubit<CompanyServicesStates> {
       var response = await DioHelper.getData(
         url: COMPANYSERVICES,
       );
+
       if (response?.statusCode==200) {
         response!.data["services"].forEach((service){
           companyServices.add(ServiceModel.fromJson(service));

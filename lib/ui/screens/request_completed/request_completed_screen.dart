@@ -10,7 +10,6 @@ import '../../widgets/spark_button.dart';
 import '../screens.dart';
 
 class RequestCompletedScreen extends StatelessWidget {
-  const RequestCompletedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

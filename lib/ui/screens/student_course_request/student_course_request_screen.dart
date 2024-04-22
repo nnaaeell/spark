@@ -5,6 +5,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:spark/ui/constants/constants.dart';
 import 'package:spark/ui/widgets/spark_drop_down_button_form_field.dart';
+import 'package:spark/utilities/showToast.dart';
 
 import '../../../utilities/utilities.dart';
 import '../../navigation/spark_navigator.dart';
@@ -35,7 +36,11 @@ class StudentCourseRequestScreen extends StatelessWidget {
     return BlocConsumer<StudentCourseRequestCubit, StudentCourseRequestStates>(
         listener: (BuildContext context, Object? state) {
       if (state is StudentCourseRequestSuccessState) {
-        _studentCourseRequestSuccessState(context);
+        if(state.id=='1'){
+          _studentCourseRequestSuccessState(context);
+        }else{
+          showToast(message: state.message);
+        }
       }
     }, builder: (BuildContext context, state) {
       return GestureDetector(
@@ -172,7 +177,7 @@ class StudentCourseRequestScreen extends StatelessWidget {
   }
 
   void _studentCourseRequestSuccessState(context) {
-    navigateReplace(context, const RequestCompletedScreen());
+    navigateReplace(context,  RequestCompletedScreen());
     dispose();
   }
 }

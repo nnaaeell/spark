@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spark/data/models/response_for_requast.dart';
 import 'package:spark/network/end_points.dart';
 import '../../../../network/remote/dio_helper.dart';
 import 'student_project_request_states.dart';
@@ -9,7 +10,7 @@ class StudentProjectRequestCubit extends Cubit<StudentProjectRequestStates> {
 
   static StudentProjectRequestCubit get(context) => BlocProvider.of(context);
 
-
+  ResponseForRequast? responseForRequast;
 
   Future<void> postStudentProjectRequest({
     required int id,
@@ -31,11 +32,9 @@ class StudentProjectRequestCubit extends Cubit<StudentProjectRequestStates> {
         url: STUDENTPROJECTREQUEST,
         data: formData
       );
-      if (response?.statusCode == 201) {
-        emit(StudentProjectRequestSuccessState());
-      } else {
-        emit(StudentProjectRequestErrorState(response!.statusCode.toString()));
-      }
+
+      responseForRequast=ResponseForRequast.fromJsonn(response!.data);
+        emit(StudentProjectRequestSuccessState(id: responseForRequast!.id,message: responseForRequast!.massege));
     } catch (error) {
       emit(StudentProjectRequestErrorState(error.toString()));
     }

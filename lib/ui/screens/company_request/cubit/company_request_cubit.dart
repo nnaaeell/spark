@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spark/data/models/response_for_requast.dart';
 import 'package:spark/network/end_points.dart';
 import '../../../../data/models/models.dart';
 import '../../../../network/remote/dio_helper.dart';
@@ -11,6 +14,7 @@ class CompanyRequestCubit extends Cubit<CompanyRequestStates> {
   static CompanyRequestCubit get(context) => BlocProvider.of(context);
 
   ServiceModel? companyRequest;
+  ResponseForRequast? responseForRequast;
 
   Future<void> postCompanyRequest({
     required int id,
@@ -34,12 +38,13 @@ class CompanyRequestCubit extends Cubit<CompanyRequestStates> {
         url: COMPANYREQUEST,
         data: formData
       );
-      if (response?.statusCode == 201) {
-        emit(CompanyRequestSuccessState());
-      } else {
-        print(response!.statusCode.toString());
-        emit(CompanyRequestErrorState(response!.statusCode.toString()));
-      }
+
+     print(response!.data);
+     responseForRequast=ResponseForRequast.fromJsonn(response!.data);
+     // print(responseForRequast!.massege);
+
+        emit(CompanyRequestSuccessState( id: responseForRequast!.id,message:responseForRequast!.massege));
+
     } catch (error) {
       print(error.toString());
       emit(CompanyRequestErrorState(error.toString()));

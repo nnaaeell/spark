@@ -11,7 +11,13 @@ class StudentCourseRequestLoadingState extends StudentCourseRequestStates {}
 
 class StudentCourseRequestSuccessState extends StudentCourseRequestStates {
 
-  StudentCourseRequestSuccessState();
+  final String id;
+  final String message;
+
+  StudentCourseRequestSuccessState({
+    required this.id,
+    required this.message
+});
 }
 
 
