@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/navigation/spark_navigator.dart';
+import 'package:spark/ui/screens/home/home_screen.dart';
 import 'package:spark/ui/screens/our_projects/our_projects_screen.dart';
 import 'package:spark/ui/screens/our_team/our_team_screen.dart';
 import 'package:spark/ui/screens/screens.dart';
@@ -66,7 +67,10 @@ class SparkDrawer extends StatelessWidget {
                     ListTile(title: Text('Home'),leading: SvgPicture.asset("assets/home_for_drawer.svg",
                       height: 20.h,
                       width: 10.h,
-                    ), onTap: () {}),
+                    ), onTap: () {
+                      navigateTo(context, HomeScreen());
+                     }
+                    ),
                     ListTile(title: Text('Our Project'),leading:SvgPicture.asset("assets/projects_for_drawer.svg",
                       height: 20.h,
                       width: 10.h,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:spark/ui/constants/constants.dart';
@@ -65,7 +66,12 @@ class StudentCourseRequestScreen extends StatelessWidget {
                 SparkSizedBox(height: 21),
                 buildStudentCourseRequestNotesTextFormField(),
                 SparkSizedBox(height: 36),
-                buildStudentCourseRequestButton(context,cubit),
+                state is StudentCourseRequestLoadingState?Center(
+                  child: SpinKitChasingDots(
+                    color: SparkColors.color1,
+                    size: 50,
+                  ),
+                ): buildStudentCourseRequestButton(context,cubit),
                 SparkSizedBox(height: 38),
               ],
             ),

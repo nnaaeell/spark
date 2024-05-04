@@ -50,9 +50,16 @@ class OurProjectsScreen extends StatelessWidget {
     }
     else {
     return Center(
-      child: SpinKitChasingDots(
-      color: SparkColors.color1,
-      size: 100,
+      child: Column(
+        children: [
+          SparkSizedBox(
+            height: 200,
+          ),
+          SpinKitChasingDots(
+          color: SparkColors.color1,
+          size: 100,
+          ),
+        ],
       ),
     );
     }

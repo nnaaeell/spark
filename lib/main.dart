@@ -24,6 +24,7 @@ import 'network/remote/dio_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   HttpOverrides.global = MyHttpOverrides();
   Locale curr=WidgetsBinding.instance.window.locale;
   language=curr.languageCode;

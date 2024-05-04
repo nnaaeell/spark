@@ -6,7 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spark/size.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
+import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});
@@ -18,8 +20,10 @@ class AboutUs extends StatelessWidget {
 
     return Scaffold (
       appBar:  buildSparkAppBar(context: context,
+
       text: 'About us'
       ),
+      endDrawer:SparkDrawer(height: height,width: width,),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -82,10 +86,11 @@ class AboutUs extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                icon(context, height,width, 'assets/facebook.svg'),
-                icon(context, height,width, 'assets/whatsApp.svg'),
-                icon(context, height,width, 'assets/instagram.svg'),
-                icon(context, height,width, 'assets/in.svg'),
+                icon(context, height,width, 'assets/facebook.svg','https://www.kooora.com/'),
+                icon(context, height,width, 'assets/whatsApp.svg','https://www.kooora.com/'),
+                icon(context, height,width, 'assets/instagram.svg','https://www.kooora.com/'),
+                icon(context, height,width, 'assets/in.svg','https://www.kooora.com/'),
+                icon(context, height,width, 'assets/web.svg','https://www.kooora.com/'),
               ],
             ),
           )
@@ -168,14 +173,20 @@ class AboutUs extends StatelessWidget {
     ),
   );
 
-  Widget icon(context,double height,double width,String path)=>IconButton(
+  Widget icon(context,double height,double width,String path,String u)=>IconButton(
     padding: EdgeInsets.only(top: 5.h,right: 10.w),
     icon: SvgPicture.asset(path,
       color: Colors.white,
-      height: height*0.035,
-      width: width*0.035,
+      height: height*0.030,
+      width: width*0.030,
 
     ), // يمكنك تغيير الأيقونة هنا
-    onPressed: () => Scaffold.of(context).openEndDrawer(),
+    onPressed: ()=>launchErrorReportingLink1(u),
   );
+
+  void launchErrorReportingLink1(String u) {
+    launchUrl(Uri.parse(u));
+  }
 }
+
+

@@ -23,7 +23,7 @@ class Cubit1 extends Cubit<Cubit1States>{
   void getProjectsAndCourses(int id){
    emit(GetProjectsCoursesStateLoading());
    http.get(
-    Uri.parse('https://sparkeng.pythonanywhere.com/rest/student_services/${id}'),
+    Uri.parse('https://sparkeng.pythonanywhere.com/rest/Student_Services_mobile/${id}'),
     headers: {
      'Content-Type': 'application/json', // تحديد نوع المحتوى
     },
@@ -45,7 +45,7 @@ class Cubit1 extends Cubit<Cubit1States>{
   void getOurTeam(){
    emit(GetOurTeamLoading());
    http.get(
-    Uri.parse('https://sparkeng.pythonanywhere.com/rest/member_list/'),
+    Uri.parse('https://sparkeng.pythonanywhere.com/rest/member_list_mobile/'),
     headers: {
      'Content-Type': 'application/json', // تحديد نوع المحتوى
     },

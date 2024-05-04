@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,13 +67,23 @@ class CompanyServiceDetailsScreen extends StatelessWidget {
   }
 
   Widget buildCategoryDetailsImage(CompanyServiceDetailsCubit cubit) {
-    return SizedBox(
-        width: double.infinity.w,
-        height: 300.h,
-        child: Image.network(
-          cubit.companyServiceDetails!.picture!,
-          fit: BoxFit.cover,
-        ));
+    return Padding(
+      padding:  EdgeInsets.all(10.0.r),
+      child:  Container(
+        height:300.h ,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: FadeInImage(
+            placeholder: AssetImage('assets/temp2.png'),
+            image: CachedNetworkImageProvider(cubit.companyServiceDetails!.picture!
+            ),
+            fit: BoxFit.cover,
+            width: double.infinity,
+          ),
+        ),
+
+      ),
+    );
   }
 
   Widget buildCategoryDetailsRequestButton(BuildContext context,CompanyServiceDetailsCubit cubit) {

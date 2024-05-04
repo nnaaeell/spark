@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -174,8 +173,9 @@ class HomeScreen extends StatelessWidget {
     padding:  EdgeInsets.only(left: 20.w),
     child: IconButton(
       padding: EdgeInsets.only(top: 20,left: 10),
-      onPressed: () {
+      onPressed: ()async {
         navigateTo(context,  w);
+
       },
       icon: SvgPicture.asset("assets/botton_Home.svg",
         height: 30.h,

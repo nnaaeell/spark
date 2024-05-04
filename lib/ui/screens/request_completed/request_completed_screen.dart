@@ -14,15 +14,17 @@ class RequestCompletedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SparkSizedBox(height: 250),
-          buildRequestCompletedImage(),
-          SparkSizedBox(height: 7.5),
-          buildRequestCompletedText(),
-          SparkSizedBox(height: 42),
-          buildRequestCompletedButton(context)
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SparkSizedBox(height: 250),
+            buildRequestCompletedImage(),
+            SparkSizedBox(height: 7.5),
+            buildRequestCompletedText(),
+            SparkSizedBox(height: 42),
+            buildRequestCompletedButton(context)
+          ],
+        ),
       ),
     );
   }

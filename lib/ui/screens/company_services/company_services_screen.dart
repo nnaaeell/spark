@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -94,8 +95,8 @@ Widget buildServiceCard(int index, BuildContext context,CompanyServicesCubit cub
     },
     child: Card(
       color: SparkColors.color2,
-      shadowColor: SparkColors.color7,
-      elevation: 11.r,
+      shadowColor: SparkColors.color1,
+      elevation: 3.r,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.r))),
@@ -117,9 +118,12 @@ Widget buildCardImage(int index, CompanyServicesCubit cubit) {
       width: 46.w,
       height: 46.h,
       decoration:
-          BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(96.r))),
-      child: Image.network(
-          "https://sparkeng.pythonanywhere.com/${cubit.companyServices[index].icon!}"),
+          BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(96.r)),
+          image:DecorationImage(
+            image:  CachedNetworkImageProvider("https://sparkeng.pythonanywhere.com/${cubit.companyServices[index].icon!}")
+          )
+          ),
+
     ),
   );
 }

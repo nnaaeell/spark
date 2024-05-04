@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,6 +10,7 @@ import 'package:spark/ui/Cubit1/states.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/style/color/spark_colors.dart';
 import 'package:spark/ui/style/themes/spark_theme.dart';
+import 'package:spark/ui/widgets/drawer.dart';
 import 'package:spark/ui/widgets/spark_sizedbox.dart';
 
 import '../../widgets/spark_app_bar.dart';
@@ -41,9 +43,13 @@ class _TeamState extends State<Team> {
   }
   @override
   Widget build(BuildContext context) {
+    double height=MediaQuery.of(context).size.height;
+    double width=MediaQuery.of(context).size.width;
+
     return BlocConsumer<Cubit1,Cubit1States>(
       listener: (context,state){},
       builder: (context,state)=> Scaffold(
+          endDrawer:SparkDrawer(height: height,width: width,),
           appBar:buildSparkAppBar(context: context,
               text: 'Our team'
           ),
@@ -88,10 +94,7 @@ class _TeamState extends State<Team> {
 // alignment: Alignment.topCenter,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                image:DecorationImage(
-                    image: AssetImage('assets/for_ourTeam.png'),
-                    fit: BoxFit.cover
-                )
+                color: SparkColors.color1
             ),
           ),
           Column(
@@ -143,7 +146,7 @@ class _TeamState extends State<Team> {
                   height:100.h ,
                   width:100.w ,
                   child: CircleAvatar(
-                      backgroundImage:NetworkImage('https://sparkeng.pythonanywhere.com${member.member_picture}')),
+                      backgroundImage:CachedNetworkImageProvider('https://sparkeng.pythonanywhere.com${member.member_picture}')),
                 ),
               )
             ],

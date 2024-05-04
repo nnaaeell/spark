@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
@@ -79,7 +80,12 @@ class CompanyRequestScreen extends StatelessWidget {
                     SparkSizedBox(height: 21),
                     buildCompanyRequestProjectDescriptionTextFormField(),
                     SparkSizedBox(height: 36),
-                    buildCompanyRequestButton(context,cubit),
+                    state is CompanyRequestLoadingState?Center(
+                      child: SpinKitChasingDots(
+                        color: SparkColors.color1,
+                        size: 50,
+                      ),
+                    ):buildCompanyRequestButton(context,cubit),
                     SparkSizedBox(height: 38),
                   ],
                 ),

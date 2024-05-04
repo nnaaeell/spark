@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:spark/ui/screens/student_project_request/cubit/student_project_request_cubit.dart';
@@ -72,7 +73,12 @@ class StudentProjectRequestScreen extends StatelessWidget {
                   SparkSizedBox(height: 21),
                   buildStudentProjectRequestDescriptionTextFormField(),
                   SparkSizedBox(height: 36),
-                  buildStudentProjectRequestButton(context,cubit),
+                 state is StudentProjectRequestLoadingState?Center(
+                  child: SpinKitChasingDots(
+                  color: SparkColors.color1,
+                  size: 50,
+                                  ),
+        ): buildStudentProjectRequestButton(context,cubit),
                   SparkSizedBox(height: 38),
                 ],
               ),
