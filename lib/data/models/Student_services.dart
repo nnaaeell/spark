@@ -27,7 +27,7 @@ class Project{
     projectName=ProjectName.formJson(json['project_name']);
     projectField=ProjectField.formJson(json['project_field']);
     projectDesc=ProjectDesc.formJson(json['project_desc']);
-    pictures=(json['pictures'] as List)
+    pictures=(json['mobile_pictures'] as List)
         .map((e) =>Image.fromJson(e)).toList();
 
   }
@@ -82,7 +82,7 @@ class Course{
 
   Course.fromJson(Map<String,dynamic>json){
     id=json['pk'];
-    image=json['image'];
+    image=json['image_mobile'];
     name=Name.fromJson(json['name']);
     desc=Desc.fromJson(json['desc']);
     teacher=Teacher.fromJson(json['teacher']);

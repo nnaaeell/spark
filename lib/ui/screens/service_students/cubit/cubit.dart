@@ -17,7 +17,7 @@ class CubitSections extends Cubit<SectionsStates>{
   void getSections(){
     emit(GetSectionsLoading());
     http.get(
-      Uri.parse('https://sparkeng.pythonanywhere.com/rest/section_list/'),
+      Uri.parse('https://sparkeng.pythonanywhere.com/rest/sections_list_mobile/'),
       headers: {
         'Content-Type': 'application/json', // تحديد نوع المحتوى
       },

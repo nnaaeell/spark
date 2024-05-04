@@ -26,7 +26,7 @@ class ServiceModel {
       description: (json["service_description"] != null)
           ? MultipleLanguageElement.fromJson(json["service_description"])
           : null,
-      picture: json["service_picture"] ?? "",
+      picture: json["service_picture_mobile"] ?? "",
       icon: json["service_icon"] ?? "",
     );
   }

@@ -13,9 +13,9 @@ class Section{
   String section_image='';
 
   Section.fromJson(Map<String,dynamic>json){
-    id=json['id'];
+    id=json['pk'];
     section_name=json['section_name'];
-    section_image=json['section_image'];
+    section_image=json['section_image_mobile'];
   }
 
 }

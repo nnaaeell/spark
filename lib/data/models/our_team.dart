@@ -18,8 +18,8 @@ class Member{
   MemberSkills?memberSkills;
   
   Member.fromJson(Map<String,dynamic>json){
-    id=json['id'];
-    member_picture=json['member_picture'];
+    id=json['pk'];
+    member_picture=json['member_picture_mobile'];
     name=Name.fromJson(json['member_name']);
     memberPposition=MemberPposition.fromJson(json['member_position']);
     memberDesc=MemberDesc.fromJson(json['member_desc']);

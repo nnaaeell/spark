@@ -1,9 +1,9 @@
 
-const COMPANYSERVICES='service_list';
+const COMPANYSERVICES='service_list_mobile/';
 
-const COMPANYPROJECTS='our_projects/';
+const COMPANYPROJECTS='our_projects_mobile/';
 
-const SERVICEDETAILS='service';
+const SERVICEDETAILS='service_pk_mobile';
 
 const COMPANYREQUEST='company_request/';
 

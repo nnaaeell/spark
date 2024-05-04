@@ -23,8 +23,8 @@ class CompanyProjectModel {
 
   factory CompanyProjectModel.fromJson(Map<String, dynamic> json) {
     List<ImageModel> images=[];
-    if(json["pictures"] != null){
-      json["pictures"].forEach((picture){
+    if(json["mobile_pictures"] != null){
+      json["mobile_pictures"].forEach((picture){
          images.add(ImageModel.fromJson(picture));
       });
     }

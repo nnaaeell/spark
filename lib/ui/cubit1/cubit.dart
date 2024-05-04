@@ -23,7 +23,7 @@ class Cubit1 extends Cubit<Cubit1States>{
   void getProjectsAndCourses(int id){
    emit(GetProjectsCoursesStateLoading());
    http.get(
-    Uri.parse('https://sparkeng.pythonanywhere.com/rest/Student_Services_mobile/${id}'),
+     Uri.parse('https://sparkeng.pythonanywhere.com/rest/Student_Services_mobile/${id}'),
     headers: {
      'Content-Type': 'application/json', // تحديد نوع المحتوى
     },
