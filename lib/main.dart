@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +25,15 @@ import 'network/remote/dio_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "AIzaSyD2WomefktIA13n-ew_0sjWs44V_Oe90XY",
+        appId: "1:328801234961:android:d9cb36aa8dad4e68c901b0",
+        messagingSenderId: '328801234961',
+        projectId: "spark-660cd",
+        storageBucket: "spark-660cd.appspot.com"
+      )
+  );
   HttpOverrides.global = MyHttpOverrides();
   Locale curr=WidgetsBinding.instance.window.locale;
   language=curr.languageCode;
