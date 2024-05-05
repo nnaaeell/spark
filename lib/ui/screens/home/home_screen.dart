@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -175,6 +176,8 @@ class HomeScreen extends StatelessWidget {
       padding: EdgeInsets.only(top: 20,left: 10),
       onPressed: ()async {
         navigateTo(context,  w);
+        final fct=await FirebaseMessaging.instance.getToken();
+        print(fct);
 
       },
       icon: SvgPicture.asset("assets/botton_Home.svg",
