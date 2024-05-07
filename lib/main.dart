@@ -1,12 +1,17 @@
 import 'dart:io';
 
+
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spark/language.dart';
+import 'package:spark/messaging.dart';
 import 'package:spark/ui/cubit1/cubit.dart';
 import 'package:spark/ui/screens/company_request/cubit/company_request_cubit.dart';
 import 'package:spark/ui/screens/company_service_details/cubit/company_service_details_cubit.dart';
@@ -22,10 +27,13 @@ import 'package:spark/ui/style/themes/spark_theme.dart';
 import 'package:spark/utilities/spark_bloc_observer.dart';
 
 import 'network/remote/dio_helper.dart';
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
       options: FirebaseOptions(
         apiKey: "AIzaSyD2WomefktIA13n-ew_0sjWs44V_Oe90XY",
         appId: "1:328801234961:android:d9cb36aa8dad4e68c901b0",
@@ -34,21 +42,51 @@ void main() async {
         storageBucket: "spark-660cd.appspot.com"
       )
   );
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    // Handle your message here.
+  });
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print('A new onMessageOpenedApp event was published!');
+    // Handle your message here.
+  });
+  FirebaseAnalytics.instance;
+
+  FirebaseMessaging.instance.subscribeToTopic('all');
+
   HttpOverrides.global = MyHttpOverrides();
   Locale curr=WidgetsBinding.instance.window.locale;
   language=curr.languageCode;
   DioHelper.init();
   Bloc.observer = SparkBlocObserver();
-  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
+
   runApp(const Spark());
 }
 
-class Spark extends StatelessWidget {
+class Spark extends StatefulWidget {
   const Spark({super.key});
+
+  @override
+  State<Spark> createState() => _SparkState();
+}
+
+class _SparkState extends State<Spark> {
+   final Messaging _message=Messaging();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+     _message.initializeMessaging();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
@@ -75,10 +113,10 @@ class Spark extends StatelessWidget {
                   theme: SparkTheme.light(),
                   home:  const OnBoardingScreen()),
 
-            );
-          }),
-    );
-  }
+);
+}),
+);
+}
 }
 
 class MyHttpOverrides extends HttpOverrides {
